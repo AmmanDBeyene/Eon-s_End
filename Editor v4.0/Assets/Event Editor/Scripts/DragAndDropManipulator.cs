@@ -78,10 +78,7 @@ namespace Assets.Event_Editor.Scripts
             x = x - x % (int)roundTo;
             y = y - y % (int)roundTo;
 
-            Debug.Log("From -> To");
-            Debug.Log(target.transform.position);
             target.transform.position = new Vector3(x, y, pos.z);
-            Debug.Log(target.transform.position);
         }
     }
 }

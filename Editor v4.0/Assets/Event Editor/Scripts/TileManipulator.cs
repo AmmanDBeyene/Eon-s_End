@@ -83,7 +83,7 @@ namespace Assets.Event_Editor.Scripts
                 {
                     if (!StaticEditor.canvasHasTile)
                     {
-                        // Transfer ownership
+                        // Transfer ownership to canvas
                         StaticEditor.canvas.Add(target);
 
                         // Calculate cursor offset perspective to new owner
@@ -110,7 +110,31 @@ namespace Assets.Event_Editor.Scripts
             if (_enabled && target.HasPointerCapture(evt.pointerId))
             {
                 // Create the Block which this tile represents
-                // VisualElement block = _represents.Instantiate();
+                VisualElement block = _blockToCreate.Instantiate();
+
+                // Create connector which will house the block
+                VisualElement connector = Extensions.Create("Assets/Event Editor/UI/Connector.uxml");
+
+                // Set position to absolute so the placement of this connector
+                // does not affect the placement of any other block connector pairs. 
+                connector.style.position = Position.Absolute;
+
+                // Put block in connector "Connector" component
+                connector.Find("Connector").Add(block);
+
+                // Attach a drag and drop manipulator to our block connector pair 
+                // so we can move the whole thing around
+                DragAndDropManipulator ddm = new DragAndDropManipulator(connector);
+
+                // Find the absolute positioning area within the canvas
+                VisualElement area = StaticEditor.canvas.Find("AbsoluteArea");
+               
+                // Add our block connector pair to the absolute area
+                area.Add(connector);
+
+                // TODO: Unjankify this - there might be a better way
+                // Set the connector position to the target position
+                connector.transform.position = target.transform.position;
 
                 // Change opacity back to normal
                 target.style.opacity = 1.0f;

@@ -5,152 +5,74 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class EventEditor : EditorWindow
+namespace Assets.Event_Editor.Scripts
 {
-    private static EditorWindow _window = null;
-    private static VisualElement _mainUI = null;
-    private static VisualElement _mainArea = null;
-    private static VisualElement _blockArea = null;
-    private static List<VisualElement> _tiles = new List<VisualElement>();
-
-    //private static VisualElement 
-    
-    [MenuItem("Tools/Event Editor")]
-    public static void ShowEditor()
+    public class EventEditor : EditorWindow
     {
-        _tiles = new List<VisualElement>();
-        _window = GetWindow<EventEditor>();
-        _window.titleContent = new GUIContent("Event Editor");
+        private static EditorWindow _window = null;
+        private static VisualElement _mainUI = null;
+        private static VisualElement _mainArea = null;
+        private static VisualElement _blockArea = null;
+        private static List<VisualElement> _tiles = new List<VisualElement>();
 
-        // remove all old ui if it exists
-        _window.rootVisualElement.Clear();
+        //private static VisualElement 
 
-        // load the main editor UI
-        _mainUI = AdditiveCreate(_window.rootVisualElement, "Assets/Event Editor/UI/Main.uxml");
-        _mainUI.StretchToParentSize();
-
-        // locate and assign the main and block areas within the main UI
-        _mainArea = _mainUI.FindElementByName("MainArea");
-        _blockArea = _mainUI.FindElementByName("BlockArea");
-
-        StaticEditor.canvas = _mainArea;
-
-        FillBlocksBar();
-
-        // do some testing
-        Test();
-    }
-
-    private static void Test() 
-    {
-        VisualElement area = _mainArea.Find("AbsoluteArea");
-        VisualElement connector = area.Add("Assets/Event Editor/UI/Connector.uxml");
-        VisualElement block = connector.Find("Connector").Add("Assets/Event Editor/UI/ShowTextBlock.uxml");
-        DragAndDropManipulator ddm = new DragAndDropManipulator(connector);
-        connector.style.position = Position.Absolute;
-
-        VisualElement block2 = _mainArea.Find("AbsoluteArea").Add("Assets/Event Editor/UI/ShowTextBlock.uxml");
-        DragAndDropManipulator ddm2 = new DragAndDropManipulator(block2);
-        block2.style.position = Position.Absolute;
-    }
-
-    private static void FillBlocksBar()
-    {
-        VisualElement blockBar = _blockArea.Find("BlockBar");
-        blockBar.Add(CreateTile("Show Text", Load("Assets/Event Editor/UI/ShowTextBlock.uxml")));
-        blockBar.Add(CreateTile("Set Flag", Load("Assets/Event Editor/UI/SetFlagBlock.uxml")));
-        blockBar.Add(CreateTile("Wait", Load("Assets/Event Editor/UI/WaitBlock.uxml")));
-    }
-
-    private static VisualElement CreateTile(string name, VisualTreeAsset represents)
-    {
-        VisualElement tile = Create("Assets/Event Editor/UI/Block.uxml");
-
-        VisualElement icon = tile.Find("BlockIcon");
-
-        TextElement text = (TextElement) tile.Find("BlockText");
-
-        text.text = name;
-        tile.style.top = 45 * _tiles.Count;
-
-        TileManipulator tm = new TileManipulator(tile, name, represents);
-
-        _tiles.Add(tile);
-
-        return tile;
-    }
-
-    #region Loading
-
-    private static VisualElement AdditiveCreate(VisualElement elem, string path)
-    {
-        VisualElement loaded = Create(path);
-        elem.Add(loaded);
-        return loaded;
-    }
-
-    private static VisualElement Create(string path)
-    {
-        VisualTreeAsset uiAsset = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(path);
-        VisualElement ui = uiAsset.Instantiate();
-        return ui;
-    }
-
-    private static VisualTreeAsset Load(string path)
-    {
-        return AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(path);
-    }
-
-    #endregion
-}
-
-public static class Extensions
-{
-    public static VisualElement Find(this VisualElement ve, string name)
-    {
-        return FindElementByName(ve, name);
-    }
-
-    public static VisualElement FindElementByName(this VisualElement ve, string name)
-    {
-        // null case
-        if (ve == null)
+        [MenuItem("Tools/Event Editor")]
+        public static void ShowEditor()
         {
-            return null;
+            _tiles = new List<VisualElement>();
+            _window = GetWindow<EventEditor>();
+            _window.titleContent = new GUIContent("Event Editor");
+
+            // remove all old ui if it exists
+            _window.rootVisualElement.Clear();
+
+            // load the main editor UI
+            _mainUI = _window.rootVisualElement.AddCreate("Assets/Event Editor/UI/Main.uxml");
+            _mainUI.StretchToParentSize();
+
+            // locate and assign the main and block areas within the main UI
+            _mainArea = _mainUI.FindElementByName("MainArea");
+            _blockArea = _mainUI.FindElementByName("BlockArea");
+
+            // Publicize our canvas VE
+            StaticEditor.canvas = _mainArea;
+
+            // Fill our blocks bar
+            FillBlocksBar();
+
+            // do some testing
+            Test();
         }
 
-        // base case
-        if (ve.name == name)
+        private static void Test()
         {
-            return ve;
         }
 
-        // start recursively looking through all children
-        foreach (VisualElement child in ve.Children())
+        private static void FillBlocksBar()
         {
-            VisualElement result = child.FindElementByName(name);
-
-            // if the result is not null we have successfully found our element
-            if (result != null)
-            {
-                return result; 
-            }
+            VisualElement blockBar = _blockArea.Find("BlockBar");
+            blockBar.Add(CreateTile("Show Text", Extensions.Load("Assets/Event Editor/UI/ShowTextBlock.uxml")));
+            blockBar.Add(CreateTile("Set Flag", Extensions.Load("Assets/Event Editor/UI/SetFlagBlock.uxml")));
+            blockBar.Add(CreateTile("Wait", Extensions.Load("Assets/Event Editor/UI/WaitBlock.uxml")));
         }
 
-        // recursive child search unsuccessful. 
-        return null; 
-    }
+        private static VisualElement CreateTile(string name, VisualTreeAsset represents)
+        {
+            VisualElement tile = Extensions.Create("Assets/Event Editor/UI/Block.uxml");
 
-    public static VisualElement Clone(this VisualElement ve)
-    {
-        return ve.visualTreeAssetSource.CloneTree();
-    }
+            VisualElement icon = tile.Find("BlockIcon");
 
-    public static VisualElement Add(this VisualElement ve, string path)
-    {
-        VisualTreeAsset uiAsset = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(path);
-        VisualElement ui = uiAsset.CloneTree();
-        ve.Add(ui);
-        return ui;
+            TextElement text = (TextElement)tile.Find("BlockText");
+
+            text.text = name;
+            tile.style.top = 45 * _tiles.Count;
+
+            TileManipulator tm = new TileManipulator(tile, name, represents);
+
+            _tiles.Add(tile);
+
+            return tile;
+        }
     }
 }
