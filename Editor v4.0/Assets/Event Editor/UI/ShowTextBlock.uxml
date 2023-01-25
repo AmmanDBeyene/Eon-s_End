@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="ShowTextBlock" style="height: auto; width: 450px; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgb(56, 56, 56); visibility: visible; display: flex; overflow: visible; transition-duration: 0s;">
+        <ui:Foldout text="Show Text" value="true" focusable="false">
+            <ui:VisualElement style="height: auto; width: auto; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;">
+                <ui:TextField picking-mode="Ignore" label="Character Name" style="margin-bottom: 5px;" />
+                <uie:ObjectField label="Portrait" focusable="true" type="UnityEngine.Texture2D, UnityEngine.CoreModule" allow-scene-objects="false" style="margin-bottom: 5px;" />
+                <ui:RadioButtonGroup label="Portrait Position" value="-1" choices="Left, Right" />
+                <ui:TextField picking-mode="Ignore" label="Text to show" multiline="true" style="height: 118px; width: auto;" />
+            </ui:VisualElement>
+        </ui:Foldout>
+    </ui:VisualElement>
+</ui:UXML>

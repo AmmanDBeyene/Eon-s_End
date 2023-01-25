@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="TransferActorBlock" style="height: auto; width: 450px; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgb(56, 56, 56); visibility: visible; display: flex; overflow: visible; transition-duration: 0s;">
+        <ui:Foldout text="Transfer Actor" value="true" focusable="false">
+            <ui:VisualElement style="height: auto; width: auto; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; flex-direction: row; flex-wrap: wrap;">
+                <ui:DropdownField label="Target Scene" index="-1" choices="System.Collections.Generic.List`1[System.String]" style="width: 329px; margin-bottom: 5px;" />
+                <ui:Button text="Open" display-tooltip-when-elided="true" focusable="true" style="width: 63px; margin-bottom: 5px;" />
+                <uie:Vector3Field label="Target Position" style="width: 329px;" />
+                <ui:Button text="Set" display-tooltip-when-elided="true" style="width: 63px;" />
+            </ui:VisualElement>
+        </ui:Foldout>
+    </ui:VisualElement>
+</ui:UXML>

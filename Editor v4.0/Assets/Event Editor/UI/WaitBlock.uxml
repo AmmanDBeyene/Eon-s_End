@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="WaitBlock" style="height: auto; width: 266px; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgb(56, 56, 56); visibility: visible; display: flex; overflow: visible; transition-duration: 0s;">
+        <ui:Foldout text="Wait" value="true" focusable="false">
+            <ui:VisualElement style="height: auto; width: auto; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;">
+                <uie:IntegerField label="Time (sec)" value="1" focusable="true" />
+            </ui:VisualElement>
+        </ui:Foldout>
+    </ui:VisualElement>
+</ui:UXML>

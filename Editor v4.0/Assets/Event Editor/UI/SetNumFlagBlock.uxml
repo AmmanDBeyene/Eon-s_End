@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="SetNumFlagBlock" style="height: auto; width: 450px; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgb(56, 56, 56); visibility: visible; display: flex; overflow: visible; transition-duration: 0s;">
+        <ui:Foldout text="Set Flag" value="true" focusable="false" style="flex-direction: column;">
+            <ui:VisualElement style="height: auto; width: auto; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; flex-direction: row; flex-wrap: wrap;">
+                <ui:DropdownField label="Flag" index="-1" choices="System.Collections.Generic.List`1[System.String]" style="width: 368px; flex-grow: 5; margin-bottom: 5px;" />
+                <ui:Button text="+" display-tooltip-when-elided="true" style="width: 34px; flex-direction: row-reverse; flex-grow: 1; margin-bottom: 5px;" />
+                <uie:IntegerField label="Value" value="0" focusable="true" style="flex-grow: 0.5;" />
+            </ui:VisualElement>
+        </ui:Foldout>
+    </ui:VisualElement>
+</ui:UXML>

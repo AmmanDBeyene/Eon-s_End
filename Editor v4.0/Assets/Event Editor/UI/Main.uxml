@@ -1,0 +1,16 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:VisualElement name="MainUI" style="flex-shrink: 1; height: 100%; overflow: visible; visibility: visible; display: flex; opacity: 1; position: relative;">
+        <uie:Toolbar style="position: relative; left: 0; top: 0; align-items: stretch; width: auto;">
+            <uie:ToolbarMenu display-tooltip-when-elided="true" text="File" focusable="false" />
+        </uie:Toolbar>
+        <ui:VisualElement style="flex-grow: 1; flex-direction: row; flex-basis: auto; height: 100%; flex-wrap: wrap; flex-shrink: 0; width: auto; max-height: none; margin-top: 0;">
+            <ui:VisualElement name="MainArea" style="height: auto; width: auto; flex-grow: 1; flex-shrink: 0; background-color: rgb(32, 32, 32); flex-direction: column; flex-basis: initial; position: relative;">
+                <ui:VisualElement name="AbsoluteArea" style="position: absolute;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="BlockArea" style="width: 250px; height: 100%; flex-shrink: 0; flex-grow: 0; background-color: rgb(56, 56, 56); min-width: 200px; max-width: 300%; border-left-color: rgb(89, 89, 89); border-left-width: 1px;">
+                <ui:Label text="Blocks" display-tooltip-when-elided="true" style="background-color: rgb(40, 40, 40); padding-left: 5px; padding-top: 2px; padding-bottom: 2px;" />
+                <ui:ScrollView vertical-scroller-visibility="AlwaysVisible" name="BlockBar" vertical-page-size="-1" style="flex-shrink: 0; flex-grow: 1; max-height: 90%; height: auto;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
