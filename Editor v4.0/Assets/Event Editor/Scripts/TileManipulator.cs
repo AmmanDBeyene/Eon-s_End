@@ -1,21 +1,24 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Assets.Event_Editor.Scripts
 {
     class TileManipulator : PointerManipulator
     {
-        private VisualTreeAsset _represents;
-        private VisualElement _parent;
-        private string _name;
-        public TileManipulator(VisualElement target, string name, VisualTreeAsset represents)
+        private VisualTreeAsset _blockToCreate { get; set; }
+        private VisualElement _parent { get; set; }
+        private string _name { get; set; }
+        private Vector2 _targetOrigin { get; set; }
+        private Vector2 _globalMousePosition { get; set; }
+        private Vector2 _relativeMousePosition { get; set; }
+        private Vector2 _initialOffset { get; set; }
+        private bool _enabled { get; set; }
+        public TileManipulator(VisualElement target, string name, VisualTreeAsset blockToCreate)
         {
+            // Set manipulator target
             this.target = target;
-            root = target.parent;
-            _represents = represents;
+
+            _blockToCreate = blockToCreate;
             _name = name;
 
             VisualElement icon = target.Find("BlockIcon");
@@ -39,27 +42,32 @@ namespace Assets.Event_Editor.Scripts
             target.UnregisterCallback<PointerCaptureOutEvent>(PointerCaptureOutHandler);
         }
 
-        private Vector2 targetStartPosition { get; set; }
-        private Vector2 pointerStartPosition { get; set; }
-        private Vector2 pointerWithinTargetPosition { get; set; }
-        private Vector2 initialOffset { get; set; }
-        private bool enabled { get; set; }
-        private VisualElement root { get; }
-
         private void PointerDownHandler(PointerDownEvent evt)
         {
+            // Make tile slightly opaque
             target.style.opacity = 0.5f;
+
+            // Move tile in front of evrything
             target.BringToFront();
 
-            targetStartPosition = target.transform.position;
-            pointerWithinTargetPosition = target.WorldToLocal(evt.position);
-            pointerStartPosition = evt.position;
+            // Save our target origin, global mouse position, and relative mouse position.
+            _targetOrigin = target.transform.position;
+            _relativeMousePosition = target.WorldToLocal(evt.position);
+            _globalMousePosition = evt.position;
 
-            initialOffset = targetStartPosition - pointerStartPosition; // world offset
+            // Determine the offset between the target origin and mouse pointer
+            _initialOffset = _targetOrigin - _globalMousePosition;
 
+            // Save the parent of this target so we can return ownership to this parent
+            _parent = target.parent;
+
+            // Start capturing mouse pointer events
             target.CapturePointer(evt.pointerId);
-            enabled = true;
 
+            // This element is enabled
+            _enabled = true;
+
+            // Set some relevant variables in Static Editor
             StaticEditor.tileDragTarget = target;
             StaticEditor.tileName = _name;
             StaticEditor.canvasHasTile = false;
@@ -67,10 +75,9 @@ namespace Assets.Event_Editor.Scripts
 
         private void PointerMoveHandler(PointerMoveEvent evt)
         {
-            if (enabled && target.HasPointerCapture(evt.pointerId))
+            if (_enabled && target.HasPointerCapture(evt.pointerId))
             {
-
-                target.transform.position = (Vector2)evt.position + initialOffset;
+                target.transform.position = (Vector2)evt.position + _initialOffset;
 
                 if (StaticEditor.canvas.ContainsPoint(StaticEditor.canvas.WorldToLocal(evt.position)))
                 {
@@ -80,12 +87,12 @@ namespace Assets.Event_Editor.Scripts
                         StaticEditor.canvas.Add(target);
 
                         // Calculate cursor offset perspective to new owner
-                        Vector2 tileOrigin = target.LocalToWorld(pointerWithinTargetPosition);
+                        Vector2 tileOrigin = target.LocalToWorld(_relativeMousePosition);
                         Vector2 cursor = evt.position;
                         Vector2 toCursor = cursor - tileOrigin; // global x / y to move tile to cursor
 
                         // Modify offset by the cursor offset
-                        initialOffset += toCursor;
+                        _initialOffset += toCursor;
 
                         // Indicate that the canvas now has ownership of the tile
                         StaticEditor.canvasHasTile = true;
@@ -100,10 +107,10 @@ namespace Assets.Event_Editor.Scripts
 
         private void PointerUpHandler(PointerUpEvent evt)
         {
-            if (enabled && target.HasPointerCapture(evt.pointerId))
+            if (_enabled && target.HasPointerCapture(evt.pointerId))
             {
                 // Create the Block which this tile represents
-                VisualElement block = _represents.Instantiate();
+                // VisualElement block = _represents.Instantiate();
 
                 // Change opacity back to normal
                 target.style.opacity = 1.0f;
