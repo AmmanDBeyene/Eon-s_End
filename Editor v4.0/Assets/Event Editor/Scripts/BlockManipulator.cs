@@ -1,22 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static UnityEngine.GraphicsBuffer;
+﻿using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine;
 
 namespace Assets.Event_Editor.Scripts
 {
-    public class DragAndDropManipulator : PointerManipulator
+    public class BlockManipulator : PointerManipulator
     {
-        public DragAndDropManipulator(VisualElement target)
+
+        private Vector2 _targetStartPosition { get; set; }
+        private Vector3 _pointerStartPosition { get; set; }
+        private bool _enabled { get; set; }
+        private VisualElement root { get; }
+        private float _stickyRadius { get; set; } = 5;
+        private bool _stuck = true;
+        public BlockManipulator(VisualElement target)
         {
             this.target = target;
             root = target.parent;
         }
-
         protected override void RegisterCallbacksOnTarget()
         {
             target.RegisterCallback<PointerDownEvent>(PointerDownHandler);
@@ -33,36 +33,45 @@ namespace Assets.Event_Editor.Scripts
             target.UnregisterCallback<PointerCaptureOutEvent>(PointerCaptureOutHandler);
         }
 
-        private Vector2 targetStartPosition { get; set; }
-
-        private Vector3 pointerStartPosition { get; set; }
-
-        private bool enabled { get; set; }
-
-        private VisualElement root { get; }
-
         private void PointerDownHandler(PointerDownEvent evt)
         {
-            targetStartPosition = target.transform.position;
-            pointerStartPosition = evt.position;
+            _targetStartPosition = target.transform.position;
+            _pointerStartPosition = evt.position;
             target.CapturePointer(evt.pointerId);
-            enabled = true;
+            _enabled = true;
+
+            // All blocks start as stuck
+            _stuck = true;
         }
 
         private void PointerMoveHandler(PointerMoveEvent evt)
         {
-            if (enabled && target.HasPointerCapture(evt.pointerId))
+            if (_enabled && target.HasPointerCapture(evt.pointerId))
             {
-                Vector3 pointerDelta = evt.position - pointerStartPosition;
-                target.transform.position = new Vector2(targetStartPosition.x + pointerDelta.x, targetStartPosition.y + pointerDelta.y);
+                Vector3 pointerDelta = evt.position - _pointerStartPosition;
+                
+                // Only move this block if the delta exceeds the sticky radius
+                // If the delta exceeds the sticky radius the block becomes "un-stuck"
+                if (pointerDelta.magnitude > _stickyRadius)
+                {
+                    target.transform.position = new Vector2(_targetStartPosition.x + pointerDelta.x, _targetStartPosition.y + pointerDelta.y);
+                    _stuck = false;
+                }
             }
         }
 
         private void PointerUpHandler(PointerUpEvent evt)
         {
-            if (enabled && target.HasPointerCapture(evt.pointerId))
+            if (_enabled && target.HasPointerCapture(evt.pointerId))
             {
                 target.ReleasePointer(evt.pointerId);
+
+                // If the block was not dragged / moved this probably
+                // means the user intended to select this block
+                if (_stuck)
+                {
+                    StaticEditor.Select(target);
+                }
             }
         }
 

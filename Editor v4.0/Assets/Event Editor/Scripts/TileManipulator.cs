@@ -124,7 +124,10 @@ namespace Assets.Event_Editor.Scripts
 
                 // Attach a drag and drop manipulator to our block connector pair 
                 // so we can move the whole thing around
-                DragAndDropManipulator ddm = new DragAndDropManipulator(connector);
+                BlockManipulator ddm = new BlockManipulator(connector);
+
+                // Add our block connector pair as a new block in our blocks list
+                StaticEditor.blocks.Add(new Block(connector));
 
                 // Find the absolute positioning area within the canvas
                 VisualElement area = StaticEditor.canvas.Find("AbsoluteArea");

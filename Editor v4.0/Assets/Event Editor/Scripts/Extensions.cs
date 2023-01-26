@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEditor;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Assets.Event_Editor.Scripts
 {
     public static class Extensions
     {
+        #region VisualElement
         public static VisualElement AddCreate(this VisualElement ve, string path)
         {
             VisualElement loaded = Create(path);
@@ -72,5 +74,65 @@ namespace Assets.Event_Editor.Scripts
             return ui;
         }
 
+        public static bool Overlaps(this VisualElement first, VisualElement second)
+        {
+            Rect globalFirst = first.LocalToWorld(first.contentRect);
+            Rect globalSecond = second.LocalToWorld(second.contentRect);
+
+            return globalFirst.Overlaps(globalSecond);
+        }
+
+        public static bool Contains(this VisualElement ve, Vector2 point)
+        {
+            Rect globalRect = ve.LocalToWorld(ve.contentRect);
+            return globalRect.Contains(point);
+        }
+
+        #endregion
+
+        #region IStyle
+
+        public static void BorderWidth(this IStyle style, StyleFloat width)
+        {
+            style.borderBottomWidth = width;
+            style.borderLeftWidth = width;
+            style.borderRightWidth = width;
+            style.borderTopWidth = width;
+        }
+
+        public static void BorderColor(this IStyle style, StyleColor color)
+        {
+            style.borderBottomColor = color;
+            style.borderLeftColor = color;
+            style.borderRightColor = color;
+            style.borderTopColor = color;
+        }
+
+        public static void BorderRadius(this IStyle style, StyleLength radius)
+        {
+            style.borderBottomLeftRadius = radius;
+            style.borderBottomRightRadius = radius;
+            style.borderTopLeftRadius = radius;
+            style.borderTopRightRadius = radius;
+        }
+
+        #endregion
+
+        #region List<Block>
+
+        public static void Delete(this List<Block> blocks, VisualElement ve)
+        {
+            Block toRemove = blocks.Find(i => i.visualElement == ve);
+
+            if (toRemove == null)
+            {
+                return;
+            }
+
+            toRemove.Delete();
+            blocks.Remove(toRemove);
+        }
+
+        #endregion
     }
 }

@@ -1,9 +1,9 @@
-using Assets.Event_Editor.Scripts;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
+using static UnityEngine.GraphicsBuffer;
 
 namespace Assets.Event_Editor.Scripts
 {
@@ -37,6 +37,13 @@ namespace Assets.Event_Editor.Scripts
 
             // Publicize our canvas VE
             StaticEditor.canvas = _mainArea;
+            StaticEditor.ui = _mainUI;
+
+            // Hook keyboard events 
+            KeyboardHook();
+
+            // Hook mouse events
+            MouseHook();
 
             // Fill our blocks bar
             FillBlocksBar();
@@ -44,6 +51,51 @@ namespace Assets.Event_Editor.Scripts
             // do some testing
             Test();
         }
+
+        #region Mouse Events
+        private static void MouseHook()
+        {
+            MainAreaManipulator mam = new MainAreaManipulator();
+        }
+
+        #endregion
+
+        #region Keyboard Events
+        private static void KeyboardHook()
+        {
+            var keyReceiver = _mainArea;
+            while (keyReceiver.parent != null)
+            {
+                keyReceiver = keyReceiver.parent;
+            }
+
+            keyReceiver.RegisterCallback<KeyDownEvent>(KeyDown);
+            keyReceiver.RegisterCallback<KeyUpEvent>(KeyUp);
+        }
+
+        private static void KeyDown(KeyDownEvent evt)
+        {
+            KeyCode code = evt.keyCode;
+
+            // Update static keyboard state
+            Keyboard.ChangeKeyState(code, true);
+
+            // If the delete button is pressed delete all the currently selected items
+            if (code == KeyCode.Delete || code == KeyCode.Backspace)
+            {
+                StaticEditor.DeleteSelection();
+            }
+        }
+
+        private static void KeyUp(KeyUpEvent evt)
+        {
+            KeyCode code = evt.keyCode;
+
+            // Update static keyboard state
+            Keyboard.ChangeKeyState(code, false);
+        }
+
+        #endregion
 
         private static void Test()
         {
