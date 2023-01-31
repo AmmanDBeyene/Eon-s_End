@@ -7,18 +7,18 @@ using UnityEngine;
 
 namespace Assets.Event_Scripts.Event_Commands
 {
-    internal class SceneSwitchCommand : EventCommand
+    internal class SceneSwitchCommand : CommandNode
     {
         private string _targetSceneName;
         private Vector3 _targetPlayerPosition;
 
-        public SceneSwitchCommand(string targetSceneName, Vector3 targetPlayerPosition) : base()
+        public SceneSwitchCommand(IEventPipe next, string targetSceneName, Vector3 targetPlayerPosition) : base(next)
         {
             _targetSceneName = targetSceneName;
             _targetPlayerPosition = targetPlayerPosition;
         }
 
-        protected override void DoCommand()
+        internal override void DoCommand()
         {
             // switch the damn scene!
             GameStateManager.PlayerPosition = _targetPlayerPosition;
@@ -29,7 +29,7 @@ namespace Assets.Event_Scripts.Event_Commands
             // I do think that all the commands in the current event node will still be executed but I genuinely have no idea ... 
         }
 
-        protected override bool IsCommandComplete()
+        internal override bool IsComplete()
         {
             return true; // this is a command that completes instantly,
                          // technically scene switching can take a bit 
