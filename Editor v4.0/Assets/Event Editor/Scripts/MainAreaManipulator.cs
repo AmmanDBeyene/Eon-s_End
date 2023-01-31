@@ -76,9 +76,29 @@ namespace Assets.Event_Editor.Scripts
 
         private void PointerDownHandler(PointerDownEvent evt)
         {
+            // ignore anything that isnt a left click
+            if (evt.button != 0)
+            {
+                return;
+            }
+
             _pointerStartPosition = evt.position;
 
             _targetStartPosition = _selectionSquare.WorldToLocal(_pointerStartPosition);
+
+            // Check the current mouse down position and see if it intersects with any placed connections
+            foreach (Connection connection in StaticEditor.connections)
+            {
+
+                // If the mouse is contained within a connection select the connection
+                // and return. 
+                if (connection.Contains(evt.position))
+                {
+                    Debug.Log("Clicked on connection!");
+                    StaticEditor.Select(connection);
+                    return;
+                }
+            }
 
             // Check the current mouse down position and see if it intersects with any placed blocks
             foreach (Block block in StaticEditor.blocks)
@@ -93,6 +113,12 @@ namespace Assets.Event_Editor.Scripts
                 }
             }
 
+            if (StaticEditor.makingConnection)
+            {
+                StaticEditor.InvalidateConnections();
+                return;
+            }
+
             // No blocks are capturing our cursor, we are free to capture the cursor
             // ourselves and proceed with 
             _capturing = true;
@@ -101,46 +127,50 @@ namespace Assets.Event_Editor.Scripts
 
         private void PointerMoveHandler(PointerMoveEvent evt)
         {
-            if (_enabled && _capturing)
+            if (!_enabled || !_capturing)
             {
-                Vector3 pointerDelta = evt.position - _pointerStartPosition;
-                UpdateSquare(pointerDelta);
+                return;
             }
+
+            Vector3 pointerDelta = evt.position - _pointerStartPosition;
+            UpdateSquare(pointerDelta);
         }
 
         private void PointerUpHandler(PointerUpEvent evt)
         {
-            if (_enabled && _capturing)
+            if (!_enabled || !_capturing || evt.button != 0)
             {
-                Vector3 pointerDelta = evt.position - _pointerStartPosition;
+                return;    
+            }
 
-                UpdateSquare(pointerDelta);
+            Vector3 pointerDelta = evt.position - _pointerStartPosition;
 
-                // Deselect all blocks
-                StaticEditor.DeselectAll();
+            UpdateSquare(pointerDelta);
 
-                // Go through all the blocks on screen, if any blocks intersect with our
-                // selection square add them to our selection. 
-                foreach (Block block in StaticEditor.blocks)
+            // Deselect all blocks
+            StaticEditor.DeselectAll();
+
+            // Go through all the blocks on screen, if any blocks intersect with our
+            // selection square add them to our selection. 
+            foreach (Block block in StaticEditor.blocks)
+            {
+                VisualElement ve = block.visualElement;
+
+                if (!ve.Overlaps(_selectionSquare))
                 {
-                    VisualElement ve = block.visualElement;
-
-                    if (!ve.Overlaps(_selectionSquare))
-                    {
-                        continue;
-                    }
-
-                    StaticEditor.AddSelect(ve);
+                    continue;
                 }
 
-                _selectionSquare.visible = false;
-                _selectionSquare.transform.position = Vector3.zero;
-                _selectionSquare.style.width = 0;
-                _selectionSquare.style.height = 0;
-                _capturing = false;
-
-                target.ReleasePointer(evt.pointerId);
+                StaticEditor.AddSelect(ve);
             }
+
+            _selectionSquare.visible = false;
+            _selectionSquare.transform.position = Vector3.zero;
+            _selectionSquare.style.width = 0;
+            _selectionSquare.style.height = 0;
+            _capturing = false;
+
+            target.ReleasePointer(evt.pointerId);
         }
 
         private void PointerCaptureOutHandler(PointerCaptureOutEvent evt)

@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="NumFlagCondition" style="height: auto; width: 300px; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgb(56, 56, 56); visibility: visible; display: flex; overflow: visible; transition-duration: 0s; flex-direction: row; flex-wrap: nowrap;">
+        <ui:Foldout text="Num Flag Check" value="true" focusable="false" style="flex-grow: 0; flex-shrink: 1; width: 100%;">
+            <ui:VisualElement style="height: auto; width: auto; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;">
+                <ui:Toggle label="Use custom flags" />
+                <ui:DropdownField label="Flag" index="-1" choices="System.Collections.Generic.List`1[System.String]" />
+                <ui:DropdownField label="Condition" index="-1" choices="==, !=, &lt;, &gt;, &gt;=, &lt;=, " />
+                <uie:FloatField label="Number" value="1.23" />
+            </ui:VisualElement>
+        </ui:Foldout>
+    </ui:VisualElement>
+</ui:UXML>

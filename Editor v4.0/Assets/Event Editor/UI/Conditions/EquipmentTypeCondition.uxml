@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="EquipmentTypeCondition" style="height: auto; width: 300px; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgb(56, 56, 56); visibility: visible; display: flex; overflow: visible; transition-duration: 0s; flex-direction: row; flex-wrap: nowrap;">
+        <ui:Foldout text="Equipment Type Check" value="true" focusable="false" style="flex-grow: 0; flex-shrink: 1; width: 100%;">
+            <ui:VisualElement style="height: auto; width: auto; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;">
+                <ui:Label text="Inventory" display-tooltip-when-elided="true" style="padding-right: 69px; -unity-text-align: upper-right;" />
+                <ui:DropdownField label="Condition" index="-1" choices="contains, does not contain" />
+                <ui:TextField picking-mode="Ignore" label="Item Type" value="filler text" text="Enter a String Here" />
+            </ui:VisualElement>
+        </ui:Foldout>
+    </ui:VisualElement>
+</ui:UXML>

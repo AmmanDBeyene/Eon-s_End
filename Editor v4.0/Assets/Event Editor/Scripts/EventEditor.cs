@@ -13,6 +13,7 @@ namespace Assets.Event_Editor.Scripts
         private static VisualElement _mainUI = null;
         private static VisualElement _mainArea = null;
         private static VisualElement _blockArea = null;
+
         private static List<VisualElement> _tiles = new List<VisualElement>();
 
         //private static VisualElement 
@@ -26,6 +27,13 @@ namespace Assets.Event_Editor.Scripts
 
             // remove all old ui if it exists
             _window.rootVisualElement.Clear();
+
+            // clear the static editor blocks list
+            StaticEditor.blocks.Clear();
+            StaticEditor.connections.Clear();
+            StaticEditor.selectedBlocks.Clear();
+
+            StaticEditor.InvalidateConnections();
 
             // load the main editor UI
             _mainUI = _window.rootVisualElement.AddCreate("Assets/Event Editor/UI/Main.uxml");
@@ -99,28 +107,58 @@ namespace Assets.Event_Editor.Scripts
 
         private static void Test()
         {
+           
         }
 
         private static void FillBlocksBar()
         {
             VisualElement blockBar = _blockArea.Find("BlockBar");
-            blockBar.Add(CreateTile("Show Text", Extensions.Load("Assets/Event Editor/UI/ShowTextBlock.uxml")));
-            blockBar.Add(CreateTile("Set Flag", Extensions.Load("Assets/Event Editor/UI/SetFlagBlock.uxml")));
-            blockBar.Add(CreateTile("Wait", Extensions.Load("Assets/Event Editor/UI/WaitBlock.uxml")));
+
+            // Create command tiles
+            blockBar.Add(CreateCommandTile("Show Text", "ShowTextBlock.uxml"));
+            blockBar.Add(CreateCommandTile("Set Flag", "SetFlagBlock.uxml"));
+            blockBar.Add(CreateCommandTile("Wait", "WaitBlock.uxml"));
+
+            // Create condition tiles
+            blockBar.Add(CreateConditionTile("Input Check", "InputCondition.uxml"));
+            blockBar.Add(CreateConditionTile("Num Flag Check", "NumFlagCondition.uxml"));
+            blockBar.Add(CreateConditionTile("String Flag Check", "StringFlagCondition.uxml"));
+            blockBar.Add(CreateConditionTile("Bool Flag Check", "BoolFlagCondition.uxml"));
+            blockBar.Add(CreateConditionTile("Proximity Check", "ProximityCondition.uxml"));
+            blockBar.Add(CreateConditionTile("Inventory Check", "InventoryCondition.uxml"));
+            blockBar.Add(CreateConditionTile("Equipment Check", "EquipmentCondition.uxml"));
+            blockBar.Add(CreateConditionTile("Equipment Type Check", "EquipmentTypeCondition.uxml"));
+            blockBar.Add(CreateConditionTile("Player Status Check", "PlayerStatusCondition.uxml"));
         }
 
-        private static VisualElement CreateTile(string name, VisualTreeAsset represents)
+        private static VisualElement CreateCommandTile(string name, string toLoad)
         {
+            VisualTreeAsset blockToCreate = Extensions.Load($"Assets/Event Editor/UI/Blocks/{toLoad}");
             VisualElement tile = Extensions.Create("Assets/Event Editor/UI/Block.uxml");
-
-            VisualElement icon = tile.Find("BlockIcon");
 
             TextElement text = (TextElement)tile.Find("BlockText");
 
             text.text = name;
             tile.style.top = 45 * _tiles.Count;
 
-            TileManipulator tm = new TileManipulator(tile, name, represents);
+            TileManipulator tm = new TileManipulator(tile, name, blockToCreate, BlockType.Command);
+
+            _tiles.Add(tile);
+
+            return tile;
+        }
+
+        private static VisualElement CreateConditionTile(string name, string toLoad)
+        {
+            VisualTreeAsset blockToCreate = Extensions.Load($"Assets/Event Editor/UI/Conditions/{toLoad}");
+            VisualElement tile = Extensions.Create("Assets/Event Editor/UI/Condition.uxml");
+
+            TextElement text = (TextElement)tile.Find("ConditionText");
+
+            text.text = name;
+            tile.style.top = 45 * _tiles.Count;
+
+            TileManipulator tm = new TileManipulator(tile, name, blockToCreate, BlockType.Condition);
 
             _tiles.Add(tile);
 

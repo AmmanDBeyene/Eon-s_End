@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
     <ui:VisualElement name="MainUI" style="flex-shrink: 1; height: 100%; overflow: visible; visibility: visible; display: flex; opacity: 1; position: relative;">
         <uie:Toolbar style="position: relative; left: 0; top: 0; align-items: stretch; width: auto;">
-            <uie:ToolbarMenu display-tooltip-when-elided="true" text="File" focusable="false" />
+            <uie:ToolbarMenu display-tooltip-when-elided="true" text="File" focusable="false" enable-rich-text="true" style="overflow: visible;" />
         </uie:Toolbar>
         <ui:VisualElement style="flex-grow: 1; flex-direction: row; flex-basis: auto; height: 100%; flex-wrap: wrap; flex-shrink: 0; width: auto; max-height: none; margin-top: 0;">
             <ui:VisualElement name="MainArea" style="height: auto; width: auto; flex-grow: 1; flex-shrink: 0; background-color: rgb(32, 32, 32); flex-direction: column; flex-basis: initial; position: relative;">

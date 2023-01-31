@@ -8,22 +8,20 @@ namespace Assets.Event_Editor.Scripts
         private VisualTreeAsset _blockToCreate { get; set; }
         private VisualElement _parent { get; set; }
         private string _name { get; set; }
+        private BlockType _type { get; set; }
         private Vector2 _targetOrigin { get; set; }
         private Vector2 _globalMousePosition { get; set; }
         private Vector2 _relativeMousePosition { get; set; }
         private Vector2 _initialOffset { get; set; }
         private bool _enabled { get; set; }
-        public TileManipulator(VisualElement target, string name, VisualTreeAsset blockToCreate)
+        public TileManipulator(VisualElement target, string name, VisualTreeAsset blockToCreate, BlockType type)
         {
             // Set manipulator target
             this.target = target;
 
             _blockToCreate = blockToCreate;
             _name = name;
-
-            VisualElement icon = target.Find("BlockIcon");
-            TextElement text = (TextElement)target.Find("BlockText");
-            text.text = name;
+            _type = type;
         }
 
         protected override void RegisterCallbacksOnTarget()
@@ -75,91 +73,70 @@ namespace Assets.Event_Editor.Scripts
 
         private void PointerMoveHandler(PointerMoveEvent evt)
         {
-            if (_enabled && target.HasPointerCapture(evt.pointerId))
+            if (!_enabled || !target.HasPointerCapture(evt.pointerId))
             {
-                target.transform.position = (Vector2)evt.position + _initialOffset;
-
-                if (StaticEditor.canvas.ContainsPoint(StaticEditor.canvas.WorldToLocal(evt.position)))
-                {
-                    if (!StaticEditor.canvasHasTile)
-                    {
-                        // Transfer ownership to canvas
-                        StaticEditor.canvas.Add(target);
-
-                        // Calculate cursor offset perspective to new owner
-                        Vector2 tileOrigin = target.LocalToWorld(_relativeMousePosition);
-                        Vector2 cursor = evt.position;
-                        Vector2 toCursor = cursor - tileOrigin; // global x / y to move tile to cursor
-
-                        // Modify offset by the cursor offset
-                        _initialOffset += toCursor;
-
-                        // Indicate that the canvas now has ownership of the tile
-                        StaticEditor.canvasHasTile = true;
-                    } else
-                    {
-                        // move the tile on the canvas
-                    }
-                }
-
+                return;
             }
+
+            target.transform.position = (Vector2)evt.position + _initialOffset;
+
+            if (!StaticEditor.canvas.ContainsPoint(StaticEditor.canvas.WorldToLocal(evt.position)) || StaticEditor.canvasHasTile)
+            {
+                return;
+            }
+
+            // Transfer ownership to canvas
+            StaticEditor.canvas.Add(target);
+
+            // Calculate cursor offset perspective to new owner
+            Vector2 tileOrigin = target.LocalToWorld(_relativeMousePosition);
+            Vector2 cursor = evt.position;
+            Vector2 toCursor = cursor - tileOrigin; // global x / y to move tile to cursor
+
+            // Modify offset by the cursor offset
+            _initialOffset += toCursor;
+
+            // Indicate that the canvas now has ownership of the tile
+            StaticEditor.canvasHasTile = true;
         }
 
         private void PointerUpHandler(PointerUpEvent evt)
         {
-            if (_enabled && target.HasPointerCapture(evt.pointerId))
+            if (!_enabled || !target.HasPointerCapture(evt.pointerId))
             {
-                // Create the Block which this tile represents
-                VisualElement block = _blockToCreate.Instantiate();
-
-                // Create connector which will house the block
-                VisualElement connector = Extensions.Create("Assets/Event Editor/UI/Connector.uxml");
-
-                // Set position to absolute so the placement of this connector
-                // does not affect the placement of any other block connector pairs. 
-                connector.style.position = Position.Absolute;
-
-                // Put block in connector "Connector" component
-                connector.Find("Connector").Add(block);
-
-                // Attach a drag and drop manipulator to our block connector pair 
-                // so we can move the whole thing around
-                BlockManipulator ddm = new BlockManipulator(connector);
-
-                // Add our block connector pair as a new block in our blocks list
-                StaticEditor.blocks.Add(new Block(connector));
-
-                // Find the absolute positioning area within the canvas
-                VisualElement area = StaticEditor.canvas.Find("AbsoluteArea");
-               
-                // Add our block connector pair to the absolute area
-                area.Add(connector);
-
-                // TODO: Unjankify this - there might be a better way
-                // Set the connector position to the target position
-                connector.transform.position = target.transform.position;
-
-                // Change opacity back to normal
-                target.style.opacity = 1.0f;
-
-                // Release pointer capture
-                target.ReleasePointer(evt.pointerId);
-
-                // Transfer ownership back to parent
-                _parent.Add(target);
-
-                // Send object back to where it was originally
-                target.transform.position = Vector3.zero; 
-
-                // Change static variable controls back to defaults
-                StaticEditor.tileDragTarget = null;
-                StaticEditor.tileName = null;
+                return;
             }
+
+            // Create a new block
+            Block block = new Block(_blockToCreate, _type);
+
+
+            // Create the block at the target's global position
+            block.CreateAt(target.GlobalPosition());
+
+            // Add our block to our blocks list
+            StaticEditor.blocks.Add(block);
+
+            // Change opacity back to normal
+            target.style.opacity = 1.0f;
+
+            // Release pointer capture
+            target.ReleasePointer(evt.pointerId);
+
+            // Transfer ownership back to parent
+            _parent.Add(target);
+
+            // Send object back to where it was originally
+            target.transform.position = Vector3.zero;
+
+            // Change static variable controls back to defaults
+            StaticEditor.tileDragTarget = null;
+            StaticEditor.tileName = null;
         }
 
         private void PointerCaptureOutHandler(PointerCaptureOutEvent evt)
         {
-            const float roundTo = 20;
+            const float roundTo = StaticEditor.SNAP_RADIUS;
 
             // snap the position to the nearest 10 pixels ( so things can be neatly aligned)
             Vector3 pos = target.transform.position;

@@ -82,10 +82,55 @@ namespace Assets.Event_Editor.Scripts
             return globalFirst.Overlaps(globalSecond);
         }
 
-        public static bool Contains(this VisualElement ve, Vector2 point)
+        public static bool Contains(this VisualElement ve, Vector2 globalPoint)
         {
+            if (ve == null)
+            {
+                return false;
+            }
+
             Rect globalRect = ve.LocalToWorld(ve.contentRect);
-            return globalRect.Contains(point);
+            return globalRect.Contains(globalPoint);
+        }
+
+
+        public static Vector3 Size(this VisualElement ve)
+        {
+            return new Vector3(ve.layout.width, ve.layout.height, 0.0f);
+        }
+
+        public static float Height(this VisualElement ve)
+        {
+            return ve.Size().y;
+        }
+
+        public static float Width(this VisualElement ve)
+        {
+            return ve.Size().x;
+        }
+        public static Vector3 GlobalDistanceTo(this VisualElement origin, VisualElement target)
+        {
+            return origin.GlobalDistanceTo(target.GlobalPosition());
+        }
+
+        public static Vector3 GlobalDistanceTo(this VisualElement origin, Vector3 globalPosition)
+        {
+            return origin.GlobalPosition() - globalPosition;
+        }
+
+        public static Vector3 GlobalPosition(this VisualElement ve)
+        {
+            return ve.LocalToWorld(Vector3.zero);
+        }
+
+        public static Vector3 GlobalCenter(this VisualElement ve)
+        {
+            return ve.GlobalPosition() + ve.Size() * 0.5f;
+        }
+
+        public static Vector3 LocalPosition(this VisualElement ve)
+        {
+            return ve.transform.position;
         }
 
         #endregion
@@ -130,7 +175,6 @@ namespace Assets.Event_Editor.Scripts
             }
 
             toRemove.Delete();
-            blocks.Remove(toRemove);
         }
 
         #endregion
