@@ -17,4 +17,11 @@ namespace Assets.Event_Editor.Scripts
         Output, 
         Input
     }
+
+    public enum PipeType
+    {
+        None,
+        Condition,
+        Command
+    }
 }

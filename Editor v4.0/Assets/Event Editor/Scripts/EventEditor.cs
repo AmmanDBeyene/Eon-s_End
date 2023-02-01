@@ -3,7 +3,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
-using static UnityEngine.GraphicsBuffer;
 
 namespace Assets.Event_Editor.Scripts
 {

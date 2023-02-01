@@ -178,5 +178,19 @@ namespace Assets.Event_Editor.Scripts
         }
 
         #endregion
+
+        #region BlockType 
+
+        public static PipeType ToPipeType(this BlockType blockType)
+        {
+            return blockType == BlockType.Command ? PipeType.Command : PipeType.Condition;
+        }
+
+        public static BlockType ToBlockType(this PipeType pipeType)
+        {
+            return pipeType == PipeType.Command ? BlockType.Command : BlockType.Condition;
+        }
+
+        #endregion
     }
 }

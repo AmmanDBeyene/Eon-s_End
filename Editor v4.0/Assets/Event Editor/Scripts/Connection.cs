@@ -206,6 +206,9 @@ namespace Assets.Event_Editor.Scripts
 
             // Update block outgoing connection lists
             outgoing.outgoingTo.Remove(incoming);
+
+            // Update the outgoing block's pipe state
+            outgoing.UpdateState();
         }
     }
 }

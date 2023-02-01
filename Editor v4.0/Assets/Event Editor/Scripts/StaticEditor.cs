@@ -212,18 +212,25 @@ namespace Assets.Event_Editor.Scripts
         }
         public static void ConnectBlocks()
         {
-            // TODO: finish this function
-            Debug.Log("Establishing connection between:");
-
             builtConnection.incoming = incomingBlock;
             builtConnection.outgoing = outgoingBlock;
 
             outgoingBlock.outgoingTo.Add(incomingBlock);
 
+            outgoingBlock.UpdateState();
+
             builtConnection.ReRender();
 
             connections.Add(builtConnection);
 
+            // No need to try and change the pipe type of this block
+            if (outgoingBlock.pipeType != PipeType.None)
+            {
+                return;
+            }
+
+            // Set our pipe type to the incoming block's equivalent pipe type
+            outgoingBlock.pipeType = incomingBlock.type.ToPipeType();
         }
 
         #endregion

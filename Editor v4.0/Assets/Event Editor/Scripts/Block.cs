@@ -17,7 +17,8 @@ namespace Assets.Event_Editor.Scripts
         public List<Block> outgoingTo { get; private set; }
         private VisualTreeAsset _factoryAsset { get; set; }
 
-        private BlockType _type { get; set; }
+        public BlockType type { get; private set; }
+        public PipeType pipeType { get; set; }
         public Block(VisualTreeAsset asset, BlockType type)
         {
             outgoingTo = new List<Block>();
@@ -25,7 +26,9 @@ namespace Assets.Event_Editor.Scripts
             created = false;
 
             _factoryAsset = asset;
-            _type = type;
+            this.type = type;
+
+            pipeType = PipeType.None;
         }
 
         public void CreateAt(Vector3 globalPosition)
@@ -50,7 +53,7 @@ namespace Assets.Event_Editor.Scripts
             connector.Find("Connector").Add(block);
 
             // Change our connector color based on block type
-            connector.Find("Connector").style.backgroundColor = _type == BlockType.Command
+            connector.Find("Connector").style.backgroundColor = type == BlockType.Command
                 ? new Color(12 / 255.0f, 152 / 255.0f, 200 / 255.0f)
                 : new Color(252 / 255.0f, 152 / 255.0f, 56 / 255.0f);
 
@@ -77,6 +80,14 @@ namespace Assets.Event_Editor.Scripts
             visualElement = connector;
         }
 
+        public void UpdateState()
+        {
+            if (outgoingTo.Count <= 0)
+            {
+                pipeType = PipeType.None;
+            }
+        }
+
         public void Delete()
         {
             // Delete linked visual element
@@ -89,6 +100,11 @@ namespace Assets.Event_Editor.Scripts
             StaticEditor.connections
                 .FindAll(i => i.outgoing == this || i.incoming == this)
                 .ForEach(i => i.Delete());
+
+            // Update any blocks with a pipe to this block
+            StaticEditor.blocks
+                .FindAll(i => i.outgoingTo.Contains(this))
+                .ForEach(i => i.UpdateState());
 
             deleted = true;
         }

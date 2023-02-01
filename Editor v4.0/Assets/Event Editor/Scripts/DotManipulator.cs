@@ -127,7 +127,26 @@ namespace Assets.Event_Editor.Scripts
                 StaticEditor.incomingBlock = _parent;
             }
 
-            // TODO: actually create our connection
+            // Check to see that this dot's type matches the outgoing block's pipe type 
+            if (StaticEditor.outgoingBlock.pipeType != PipeType.None 
+                && StaticEditor.outgoingBlock.pipeType != StaticEditor.incomingBlock.type.ToPipeType())
+            {
+                StaticEditor.InvalidateConnections();
+                // TODO: this should show a warning why the connecion was canceled 
+                //       since this clause might not be immediately apparent to all 
+                return;
+            }
+
+            // Make sure this outgoing block has a command pipe that it can only have one outgoing connection
+            if (StaticEditor.outgoingBlock.pipeType == PipeType.Command
+                && StaticEditor.outgoingBlock.outgoingTo.Count > 0)
+            {
+                StaticEditor.InvalidateConnections();
+                // TODO: this should show a warning why the connecion was canceled 
+                //       since this clause might not be immediately apparent to all 
+                return;
+            }
+
             StaticEditor.ConnectBlocks();
             StaticEditor.InvalidateConnections();
         }
