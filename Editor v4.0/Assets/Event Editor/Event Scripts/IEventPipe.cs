@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Assets.Event_Scripts
 {
-    internal interface IEventPipe
+    public interface IEventPipe
     {
         public IEventPipe Flow();
     }

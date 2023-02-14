@@ -2,10 +2,10 @@
     <ui:VisualElement name="ShowTextBlock" style="height: auto; width: 450px; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgb(56, 56, 56); visibility: visible; display: flex; overflow: visible; transition-duration: 0s; flex-direction: row;">
         <ui:Foldout text="Show Text" value="true" focusable="false" style="flex-shrink: 0; flex-grow: 1;">
             <ui:VisualElement style="height: auto; width: auto; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; flex-shrink: 1; flex-grow: 0;">
-                <ui:TextField picking-mode="Ignore" label="Character Name" style="margin-bottom: 5px;" />
-                <uie:ObjectField label="Portrait" focusable="true" type="UnityEngine.Texture2D, UnityEngine.CoreModule" allow-scene-objects="false" style="margin-bottom: 5px;" />
-                <ui:RadioButtonGroup label="Portrait Position" value="-1" choices="Left, Right" />
-                <ui:TextField picking-mode="Ignore" label="Text to show" multiline="true" style="height: 118px; width: auto;" />
+                <ui:TextField picking-mode="Ignore" label="Character Name" name="1" style="margin-bottom: 5px;" />
+                <uie:ObjectField label="Portrait" focusable="true" type="UnityEngine.Texture2D, UnityEngine.CoreModule" allow-scene-objects="false" name="2" style="margin-bottom: 5px;" />
+                <ui:RadioButtonGroup label="Portrait Position" value="-1" choices="Left, Right" name="3" />
+                <ui:TextField picking-mode="Ignore" label="Text to show" multiline="true" name="4" style="height: 118px; width: auto;" />
             </ui:VisualElement>
         </ui:Foldout>
     </ui:VisualElement>

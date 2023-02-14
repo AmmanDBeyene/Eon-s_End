@@ -1,10 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.IO;
+
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Unity.VisualScripting;
+
+using Assets.Event_Editor.Event_Scripts;
+using Assets.Event_Scripts;
+using Assets.Event_Scripts.Event_Commands;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using System;
 
 namespace Assets.Event_Editor.Scripts
 {
@@ -20,6 +27,7 @@ namespace Assets.Event_Editor.Scripts
         public static List<Connection> connections = new List<Connection>();
         public static List<VisualElement> selectedBlocks = new List<VisualElement>();
         public static List<Connection> selectedConnections = new List<Connection>();
+        public static List<WarningManipulator> warnings = new List<WarningManipulator>();
 
         public static VisualElement canvas = null;
         public static VisualElement ui = null;
@@ -36,6 +44,22 @@ namespace Assets.Event_Editor.Scripts
         public static Connection builtConnection = null;
 
         public static bool makingConnection = false;
+
+        public static Block rootBlock = null;
+        public static IEventPipe rootPipe = null;
+
+        public static void Update()
+        {
+            // Update all warning manipulators
+            warnings.ForEach(i => i.Update());
+            
+            // Find all finished warning manipulators
+            var finished = warnings.FindAll(i => i.finished);
+
+            // Remove all finished warning manipulators so they
+            // no longer get updated
+            finished.ForEach(i => warnings.Remove(i));
+        }
 
         #region Block Selection
 
@@ -219,9 +243,9 @@ namespace Assets.Event_Editor.Scripts
 
             outgoingBlock.UpdateState();
 
-            builtConnection.ReRender();
-
             connections.Add(builtConnection);
+
+            builtConnection.ReRender();
 
             // No need to try and change the pipe type of this block
             if (outgoingBlock.pipeType != PipeType.None)
@@ -233,7 +257,237 @@ namespace Assets.Event_Editor.Scripts
             outgoingBlock.pipeType = incomingBlock.type.ToPipeType();
         }
 
+        private static void RestoreConnection(Block incoming, Block outgoing)
+        {
+            builtConnection.incoming = incoming;
+            builtConnection.outgoing = outgoing;
+
+            outgoing.outgoingTo.Add(incoming);
+
+            outgoing.UpdateState();
+
+            Connection connection = new Connection(outgoing, incoming);
+
+            connections.Add(connection);
+
+            // No need to try and change the pipe type of this block
+            if (outgoing.pipeType != PipeType.None)
+            {
+                return;
+            }
+
+            // Set our pipe type to the incoming block's equivalent pipe type
+            outgoing.pipeType = incoming.type.ToPipeType();
+        }
+
         #endregion
+
+        #region Warning / Error
+        
+        public static void ShowWarning(string text)
+        {
+            VisualElement warning = Extensions.Create("Assets/Event Editor/UI/Warning.uxml");
+            warning.style.position = Position.Absolute;
+            warning.style.left = 0;
+            warning.style.top = 0;
+            warning.StretchToParentSize();
+            warning.pickingMode = PickingMode.Ignore;
+
+            ((Label)warning.Find("WarningText")).text = text;
+
+            warning.BringToFront();
+            
+            canvas.Add(warning);
+
+            WarningManipulator wm = new WarningManipulator(warning);
+            warnings.Add(wm);
+        }
+
+        public static void ShowError(string text)
+        {
+            VisualElement warning = Extensions.Create("Assets/Event Editor/UI/Error.uxml");
+            warning.style.position = Position.Absolute;
+            warning.style.left = 0;
+            warning.style.top = 0;
+            warning.StretchToParentSize();
+            warning.pickingMode = PickingMode.Ignore;
+
+            ((Label)warning.Find("ErrorText")).text = text;
+
+            warning.BringToFront();
+
+            canvas.Add(warning);
+
+            WarningManipulator wm = new WarningManipulator(warning);
+            warnings.Add(wm);
+        }
+
+        #endregion
+
+        #region Saving / Loading
+
+        public static void Save(string path)
+        {
+            try
+            {
+                // Update the save position of every block so we know where to place them
+                blocks.ForEach(i => i.savePosition = i.visualElement.GlobalPosition());
+                blocks.ForEach(i => i.saveNode = (BlockNode)i.visualElement.InterpretAs(i.nodeType));
+
+                // Create our editor save data and save it to a file
+                EditorSaveData data = new EditorSaveData(blocks, connections);
+                File.WriteAllText(path, data.Serialize().json);
+
+            } catch (Exception e)
+            {
+                ShowError("An error has occured while saving. Check console for details.");
+                Debug.LogError(e);
+            }
+        }
+
+        public static void Compile(string path)
+        {
+            string name = Path.GetFileNameWithoutExtension(path);
+            try
+            {
+
+                if (rootBlock == null)
+                {
+                    ShowWarning("Please assign a root before compiling.");
+                    return; // we cannot compile
+                }
+
+                blocks.ForEach(i => i.saveNode = (BlockNode)i.visualElement.InterpretAs(i.nodeType));
+
+                // Create the root pipe by connecting a unowned pipe to the root block.
+                if (rootBlock.type == BlockType.Command)
+                {
+                    rootPipe = new CommandPipeSystem((CommandNode)rootBlock.saveNode);
+                }
+                else
+                {
+                    ConditionPipeSystem nps = new ConditionPipeSystem();
+                    nps.conditions.Add((ConditionNode)rootBlock.saveNode);
+                    rootPipe = nps;
+                }
+
+                // Compile all blocks and their pipes
+                blocks.ForEach(i => i.Compile());
+
+                // Save the serialized json of our pipe structure
+                string json = rootPipe.Serialize().json;
+
+                JToken parsedJson = JToken.Parse(json);
+                json = parsedJson.ToString(Formatting.Indented);
+
+                json = json.Replace("\\", "\\\\");
+                json = json.Replace("\"", "\\\"");
+                json = json.Replace("\n", "\" +\n\t\t\t\"");
+                json = json.Replace("\r", "");
+
+                // Create a wrapper for our json 
+                string wrapped =
+                    "using Unity.VisualScripting; using Assets.Event_Scripts;\n" +
+                   $"public class {name} : EventController {{\n" +
+                    "\tvoid Start() { Load(); }\n" +
+                    "\tpublic void Load() {\n" +
+                   $"\t\tSerializationData data = new SerializationData(\n\t\t\"{json}\");\n" +
+                    "\t\trootPipe = (IEventPipe)data.Deserialize();\n" +
+                    "\t}\n}\n";
+
+                // Save our compiled event graph file to a c# class file
+                File.WriteAllText(path.Replace(".evtgraph", ".cs"), wrapped);
+            }
+            catch (Exception e)
+            {
+                ShowError("An error has occured while compiling. Check console for details.");
+                Debug.LogError(e);
+            }
+        }
+
+        public static void Load(string path)
+        {
+            try
+            {
+                if (path.Length == 0)
+                {
+                    return; // Since there's no path we probably dont want to load. 
+                }
+
+                // Remove all blocks from the editor
+                blocks.ForEach(i => i.visualElement.parent.Remove(i.visualElement));
+                blocks.Clear();
+
+                // Remove all connections form the editor
+                connections.ForEach(i => i.lineBlock.parent.Remove(i.lineBlock));
+                connections.Clear();
+
+                // Clear our selections just in case
+                selectedBlocks.Clear();
+                selectedConnections.Clear();
+
+                // Load our editor save data from a file
+                SerializationData data = new SerializationData(File.ReadAllText(path));
+                EditorSaveData saveData = (EditorSaveData)data.Deserialize();
+
+                // Set the blocks array
+                blocks = saveData.blocks;
+
+                // Create all the blocks in our block array
+                blocks.ForEach(i => i.CreateAt(i.savePosition));
+
+                // Restore our connections from our save data
+                foreach (Connection connection in saveData.connections)
+                {
+                    outgoingBlock = connection.outgoing;
+                    incomingBlock = connection.incoming;
+                    builtConnection = new Connection(outgoingBlock, incomingBlock);
+
+                    outgoingBlock.outgoingTo.Add(incomingBlock);
+
+                    connections.Add(builtConnection);
+
+                    // No need to try and change the pipe type of this block
+                    if (outgoingBlock.pipeType != PipeType.None)
+                    {
+                        continue;
+                    }
+
+                    // Set our pipe type to the incoming block's equivalent pipe type
+                    outgoingBlock.pipeType = incomingBlock.type.ToPipeType();
+                }
+
+                connections.ForEach(i => i.ReRender());
+
+                blocks.ForEach(i => i.RestoreData());
+            }
+            catch (Exception e)
+            {
+                ShowError("An error has occured while loading. Check console for details.");
+                Debug.LogError(e);
+            }
+        }
+
+        #endregion
+
+        #region Root Setting
+
+        public static void SetRootBlock(Block block)
+        {
+
+        }
+
+        private static void ApplyRootStyle(Block block)
+        {
+
+        }
+
+        private static void RemoveRootStyle(Block block)
+        {
+
+        }
+
+        #endregion 
     }
 
     internal static class Keyboard

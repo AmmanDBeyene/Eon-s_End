@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Event_Editor.Scripts
 {
+    [Serializable]
     public enum BlockType
     {
         Command, 
@@ -18,6 +19,7 @@ namespace Assets.Event_Editor.Scripts
         Input
     }
 
+    [Serializable]
     public enum PipeType
     {
         None,

@@ -65,6 +65,7 @@ namespace Assets.Event_Editor.Scripts
             target.CapturePointer(evt.pointerId);
             _enabled = true;
 
+
             // All blocks start as stuck
             _stuck = true;
         }
@@ -131,7 +132,7 @@ namespace Assets.Event_Editor.Scripts
             UpdateConnectors();
         }
 
-        private void UpdateConnectors()
+        public void UpdateConnectors()
         {
             // Find all connections where our parent block is referenced
             List<Connection> connections = StaticEditor.connections.FindAll(i => i.incoming == _parent || i.outgoing == _parent);

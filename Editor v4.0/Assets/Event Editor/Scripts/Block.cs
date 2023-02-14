@@ -1,34 +1,90 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using UnityEngine;
+using Unity.VisualScripting;
 using UnityEngine.UIElements;
+
+using Assets.Event_Scripts;
+using Assets.Event_Editor.Event_Scripts;
+using Assets.Event_Scripts.Event_Commands;
+using System.Reflection;
 
 namespace Assets.Event_Editor.Scripts
 {
     public class Block
     {
+        [DoNotSerialize]
         public bool deleted { get; private set; }
+
+        [DoNotSerialize]
         public bool created { get; private set; }
+
+        [DoNotSerialize]
         public VisualElement visualElement { get; private set; }
+
+        [DoNotSerialize]
         public BlockManipulator manipulator { get; private set; }
+
+        [DoNotSerialize]
         public List<Block> outgoingTo { get; private set; }
-        private VisualTreeAsset _factoryAsset { get; set; }
+
+        [Serialize]
+        private string _assetString { get; set; }
 
         public BlockType type { get; private set; }
         public PipeType pipeType { get; set; }
-        public Block(VisualTreeAsset asset, BlockType type)
+
+        public Vector3 savePosition;
+        public BlockNode saveNode;
+        public Type nodeType;
+
+        public Block(string assetString, BlockType type, Type nodeType)
         {
             outgoingTo = new List<Block>();
+
             deleted = false;
             created = false;
 
-            _factoryAsset = asset;
+            _assetString = assetString;
             this.type = type;
 
             pipeType = PipeType.None;
+            this.nodeType = nodeType;
+        }
+
+        public void RestoreData()
+        {
+            if (saveNode == null)
+            {
+                return; // can't restore data from nothing
+            }
+
+            saveNode.RestoreTo(visualElement, nodeType);
+        }
+
+        public IEventPipe Compile()
+        {
+            if (outgoingTo.Count <= 0 || saveNode == null)
+            {
+                return null; // there is no event pipe to compile
+            }
+
+            switch (pipeType)
+            {
+                case PipeType.Command:
+                    CommandPipeSystem mps = new CommandPipeSystem((CommandNode)outgoingTo[0].saveNode);
+                    saveNode.ConnectTo(mps);
+                    return mps;
+
+                case PipeType.Condition:
+                    ConditionPipeSystem nps = new ConditionPipeSystem();
+                    outgoingTo.ForEach(i => nps.conditions.Add((ConditionNode)i.saveNode));
+                    saveNode.ConnectTo(nps);
+                    return nps;
+            }
+
+            return null;
         }
 
         public void CreateAt(Vector3 globalPosition)
@@ -40,7 +96,29 @@ namespace Assets.Event_Editor.Scripts
             }
 
             // Create the Block which this tile represents
-            VisualElement block = _factoryAsset.Instantiate();
+            VisualElement block = Extensions.Load(_assetString).Instantiate();
+
+            List<DropdownField> dropdowns = new List<DropdownField>();
+            
+            // Find all dropdowns
+            block
+                .FindAll(typeof(DropdownField))
+                .ForEach(i => dropdowns.Add((DropdownField)i));
+
+            // Set all single value dropdowns to their default value
+            dropdowns
+                .FindAll(i => i.choices.Count == 1)
+                .ForEach(i => i.value = i.choices[0]);
+
+            List<RadioButtonGroup> radioButtons = new List<RadioButtonGroup>();
+
+            // Find all radio button groups and set them to always be on their default 
+            // value
+            block
+                .FindAll(typeof(RadioButtonGroup))
+                .ForEach(i => ((RadioButtonGroup)i).value = 0);
+
+            // Set all radio button group default values
 
             // Create connector which will house the block
             VisualElement connector = Extensions.Create("Assets/Event Editor/UI/Connector.uxml");
@@ -78,6 +156,8 @@ namespace Assets.Event_Editor.Scripts
 
             // Store a reference to our created block / connector pair
             visualElement = connector;
+
+            outgoingTo = new List<Block>();
         }
 
         public void UpdateState()

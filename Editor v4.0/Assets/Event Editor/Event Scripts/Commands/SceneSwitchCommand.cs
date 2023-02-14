@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Assets.Event_Scripts.Event_Commands
 {
-    internal class SceneSwitchCommand : CommandNode
+    public class SceneSwitchCommand : CommandNode
     {
-        private string _targetSceneName;
-        private Vector3 _targetPlayerPosition;
+        [Serialize]
+        public string _targetSceneName;
 
-        public SceneSwitchCommand(IEventPipe next, string targetSceneName, Vector3 targetPlayerPosition) : base(next)
+        [Serialize]
+        public Vector3 _targetPlayerPosition;
+
+        public SceneSwitchCommand(string targetSceneName, Vector3 targetPlayerPosition)
         {
             _targetSceneName = targetSceneName;
             _targetPlayerPosition = targetPlayerPosition;

@@ -1,8 +1,13 @@
+using System;
 using System.Collections.Generic;
+
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
+
+using Assets.Event_Editor.Event_Scripts.Commands;
+using Assets.Event_Scripts.Conditions;
+using UnityEditor.UIElements;
 
 namespace Assets.Event_Editor.Scripts
 {
@@ -12,10 +17,15 @@ namespace Assets.Event_Editor.Scripts
         private static VisualElement _mainUI = null;
         private static VisualElement _mainArea = null;
         private static VisualElement _blockArea = null;
+        public static MainAreaManipulator areaManipulator = null;
+        public static string currentOpenFile = null;
 
         private static List<VisualElement> _tiles = new List<VisualElement>();
 
-        //private static VisualElement 
+        public void Update()
+        {
+            StaticEditor.Update();
+        }
 
         [MenuItem("Tools/Event Editor")]
         public static void ShowEditor()
@@ -46,6 +56,9 @@ namespace Assets.Event_Editor.Scripts
             StaticEditor.canvas = _mainArea;
             StaticEditor.ui = _mainUI;
 
+            // Prepare the toolbar menu
+            PrepareToolbarMenu();
+
             // Hook keyboard events 
             KeyboardHook();
 
@@ -56,13 +69,12 @@ namespace Assets.Event_Editor.Scripts
             FillBlocksBar();
 
             // do some testing
-            Test();
         }
 
         #region Mouse Events
         private static void MouseHook()
         {
-            MainAreaManipulator mam = new MainAreaManipulator();
+            areaManipulator = new MainAreaManipulator();
         }
 
         #endregion
@@ -92,6 +104,54 @@ namespace Assets.Event_Editor.Scripts
             {
                 StaticEditor.DeleteSelection();
             }
+
+            if ((evt.ctrlKey || evt.commandKey) && !evt.shiftKey)
+            {
+                if (code == KeyCode.A)
+                {
+                    // select all
+                    StaticEditor.blocks.ForEach(i => StaticEditor.AddSelect(i.visualElement));
+                }
+
+                else if (code == KeyCode.S)
+                {
+                    // Save
+                    Save();
+                }
+
+                else if (code == KeyCode.O)
+                {
+                    Open();
+                }
+
+                else if (code == KeyCode.N)
+                {
+                    New();
+                }
+
+                else if (code == KeyCode.W)
+                {
+                    Compile();
+                }
+
+                return;
+            }
+
+            else if (evt.shiftKey && evt.shiftKey)
+            {
+                if (code == KeyCode.S)
+                {
+                    SaveAs();
+                }
+            }
+
+
+            if (code == KeyCode.R && StaticEditor.selectedBlocks.Count == 1)
+            {
+                // this block is now the root block
+                StaticEditor.rootBlock = StaticEditor.blocks.Find(i => i.visualElement == StaticEditor.selectedBlocks[0]);
+                Debug.Log(StaticEditor.rootBlock);
+            } 
         }
 
         private static void KeyUp(KeyUpEvent evt)
@@ -104,9 +164,109 @@ namespace Assets.Event_Editor.Scripts
 
         #endregion
 
-        private static void Test()
+        private static void PrepareToolbarMenu()
         {
-           
+            // Find tooolbar menu
+            ToolbarMenu toolbarMenu = (ToolbarMenu) _mainUI.Find("FileBarMenu");
+
+            // Clear toolbar menu items
+            toolbarMenu.menu.MenuItems().Clear();
+
+            // Add menu items 
+            toolbarMenu.menu.AppendAction("New Graph", (e) =>
+            {
+                New();
+            }, (e) => { return DropdownMenuAction.Status.Normal; });
+
+            toolbarMenu.menu.AppendAction("Open Graph", (e) =>
+            {
+                Open();
+            }, (e) => { return DropdownMenuAction.Status.Normal; });
+
+            toolbarMenu.menu.AppendSeparator();
+
+            toolbarMenu.menu.AppendAction("Save", (e) =>
+            {
+                Save();
+            }, (e) => { return DropdownMenuAction.Status.Normal; });
+
+            toolbarMenu.menu.AppendAction("Save As...", (e) =>
+            {
+                SaveAs();
+            }, (e) => { return DropdownMenuAction.Status.Normal; });
+
+            toolbarMenu.menu.AppendAction("Save and Compile", (e) =>
+            {
+                Compile();
+            }, (e) => { return DropdownMenuAction.Status.Normal; });
+
+            toolbarMenu.menu.AppendAction("Save and Compile As...", (e) =>
+            {
+                if (SaveAs())
+                {
+                    Compile();
+                }
+            }, (e) => { return DropdownMenuAction.Status.Normal; });
+
+
+        }
+
+        private static void New()
+        {
+
+        }
+
+        private static void Open()
+        {
+            string path = EditorUtility.OpenFilePanel("Open Event Graph", "", "evtgraph");
+
+            if (path.Length == 0)
+            {
+                return;
+            }
+
+            currentOpenFile = path;
+
+            StaticEditor.Load(path);
+        }
+
+        private static bool Save()
+        {
+            if (currentOpenFile == null)
+            {
+                return SaveAs();
+            }
+
+            StaticEditor.Save(currentOpenFile);
+            return true;
+        }
+
+        private static bool SaveAs()
+        {
+            string name = _mainUI.GetTextFieldValue("FileName");
+
+            var path = EditorUtility.SaveFilePanel("Save Event Graph", "", name + ".evtgraph", "evtgraph");
+
+            if (path.Length == 0)
+            {
+                return false;
+            }
+
+            currentOpenFile = path;
+
+            StaticEditor.Save(path);
+
+            return true;
+        }
+
+        private static void Compile()
+        {
+            if (currentOpenFile == null && Save())
+            {
+                return;
+            }
+
+            StaticEditor.Compile(currentOpenFile);
         }
 
         private static void FillBlocksBar()
@@ -114,25 +274,24 @@ namespace Assets.Event_Editor.Scripts
             VisualElement blockBar = _blockArea.Find("BlockBar");
 
             // Create command tiles
-            blockBar.Add(CreateCommandTile("Show Text", "ShowTextBlock.uxml"));
-            blockBar.Add(CreateCommandTile("Set Flag", "SetFlagBlock.uxml"));
-            blockBar.Add(CreateCommandTile("Wait", "WaitBlock.uxml"));
+            blockBar.Add(CreateCommandTile("Show Text"              , "ShowTextBlock.uxml"          , typeof(ShowTextCommand)));
+            blockBar.Add(CreateCommandTile("Set Flag"               , "SetFlagBlock.uxml"           , null));
+            blockBar.Add(CreateCommandTile("Wait"                   , "WaitBlock.uxml"              , null));
 
             // Create condition tiles
-            blockBar.Add(CreateConditionTile("Input Check", "InputCondition.uxml"));
-            blockBar.Add(CreateConditionTile("Num Flag Check", "NumFlagCondition.uxml"));
-            blockBar.Add(CreateConditionTile("String Flag Check", "StringFlagCondition.uxml"));
-            blockBar.Add(CreateConditionTile("Bool Flag Check", "BoolFlagCondition.uxml"));
-            blockBar.Add(CreateConditionTile("Proximity Check", "ProximityCondition.uxml"));
-            blockBar.Add(CreateConditionTile("Inventory Check", "InventoryCondition.uxml"));
-            blockBar.Add(CreateConditionTile("Equipment Check", "EquipmentCondition.uxml"));
-            blockBar.Add(CreateConditionTile("Equipment Type Check", "EquipmentTypeCondition.uxml"));
-            blockBar.Add(CreateConditionTile("Player Status Check", "PlayerStatusCondition.uxml"));
+            blockBar.Add(CreateConditionTile("Input Check"          , "InputCondition.uxml"         , typeof(InputCondition)));
+            blockBar.Add(CreateConditionTile("Num Flag Check"       , "NumFlagCondition.uxml"       , null));
+            blockBar.Add(CreateConditionTile("String Flag Check"    , "StringFlagCondition.uxml"    , null));
+            blockBar.Add(CreateConditionTile("Bool Flag Check"      , "BoolFlagCondition.uxml"      , null));
+            blockBar.Add(CreateConditionTile("Proximity Check"      , "ProximityCondition.uxml"     , typeof(ProximityCondition)));
+            blockBar.Add(CreateConditionTile("Inventory Check"      , "InventoryCondition.uxml"     , null));
+            blockBar.Add(CreateConditionTile("Equipment Check"      , "EquipmentCondition.uxml"     , null));
+            blockBar.Add(CreateConditionTile("Equipment Type Check" , "EquipmentTypeCondition.uxml" , null));
+            blockBar.Add(CreateConditionTile("Player Status Check"  , "PlayerStatusCondition.uxml"  , null));
         }
 
-        private static VisualElement CreateCommandTile(string name, string toLoad)
+        private static VisualElement CreateCommandTile(string name, string toLoad, Type type)
         {
-            VisualTreeAsset blockToCreate = Extensions.Load($"Assets/Event Editor/UI/Blocks/{toLoad}");
             VisualElement tile = Extensions.Create("Assets/Event Editor/UI/Block.uxml");
 
             TextElement text = (TextElement)tile.Find("BlockText");
@@ -140,16 +299,15 @@ namespace Assets.Event_Editor.Scripts
             text.text = name;
             tile.style.top = 45 * _tiles.Count;
 
-            TileManipulator tm = new TileManipulator(tile, name, blockToCreate, BlockType.Command);
+            TileManipulator tm = new TileManipulator(tile, name, $"Assets/Event Editor/UI/Blocks/{toLoad}", BlockType.Command, type);
 
             _tiles.Add(tile);
 
             return tile;
         }
 
-        private static VisualElement CreateConditionTile(string name, string toLoad)
+        private static VisualElement CreateConditionTile(string name, string toLoad, Type type)
         {
-            VisualTreeAsset blockToCreate = Extensions.Load($"Assets/Event Editor/UI/Conditions/{toLoad}");
             VisualElement tile = Extensions.Create("Assets/Event Editor/UI/Condition.uxml");
 
             TextElement text = (TextElement)tile.Find("ConditionText");
@@ -157,7 +315,7 @@ namespace Assets.Event_Editor.Scripts
             text.text = name;
             tile.style.top = 45 * _tiles.Count;
 
-            TileManipulator tm = new TileManipulator(tile, name, blockToCreate, BlockType.Condition);
+            TileManipulator tm = new TileManipulator(tile, name, $"Assets/Event Editor/UI/Conditions/{toLoad}", BlockType.Condition, type);
 
             _tiles.Add(tile);
 

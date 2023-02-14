@@ -6,13 +6,17 @@ using System.Text;
 using System.Threading.Tasks;
 using Assets.Event_Scripts;
 using Assets.Event_Scripts.Event_Commands;
+using Unity.VisualScripting;
 
 namespace Assets.Event_Editor.Event_Scripts
 {
-    internal abstract class CommandPipeSystem : IEventPipe
+    internal class CommandPipeSystem : IEventPipe
     {
+        [Serialize]
         public CommandNode command { get; private set; }
+
         private bool _active { get; set; } 
+
         public CommandPipeSystem(CommandNode command)
         {
             this.command = command;

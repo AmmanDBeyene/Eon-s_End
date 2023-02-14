@@ -2,9 +2,9 @@
     <ui:VisualElement name="InputCondition" style="height: auto; width: 300px; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgb(56, 56, 56); visibility: visible; display: flex; overflow: visible; transition-duration: 0s; flex-direction: row; flex-wrap: nowrap;">
         <ui:Foldout text="Input Check" value="true" focusable="false" style="flex-grow: 0; flex-shrink: 1; width: 100%;">
             <ui:VisualElement style="height: auto; width: auto; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;">
-                <ui:DropdownField label="Keyboard Buttons" index="-1" choices="A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z" />
-                <ui:DropdownField label="Condtion" index="-1" choices="is" />
-                <ui:DropdownField label="State" index="-1" choices="Pressed, Released" />
+                <ui:DropdownField label="Keyboard Buttons" index="-1" choices="A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z" name="1" />
+                <ui:DropdownField label="Condtion" index="-1" choices="is" name="2" />
+                <ui:DropdownField label="State" index="-1" choices="Pressed, Released" name="3" />
             </ui:VisualElement>
         </ui:Foldout>
     </ui:VisualElement>

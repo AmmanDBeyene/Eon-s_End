@@ -1,15 +1,19 @@
 ﻿using Assets.Event_Scripts.Event_Commands;
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Assets.Event_Scripts.Conditions
 {
-    internal class InputCondition : ConditionNode
+    public class InputCondition : ConditionNode
     {
-        private readonly KeyCode _awaitedKey;
-        private bool _pressed = false;
+        [Serialize]
+        public readonly KeyCode _awaitedKey;
 
-        public InputCondition(IEventPipe next, KeyCode awaitedKey, bool pressed) : base(next)
+        [Serialize]
+        public bool _pressed = false;
+
+        public InputCondition(KeyCode awaitedKey, bool pressed)
         {
             _awaitedKey = awaitedKey;
             _pressed = pressed;

@@ -2,17 +2,25 @@
 using System;
 using UnityEngine;
 using Assets.Event_Scripts.Event_Commands;
+using Unity.VisualScripting;
 
 namespace Assets.Event_Scripts.Conditions
 {
-    internal class ProximityCondition : ConditionNode
+    public class ProximityCondition : ConditionNode
     {
-        private GameObject _gameObjectFrom;
-        private GameObject _gameObjectTo;
-        private double _triggerLimit;
-        private bool _inside;
+        [Serialize]
+        public GameObject _gameObjectFrom;
 
-        public ProximityCondition(IEventPipe next, GameObject from, GameObject to, double limit, bool inside) : base(next)
+        [Serialize]
+        public GameObject _gameObjectTo;
+
+        [Serialize]
+        public double _triggerLimit;
+
+        [Serialize]
+        public bool _inside;
+
+        public ProximityCondition(GameObject from, GameObject to, double limit, bool inside)
         {
             _gameObjectFrom = from;
             _gameObjectTo = to;

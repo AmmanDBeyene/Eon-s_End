@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Assets.Event_Editor.Scripts
 {
-    class Connection
+    public class Connection
     {
+        [SerializeField]
         private Block _outgoing;
+
+        [SerializeField]
         public Block outgoing
         {
             get
@@ -21,10 +25,17 @@ namespace Assets.Event_Editor.Scripts
             {
                 _outgoing = value;
                 _outgoingNode = value?.visualElement.Find("DotBot");
+                _outgoingNode?.RegisterCallback<GeometryChangedEvent>(i =>
+                {
+                    ReRender();
+                });
             }
         }
 
+        [SerializeField]
         private Block _incoming;
+
+        [SerializeField]
         public Block incoming
         {
             get
@@ -35,15 +46,21 @@ namespace Assets.Event_Editor.Scripts
             {
                 _incoming = value;
                 _incomingNode = value?.visualElement.Find("DotTop");
+                _incomingNode?.RegisterCallback<GeometryChangedEvent>(i =>
+                {
+                    ReRender();
+                });
             }
 
         }
 
+        [DoNotSerialize]
         private VisualElement _outgoingNode;
+
+        [DoNotSerialize]
         private VisualElement _incomingNode;
 
-        private Vector3 _worldOrigin;
-
+        [DoNotSerialize]
         public VisualElement lineBlock { get; private set; }
 
         private bool _lastOutRightOfIn = false;
@@ -56,6 +73,12 @@ namespace Assets.Event_Editor.Scripts
             this.incoming = incoming;
         }
 
+        public Connection(Connection c)
+        {
+            this.outgoing = c.outgoing;
+            this.incoming = c.outgoing;
+        }
+
         public void ReRender()
         {
             ReRender(_outgoingNode.GlobalCenter(), _incomingNode.GlobalCenter());
@@ -64,7 +87,6 @@ namespace Assets.Event_Editor.Scripts
         public void ReRender(Vector3 globalPosOut, Vector3 globalPosIn)
         {
             bool first = false;
-
             if (lineBlock == null)
             {
                 lineBlock = Extensions.Create("Assets/Event Editor/UI/LineBox.uxml");
@@ -72,7 +94,7 @@ namespace Assets.Event_Editor.Scripts
                 lineBlock.pickingMode = PickingMode.Ignore;
                 lineBlock.style.position = Position.Absolute;
                 StaticEditor.canvas.Add(lineBlock);
-                _worldOrigin = lineBlock.LocalToWorld(Vector3.zero);
+                VisualElement parent = lineBlock.parent;
                 first = true;
             }
 
@@ -81,11 +103,16 @@ namespace Assets.Event_Editor.Scripts
             Vector3 globalBotRight = new Vector3(Math.Max(globalPosIn.x, globalPosOut.x), Math.Max(globalPosIn.y, globalPosOut.y), 0.0f);
             Vector3 globalDelta = globalTopLeft - globalPosBlock; // how much we need to move the block
 
+            if (globalDelta.HasNan())
+            {
+                return; // Immediately stop rendering if we have nan propogation
+                        // might cause unity to freeze / crash otherwise
+            }
+
             if (globalDelta.magnitude != 0)
             {
                 lineBlock.transform.position += globalDelta;
             }
-            
 
             lineBlock.Find("MainBox").style.width = (int) Math.Clamp(globalBotRight.x - globalTopLeft.x, 4, double.MaxValue);
             lineBlock.Find("MainBox").style.height = (int) Math.Clamp(globalBotRight.y - globalTopLeft.y, 4, double.MaxValue);

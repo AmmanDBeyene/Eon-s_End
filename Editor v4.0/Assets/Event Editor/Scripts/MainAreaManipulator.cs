@@ -76,6 +76,11 @@ namespace Assets.Event_Editor.Scripts
 
         private void PointerDownHandler(PointerDownEvent evt)
         {
+            // Graphically update all connections
+            // this is so that we can quickly show all the connectors
+            // after a load has happened
+            StaticEditor.connections.ForEach(i => i.ReRender());
+
             // ignore anything that isnt a left click
             if (evt.button != 0)
             {
@@ -94,7 +99,6 @@ namespace Assets.Event_Editor.Scripts
                 // and return. 
                 if (connection.Contains(evt.position))
                 {
-                    Debug.Log("Clicked on connection!");
                     StaticEditor.Select(connection);
                     return;
                 }

@@ -3,16 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Assets.Event_Editor.Event_Scripts;
+
 namespace Assets.Event_Scripts.Event_Commands
 {
-    internal abstract class ConditionNode
+    public abstract class ConditionNode : BlockNode
     {
-        public IEventPipe next { get; private set; }
-        public ConditionNode(IEventPipe next)
-        {
-            this.next = next;
-        }
-
+        public ConditionNode() : base() { }
+        public ConditionNode(IEventPipe next) : base(next) { }
         internal abstract bool IsMet();
     }
 }

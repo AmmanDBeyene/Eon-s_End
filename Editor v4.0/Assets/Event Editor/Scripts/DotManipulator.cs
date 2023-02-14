@@ -110,6 +110,7 @@ namespace Assets.Event_Editor.Scripts
             // Check to see that this dot's type does not match the other dot's type.
             if (type == StaticEditor.startDot.type)
             {
+                StaticEditor.ShowWarning($"Cannot create a connection from {type} to {type}");
                 StaticEditor.InvalidateConnections();
                 return;
             }
@@ -131,9 +132,9 @@ namespace Assets.Event_Editor.Scripts
             if (StaticEditor.outgoingBlock.pipeType != PipeType.None 
                 && StaticEditor.outgoingBlock.pipeType != StaticEditor.incomingBlock.type.ToPipeType())
             {
+                // Show a warning why the connecion was canceled
+                StaticEditor.ShowWarning($"{StaticEditor.outgoingBlock.pipeType} pipe blocks can only connect to {StaticEditor.outgoingBlock.pipeType}s");
                 StaticEditor.InvalidateConnections();
-                // TODO: this should show a warning why the connecion was canceled 
-                //       since this clause might not be immediately apparent to all 
                 return;
             }
 
@@ -141,9 +142,9 @@ namespace Assets.Event_Editor.Scripts
             if (StaticEditor.outgoingBlock.pipeType == PipeType.Command
                 && StaticEditor.outgoingBlock.outgoingTo.Count > 0)
             {
+                // Show a warning why the connecion was canceled 
+                StaticEditor.ShowWarning($"This block is already connected to a command.");
                 StaticEditor.InvalidateConnections();
-                // TODO: this should show a warning why the connecion was canceled 
-                //       since this clause might not be immediately apparent to all 
                 return;
             }
 

@@ -8,17 +8,11 @@ using UnityEngine;
 public class EventController : MonoBehaviour
 {
     // Start is called before the first frame update
-
     public bool Active = false;
 
-    private IEventPipe _rootPipe = null;
+    public IEventPipe rootPipe { get; protected set; }
     private IEventPipe _currentPipe = null;
-
-    void Start()
-    {
-
-    }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -29,7 +23,15 @@ public class EventController : MonoBehaviour
 
         if (_currentPipe == null)
         {
-            _currentPipe = _rootPipe;
+            _currentPipe = rootPipe;
+        }
+
+        if (_currentPipe == null)
+        {
+            return; // The current pipe should never be null here
+                    // only if the root pipe is null. Which means
+                    // this event should not be running in the first
+                    // place
         }
 
         _currentPipe = _currentPipe.Flow();

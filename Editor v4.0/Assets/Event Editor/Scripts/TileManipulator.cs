@@ -1,25 +1,28 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Assets.Event_Editor.Scripts
 {
     class TileManipulator : PointerManipulator
     {
-        private VisualTreeAsset _blockToCreate { get; set; }
+        private string _blockToCreate { get; set; }
         private VisualElement _parent { get; set; }
         private string _name { get; set; }
         private BlockType _type { get; set; }
+        private Type _nodeType { get; set; }
         private Vector2 _targetOrigin { get; set; }
         private Vector2 _globalMousePosition { get; set; }
         private Vector2 _relativeMousePosition { get; set; }
         private Vector2 _initialOffset { get; set; }
         private bool _enabled { get; set; }
-        public TileManipulator(VisualElement target, string name, VisualTreeAsset blockToCreate, BlockType type)
+        public TileManipulator(VisualElement target, string name, string blockToCreate, BlockType type, Type nodeType)
         {
             // Set manipulator target
             this.target = target;
 
             _blockToCreate = blockToCreate;
+            _nodeType = nodeType;
             _name = name;
             _type = type;
         }
@@ -108,7 +111,7 @@ namespace Assets.Event_Editor.Scripts
             }
 
             // Create a new block
-            Block block = new Block(_blockToCreate, _type);
+            Block block = new Block(_blockToCreate, _type, _nodeType);
 
 
             // Create the block at the target's global position
