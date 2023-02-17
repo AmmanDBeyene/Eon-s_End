@@ -6,19 +6,48 @@ using System.Threading.Tasks;
 
 namespace EECore.Items
 {
-    public abstract class Weapon : SkillItem
+    public abstract class Weapon : Item
     {
-        public Weapon(
-            string name, 
+        public WeaponSkill basicSkill { get; protected set; }
+        public WeaponSkill specialSkill { get; protected set; }
+
+        protected Weapon(
+            string name,
             string description)
             : base(name, description) { }
 
-        public Weapon(
-            string name, 
+        protected Weapon(
+            string name,
             string description,
             Modifier modifier)
             : base(name, description, modifier) { }
 
-        public abstract void BasicAttack();
+        public virtual void BasicAttack(List<Character> targets)
+        {
+            if (basicSkill == null)
+            {
+                return;
+            }
+
+            basicSkill.Use(targets);
+        }
+
+        public virtual void SpecialAttack(List<Character> targets)
+        {
+            if (specialSkill == null)
+            {
+                return;
+            }
+
+            specialSkill.Use(targets);
+        }
+    }
+
+    public abstract class WeaponSkill : SkillItem
+    {
+        public WeaponSkill(
+            string name,
+            string description)
+            : base(name, description) { }
     }
 }
