@@ -10,7 +10,7 @@ namespace Assets.Event_Editor.Scripts
 {
     public class MainAreaManipulator : PointerManipulator
     {
-        private Vector2 _targetStartPosition { get; set; }
+        private Vector3 _targetStartPosition { get; set; }
         private Vector3 _pointerStartPosition { get; set; }
 
         private bool _enabled { get; set; } = true;
@@ -18,6 +18,7 @@ namespace Assets.Event_Editor.Scripts
         private VisualElement _selectionSquare { get; set; }
         private float _stickyRadius { get; set; } = 10;
         private bool _stuck = true;
+        private bool _movingScreen = false;
         public MainAreaManipulator()
         {
             this.target = StaticEditor.canvas;
@@ -81,9 +82,24 @@ namespace Assets.Event_Editor.Scripts
             // after a load has happened
             StaticEditor.connections.ForEach(i => i.ReRender());
 
-            // ignore anything that isnt a left click
+            // Ignore anything that isnt a left click
             if (evt.button != 0)
             {
+                return;
+            }
+
+            if (Keyboard.KeyDown(KeyCode.Space))
+            {
+                // We have the space + left click combo, this should let us drag the canvas around
+                _movingScreen = true;
+                _pointerStartPosition = evt.position;
+                _targetStartPosition = StaticEditor.area.transform.position;
+
+
+                // Capture the cursor. 
+                _capturing = true;
+                target.CapturePointer(evt.pointerId);
+
                 return;
             }
 
@@ -137,6 +153,15 @@ namespace Assets.Event_Editor.Scripts
             }
 
             Vector3 pointerDelta = evt.position - _pointerStartPosition;
+
+
+            if (_movingScreen)
+            {
+                // Update the position of all elements on screen
+                StaticEditor.area.transform.position = _targetStartPosition + pointerDelta;
+                return;
+            }
+
             UpdateSquare(pointerDelta);
         }
 
@@ -172,6 +197,7 @@ namespace Assets.Event_Editor.Scripts
             _selectionSquare.transform.position = Vector3.zero;
             _selectionSquare.style.width = 0;
             _selectionSquare.style.height = 0;
+            _movingScreen = false;
             _capturing = false;
 
             target.ReleasePointer(evt.pointerId);

@@ -139,11 +139,8 @@ namespace Assets.Event_Editor.Scripts
             // so we can move the whole thing around
             manipulator = new BlockManipulator(connector, this);
 
-            // Find the absolute positioning area within the canvas
-            VisualElement area = StaticEditor.canvas.Find("AbsoluteArea");
-
             // Add our block connector pair to the absolute area
-            area.Add(connector);
+            StaticEditor.area.Add(connector);
 
             // Set the connector position to the target position using our offset
             connector.transform.position = connector.WorldToLocal(globalPosition);

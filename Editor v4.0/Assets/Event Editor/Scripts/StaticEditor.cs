@@ -30,6 +30,7 @@ namespace Assets.Event_Editor.Scripts
         public static List<WarningManipulator> warnings = new List<WarningManipulator>();
 
         public static VisualElement canvas = null;
+        public static VisualElement area = null;
         public static VisualElement ui = null;
         public static VisualElement tileDragTarget = null;
         public static string tileName = null;
@@ -234,6 +235,7 @@ namespace Assets.Event_Editor.Scripts
             outgoingBlock = null;
             incomingBlock = null;
         }
+
         public static void ConnectBlocks()
         {
             builtConnection.incoming = incomingBlock;

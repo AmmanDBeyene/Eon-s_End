@@ -54,6 +54,7 @@ namespace Assets.Event_Editor.Scripts
 
             // Publicize our canvas VE
             StaticEditor.canvas = _mainArea;
+            StaticEditor.area = _mainArea.Find("AbsoluteArea");
             StaticEditor.ui = _mainUI;
 
             // Prepare the toolbar menu

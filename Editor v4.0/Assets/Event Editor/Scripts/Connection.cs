@@ -93,7 +93,7 @@ namespace Assets.Event_Editor.Scripts
                 lineBlock.focusable = false;
                 lineBlock.pickingMode = PickingMode.Ignore;
                 lineBlock.style.position = Position.Absolute;
-                StaticEditor.canvas.Add(lineBlock);
+                StaticEditor.area.Add(lineBlock);
                 VisualElement parent = lineBlock.parent;
                 first = true;
             }

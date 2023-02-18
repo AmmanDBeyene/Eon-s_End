@@ -9,6 +9,8 @@ namespace Assets.Event_Editor.Scripts
     {
         private Vector3 _targetStartPosition { get; set; }
         private Vector3 _pointerStartPosition { get; set; }
+        private Dictionary<VisualElement, Vector3> _targetStartPositions { get; set; }
+
         private bool _enabled { get; set; }
         private VisualElement root { get; }
         private float _stickyRadius { get; set; } = 5;
@@ -17,6 +19,7 @@ namespace Assets.Event_Editor.Scripts
 
         private VisualElement _dotTop;
         private VisualElement _dotBot;
+
         public BlockManipulator(VisualElement target, Block parent)
         {
             this.target = target;
@@ -50,6 +53,11 @@ namespace Assets.Event_Editor.Scripts
         {
             _targetStartPosition = target.transform.position;
             _pointerStartPosition = evt.position;
+
+            _targetStartPositions = new Dictionary<VisualElement, Vector3>();
+            StaticEditor
+                .selectedBlocks.FindAll(i => i != target)
+                .ForEach(i => _targetStartPositions.TryAdd(i, i.transform.position));
 
             // Check if we have clicked on one of our dots we make sure to not capture the pointer
             if (_dotTop.Contains(evt.position))
@@ -86,6 +94,22 @@ namespace Assets.Event_Editor.Scripts
             {
                 target.transform.position = _targetStartPosition + pointerDelta;
 
+                if (StaticEditor.selectedBlocks.Contains(target))
+                {
+                    // If we have stuff selected, move that suff as well
+                    StaticEditor.selectedBlocks
+                        // Find all of our selected blocks. Make sure we ourselves are not selected.
+                        .FindAll(i => i != target)
+                        // Move the selected blocks. 
+                        .ForEach(i => i.transform.position = _targetStartPositions[i] + pointerDelta);
+
+                    // Update all selected block connections
+                    StaticEditor.selectedBlocks
+                        .FindAll(i => i != target)
+                        .ForEach(i => StaticEditor.blocks
+                            .Find(j => j.visualElement == i).manipulator.UpdateConnectors());
+                }
+                    
                 UpdateConnectors();
 
                 _stuck = false;
@@ -112,6 +136,15 @@ namespace Assets.Event_Editor.Scripts
         private void PointerCaptureOutHandler(PointerCaptureOutEvent evt)
         {
             ForceSnap();
+
+            if (StaticEditor.selectedBlocks.Contains(target))
+            {
+                // Force snap all selected blocks
+                StaticEditor.selectedBlocks
+                .FindAll(i => i != target)
+                .ForEach(i => StaticEditor.blocks
+                    .Find(j => j.visualElement == i).manipulator.ForceSnap());
+            }
         }
 
         public void ForceSnap()
