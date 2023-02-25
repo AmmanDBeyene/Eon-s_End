@@ -35,7 +35,21 @@ namespace Assets.Event_Editor.Scripts
                 return ToInputCondition(ve);
             }
 
+            else if (type == typeof(ProximityCondition))
+            {
+                return ToProximityCondition(ve);
+            }
+
             return null;
+        }
+
+        public static void SetUp(this VisualElement ve, Type type)
+        {
+            if (type == typeof(SceneSwitchCommand))
+            {
+                ve.SetupSceneSwitchCommand();
+                return;
+            }
         }
 
         public static void RestoreTo(this BlockNode node, VisualElement ve, Type type)
@@ -55,6 +69,11 @@ namespace Assets.Event_Editor.Scripts
             else if (type == typeof(InputCondition))
             {
                 ((InputCondition)node).RestoreTo(ve);
+            }
+
+            else if (type == typeof(ProximityCondition))
+            {
+                ((ProximityCondition)node).RestoreTo(ve);
             }
 
             // Restoration Complete
@@ -84,7 +103,7 @@ namespace Assets.Event_Editor.Scripts
         private static SceneSwitchCommand ToSceneSwitchCommand(VisualElement ve)
         {
             return new SceneSwitchCommand(
-                    ve.GetTextFieldValue("1"),
+                    ve.GetDropdownValue("1"),
                     ve.GetVector3FieldValue("2")
             );
         }
@@ -93,6 +112,24 @@ namespace Assets.Event_Editor.Scripts
         {
             ve.SetTextFieldValue("1", cmd._targetSceneName);
             ve.SetVector3FieldValue("2", cmd._targetPlayerPosition);
+        }
+
+        private static void SetupSceneSwitchCommand(this VisualElement ve)
+        {
+            DropdownField df = (DropdownField)ve.Find("1");
+            
+            df.choices.Clear();
+
+            foreach (UnityEditor.EditorBuildSettingsScene S in UnityEditor.EditorBuildSettings.scenes)
+            {
+                if (S.enabled)
+                {
+                    string name = S.path.Substring(S.path.LastIndexOf('/') + 1);
+                    name = name.Substring(0, name.Length - 6);
+                    df.choices.Add(name);
+                    Debug.Log(name);
+                }
+            }
         }
 
         #endregion
@@ -111,6 +148,20 @@ namespace Assets.Event_Editor.Scripts
         {
             ve.SetDropdownValue("1", $"{cnd._awaitedKey}");
             ve.SetDropdownValue("3", cnd._pressed ? "Pressed" : "Released");
+        }
+
+        private static ProximityCondition ToProximityCondition(VisualElement ve)
+        {
+            return new ProximityCondition(
+                ve.GetFloatFieldValue("2"),
+                ve.GetDropdownValue("1") == "inside"
+            );
+        }
+
+        private static void RestoreTo(this ProximityCondition cnd, VisualElement ve)
+        {
+            ve.SetDropdownValue("1", cnd._inside ? "inside" : "outside");
+            ve.SetFloatFieldValue("2", cnd._triggerLimit);
         }
 
         #endregion

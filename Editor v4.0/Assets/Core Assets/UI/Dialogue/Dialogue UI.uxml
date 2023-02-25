@@ -1,0 +1,24 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Screenfiller_box" style="flex-grow: 1; flex-direction: column-reverse; flex-wrap: wrap; background-color: rgba(0, 0, 0, 0); min-width: auto; min-height: auto; height: auto; width: auto;">
+        <ui:VisualElement name="LeftFiller" style="background-color: rgb(3, 43, 7); width: 2%; height: 100%; visibility: hidden;" />
+        <ui:VisualElement name="CenterContent" style="background-color: rgba(22, 0, 51, 0); width: 96%; height: 100%; align-items: flex-start; justify-content: flex-start;">
+            <ui:VisualElement name="Bottom" style="width: 100%; height: 273px; flex-direction: row; flex-wrap: nowrap; position: absolute; left: 0; bottom: 0; background-color: rgba(113, 0, 0, 0); min-width: auto; min-height: auto; margin-bottom: 10px;">
+                <ui:VisualElement name="PortraitBackground" style="background-color: rgba(1, 110, 137, 0); width: 227px; height: 273px; background-image: url(&apos;project://database/Assets/Core%20Assets/UI/Dialogue/Images/Portrait_Background.png?fileID=2800000&amp;guid=64bb3574f7a15b1438bc6d766a6846a3&amp;type=3#Portrait_Background&apos;); position: relative; left: auto; bottom: auto;">
+                    <ui:VisualElement name="Portrait" style="width: 100%; height: 100%; background-image: url(&apos;project://database/Assets/Core%20Assets/UI/Dialogue/Images/Portrait_Real.png?fileID=2800000&amp;guid=9e89d957758ac0c4f9db37c29a6f13bd&amp;type=3#Portrait_Real&apos;);" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Text" style="background-color: rgba(253, 0, 255, 0); flex-grow: 1; height: 90%; background-image: url(&apos;project://database/Assets/Core%20Assets/UI/Dialogue/Images/Text_Real.png?fileID=2800000&amp;guid=c9b8ef3d456fb4f47adf2283fde844b9&amp;type=3#Text_Real&apos;); visibility: visible; display: flex; opacity: 1;">
+                    <ui:Label text="..." display-tooltip-when-elided="true" name="MainText" style="font-size: 48px; left: 20px; top: 20px; color: rgb(202, 202, 202); white-space: normal;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="LeftOfffset" style="background-color: rgb(1, 110, 137); width: 227px; height: 273px; position: relative; left: auto; bottom: auto; display: flex; visibility: hidden;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Center" style="background-color: rgba(152, 128, 26, 0); height: 100px; width: 100%; flex-direction: row-reverse; position: absolute; bottom: 283px;">
+                <ui:VisualElement name="TextOptions" style="background-color: rgba(255, 84, 0, 0); height: 100%; width: 50%; right: 227px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Option1" style="font-size: 24px; background-image: url(&apos;project://database/Assets/Game%20UI/Images/Choice_Real.png?fileID=2800000&amp;guid=33dd3efccc36f9548942820f3a0fdf1c&amp;type=3#Choice_Real&apos;); -unity-background-scale-mode: stretch-to-fill; visibility: hidden;" />
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Option2" style="font-size: 24px; background-image: url(&apos;project://database/Assets/Game%20UI/Images/Choice_Real.png?fileID=2800000&amp;guid=33dd3efccc36f9548942820f3a0fdf1c&amp;type=3#Choice_Real&apos;); visibility: hidden;" />
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Option3" style="font-size: 24px; background-image: url(&apos;project://database/Assets/Game%20UI/Images/Choice_Real.png?fileID=2800000&amp;guid=33dd3efccc36f9548942820f3a0fdf1c&amp;type=3#Choice_Real&apos;); visibility: hidden;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="RightFiller" style="background-color: rgb(3, 43, 7); width: 2%; height: 100%; visibility: hidden;" />
+    </ui:VisualElement>
+</ui:UXML>

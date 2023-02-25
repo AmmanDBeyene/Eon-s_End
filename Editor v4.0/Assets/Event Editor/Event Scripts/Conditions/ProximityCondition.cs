@@ -3,6 +3,7 @@ using System;
 using UnityEngine;
 using Assets.Event_Scripts.Event_Commands;
 using Unity.VisualScripting;
+using EECore;
 
 namespace Assets.Event_Scripts.Conditions
 {
@@ -15,21 +16,27 @@ namespace Assets.Event_Scripts.Conditions
         public GameObject _gameObjectTo;
 
         [Serialize]
-        public double _triggerLimit;
+        public float _triggerLimit;
 
         [Serialize]
         public bool _inside;
 
-        public ProximityCondition(GameObject from, GameObject to, double limit, bool inside)
+        public ProximityCondition(float limit, bool inside)
         {
-            _gameObjectFrom = from;
-            _gameObjectTo = to;
             _triggerLimit = limit;
             _inside = inside;   
         }
 
         internal override bool IsMet()
         {
+            _gameObjectFrom = controller.Self();
+            _gameObjectTo = GameStateManager.player;
+
+            if (_gameObjectTo == null || _gameObjectFrom == null)
+            {
+                return false;
+            }
+
             double distance = (_gameObjectFrom.transform.position - _gameObjectTo.transform.position).magnitude;
 
             return _inside ? distance <= _triggerLimit : distance > _triggerLimit;

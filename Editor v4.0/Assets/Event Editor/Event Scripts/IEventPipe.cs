@@ -8,5 +8,6 @@ namespace Assets.Event_Scripts
     public interface IEventPipe
     {
         public IEventPipe Flow();
+        public void PropogateController(EventController controller);
     }
 }

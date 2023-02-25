@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace EECore.Items
 {
@@ -10,7 +11,7 @@ namespace EECore.Items
     {
         public string name         { get; }
         public string description  { get; }
-        // Image
+        public Texture2D icon { get; protected set; }
         public Modifier modifier   { get; protected set; }
 
         public Item(

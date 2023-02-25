@@ -45,5 +45,6 @@ public class MishaTest : EventController {
 			"  \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"" +
 			"}");
 		rootPipe = (IEventPipe)data.Deserialize();
+		rootPipe.PropogateController(this);
 	}
 }

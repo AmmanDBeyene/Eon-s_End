@@ -1,3 +1,4 @@
+using EECore;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,8 @@ public class PlayerMovementScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        transform.position = GameStateManager.playerPosition;
+        GameStateManager.player = gameObject;
     }
 
     // Update is called once per frame

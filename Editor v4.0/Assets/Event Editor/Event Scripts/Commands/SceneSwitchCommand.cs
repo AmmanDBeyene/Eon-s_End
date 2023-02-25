@@ -1,7 +1,9 @@
-﻿using Unity.VisualScripting;
+﻿using Assets.Event_Scripts.Event_Commands;
+using EECore;
+using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Assets.Event_Scripts.Event_Commands
+namespace Assets.Event_Editor.Event_Scripts.Commands
 {
     public class SceneSwitchCommand : CommandNode
     {
@@ -20,7 +22,7 @@ namespace Assets.Event_Scripts.Event_Commands
         internal override void DoCommand()
         {
             // switch the damn scene!
-            GameStateManager.PlayerPosition = _targetPlayerPosition;
+            GameStateManager.playerPosition = _targetPlayerPosition;
             GameStateManager.LoadScene(_targetSceneName);
 
             // not gonna lie, I have absolutely no idea what happens to the game object running this script when the scene is changed ... 

@@ -39,5 +39,10 @@ namespace Assets.Event_Editor.Event_Scripts
 
             return this;
         }
+
+        public void PropogateController(EventController controller)
+        {
+            command.PropogateController(controller);
+        }
     }
 }

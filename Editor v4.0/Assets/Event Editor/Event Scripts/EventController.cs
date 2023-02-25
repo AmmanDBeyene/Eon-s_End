@@ -12,7 +12,12 @@ public class EventController : MonoBehaviour
 
     public IEventPipe rootPipe { get; protected set; }
     private IEventPipe _currentPipe = null;
-    
+
+    public GameObject Self()
+    {
+        return gameObject;
+    }
+
     // Update is called once per frame
     void Update()
     {

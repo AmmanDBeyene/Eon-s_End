@@ -395,6 +395,7 @@ namespace Assets.Event_Editor.Scripts
                     "\tpublic void Load() {\n" +
                    $"\t\tSerializationData data = new SerializationData(\n\t\t\"{json}\");\n" +
                     "\t\trootPipe = (IEventPipe)data.Deserialize();\n" +
+                    "\t\trootPipe.PropogateController(this);\n" +
                     "\t}\n}\n";
 
                 // Save our compiled event graph file to a c# class file

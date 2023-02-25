@@ -8,7 +8,6 @@ using UnityEngine.UIElements;
 using Assets.Event_Scripts;
 using Assets.Event_Editor.Event_Scripts;
 using Assets.Event_Scripts.Event_Commands;
-using System.Reflection;
 
 namespace Assets.Event_Editor.Scripts
 {
@@ -98,9 +97,9 @@ namespace Assets.Event_Editor.Scripts
             // Create the Block which this tile represents
             VisualElement block = Extensions.Load(_assetString).Instantiate();
 
-            List<DropdownField> dropdowns = new List<DropdownField>();
-            
+
             // Find all dropdowns
+            List<DropdownField> dropdowns = new List<DropdownField>();
             block
                 .FindAll(typeof(DropdownField))
                 .ForEach(i => dropdowns.Add((DropdownField)i));
@@ -110,15 +109,16 @@ namespace Assets.Event_Editor.Scripts
                 .FindAll(i => i.choices.Count == 1)
                 .ForEach(i => i.value = i.choices[0]);
 
-            List<RadioButtonGroup> radioButtons = new List<RadioButtonGroup>();
 
             // Find all radio button groups and set them to always be on their default 
             // value
+            List<RadioButtonGroup> radioButtons = new List<RadioButtonGroup>();
             block
                 .FindAll(typeof(RadioButtonGroup))
                 .ForEach(i => ((RadioButtonGroup)i).value = 0);
 
-            // Set all radio button group default values
+            // Set up the contents of the block
+            block.SetUp(nodeType);
 
             // Create connector which will house the block
             VisualElement connector = Extensions.Create("Assets/Event Editor/UI/Connector.uxml");

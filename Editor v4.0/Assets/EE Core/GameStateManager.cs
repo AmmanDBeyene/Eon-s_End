@@ -1,15 +1,22 @@
-﻿
-using System;
+using EEDemo;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
-namespace EEDemo.Control
+namespace EECore 
 {
     public static class GameStateManager
     {
-        internal static Dictionary<string, Flag> flags = new Dictionary<string, Flag>();
+
+        public static string loadedScene = null;
+        public static float number = 0;
+
+        public static Vector3 playerPosition = Vector3.zero;
+
+        public static GameObject dialogueBox;
+        public static GameObject player;
+        public static Dictionary<string, Flag> flags = new Dictionary<string, Flag>();
 
         //public static void 
 
@@ -21,5 +28,13 @@ namespace EEDemo.Control
             }
             return flags[flagName];
         }
+
+        public static void LoadScene(string scene)
+        {
+            number += 1;
+            loadedScene = scene;
+            SceneManager.LoadScene(scene, LoadSceneMode.Single);
+        }
     }
+
 }

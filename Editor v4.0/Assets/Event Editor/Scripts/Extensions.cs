@@ -533,7 +533,5 @@ namespace Assets.Event_Editor.Scripts
         }
 
         #endregion
-
-
     }
 }

@@ -276,6 +276,7 @@ namespace Assets.Event_Editor.Scripts
 
             // Create command tiles
             blockBar.Add(CreateCommandTile("Show Text"              , "ShowTextBlock.uxml"          , typeof(ShowTextCommand)));
+            blockBar.Add(CreateCommandTile("Transfer Actor"         , "TransferActorBlock.uxml"     , typeof(SceneSwitchCommand)));
             blockBar.Add(CreateCommandTile("Set Flag"               , "SetFlagBlock.uxml"           , null));
             blockBar.Add(CreateCommandTile("Wait"                   , "WaitBlock.uxml"              , null));
 
