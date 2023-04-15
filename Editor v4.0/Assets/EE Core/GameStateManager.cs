@@ -16,6 +16,9 @@ namespace EECore
 
         public static GameObject dialogueBox;
         public static GameObject player;
+
+        public static int memberCount = 0; 
+        public static List<Character> party = new List<Character>(4);
         public static Dictionary<string, Flag> flags = new Dictionary<string, Flag>();
 
         //public static void 
@@ -27,6 +30,28 @@ namespace EECore
                 return null;
             }
             return flags[flagName];
+        }
+
+        public static void AddToParty(Character chara)
+        {
+            // Character already in party or max party members
+            if (InParty(chara.name) || memberCount >= 4)
+            {
+                return; 
+            }
+
+            party.Add(chara);
+        }
+
+        public static bool InParty(string name)
+        {
+            return GetCharacter(name) != null;
+        }
+
+        public static Character GetCharacter(string name)
+        {
+            Character match = party.Find(i => i.name == name);
+            return match;
         }
 
         public static void LoadScene(string scene)

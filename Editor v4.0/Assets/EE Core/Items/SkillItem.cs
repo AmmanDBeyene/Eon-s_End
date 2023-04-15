@@ -32,10 +32,14 @@ namespace EECore.Items
 
     public abstract class SkillItem : Item
     {
-        public bool aoe { get; protected set; } = false;
-        
-        public TargetNode targetTree { get; protected set; }
-        
+        public bool directionalAoe { get; protected set; } = false;
+
+        public bool ignoreWalls { get; protected set; } = false;
+        public bool aoeIgnoreWalls { get; protected set; } = false;
+
+        public TargetNode targetTree { get; protected set; } = null;
+        public TargetNode aoeTree { get; protected set; } = null;
+
         public int cost { get; protected set; } = 0;
         
         public Character owner { get; set; } = null;
@@ -55,6 +59,6 @@ namespace EECore.Items
             characterFilter = CharacterFilterType.Enemy;
         }
 
-        public abstract void Use(List<Character> targets);
+        public abstract void Use(List<Combatant> targets);
     }
 }

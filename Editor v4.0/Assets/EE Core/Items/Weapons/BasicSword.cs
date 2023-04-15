@@ -30,25 +30,29 @@ namespace EECore.Items.Weapons
             targetTree = n1;
             n1.Connect(n3);
             n1.Connect(n4);
+
+            directionalAoe = true;
+
+            cost = 7;
         }
 
-        public override void Use(List<Character> targets)
+        public override void Use(List<Combatant> targets)
         {
             if (owner == null)
             {
                 return;
             }
 
-            foreach (Character target in targets)
+            foreach (Combatant target in targets)
             {
-                int damage = (int)(owner.ATK.Current() - (owner.DEF.Current() / 2.0));
+                int damage = (int)(owner.ATK.Current() - (target.character.DEF.Current() / 2.0));
                 if (damage > 0)
                 {
-                    target.HP.Modify(-damage);
+                    target.character.HP.Modify(-damage);
                 }
                 else
                 {
-                    target.HP.Modify(-2);
+                    target.character.HP.Modify(-2);
                 }
             }
         }
@@ -59,9 +63,10 @@ namespace EECore.Items.Weapons
         public Slash() : base("Slash", "")
         {
             targetTree = new TargetNode(Enums.Direction.Up);
+            cost = 3;
         }
 
-        public override void Use(List<Character> targets)
+        public override void Use(List<Combatant> targets)
         {
             if (owner == null || targets.Count <= 0)
             {
@@ -71,7 +76,7 @@ namespace EECore.Items.Weapons
             int damage = owner.ATK.Current() - owner.DEF.Current();
             if (damage > 0)
             {
-                targets[0].HP.Modify(-damage);
+                targets[0].character.HP.Modify(-damage);
             }
         }
     }

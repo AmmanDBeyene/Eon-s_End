@@ -36,18 +36,6 @@ public class PlayerMovementScript : MonoBehaviour
         }
     }
 
-    RaycastHit Cast(Vector3 start, Vector3 end)
-    {
-        RaycastHit hit;
-        Vector3 dir = (end - start).normalized;
-        float range = (start - end).magnitude;
-
-        Debug.DrawLine(start, end, Color.red, range);
-        Physics.Raycast(start, dir, out hit, range);
-
-        return hit;
-    }
-
     bool TryMove(Vector3 movement)
     {
         // cast ray from center of player to new theorized position
@@ -55,7 +43,7 @@ public class PlayerMovementScript : MonoBehaviour
         Vector3 start = transform.position;
         Vector3 end = start + movement;
 
-        RaycastHit hit = Cast(start, end);
+        RaycastHit hit = Extensions.Cast(start, end);
 
         if (hit.transform != null)
         {
@@ -67,7 +55,7 @@ public class PlayerMovementScript : MonoBehaviour
         // The appropriate range
 
         Vector3 end2 = end + Vector3.down; // floor checker
-        RaycastHit hit2 = Cast(end, end2);
+        RaycastHit hit2 = Extensions.Cast(end, end2);
 
         if (hit2.transform == null)
         {

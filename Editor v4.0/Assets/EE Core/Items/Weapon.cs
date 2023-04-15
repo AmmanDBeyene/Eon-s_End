@@ -22,7 +22,7 @@ namespace EECore.Items
             Modifier modifier)
             : base(name, description, modifier) { }
 
-        public virtual void BasicAttack(List<Character> targets)
+        public virtual void BasicAttack(List<Combatant> targets)
         {
             if (basicSkill == null)
             {
@@ -32,7 +32,7 @@ namespace EECore.Items
             basicSkill.Use(targets);
         }
 
-        public virtual void SpecialAttack(List<Character> targets)
+        public virtual void SpecialAttack(List<Combatant> targets)
         {
             if (specialSkill == null)
             {

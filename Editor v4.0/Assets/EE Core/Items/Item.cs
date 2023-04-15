@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace EECore.Items
 {
-    public class Item
+    public abstract class Item
     {
         public string name         { get; }
         public string description  { get; }

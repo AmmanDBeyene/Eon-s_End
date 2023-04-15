@@ -6,13 +6,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace EECore
 {
     public abstract class Character
     {
         public string name              { get; }
-
         public double health            { get; }
         public double attack            { get; }
         public double defense           { get; }
@@ -188,7 +188,6 @@ namespace EECore
             MPR.UpdateMax((int)movementPointRegen + MPRMods());
             SPD.UpdateMax((int)speed + SPDMods());
         }
-
 
         public int GetStatMods(string stat)
         {

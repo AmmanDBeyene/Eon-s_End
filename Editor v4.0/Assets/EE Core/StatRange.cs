@@ -18,7 +18,7 @@ namespace EECore
             _currentStat = 0;
             _maxStat = max;
         }
- 
+
         public int Max()
         {
             return _maxStat;
@@ -37,6 +37,28 @@ namespace EECore
         public void Modify(int delta)
         {
             _currentStat += delta;
+            EnforceBounds();
+        }
+
+        public void SetCurrent(int current)
+        {
+            _currentStat = current;
+            EnforceBounds();
+        }
+
+        public void UpdateMax(int val)
+        {
+            _maxStat = val;
+            EnforceBounds();
+        }
+
+        public static implicit operator int(StatRange range)
+        {
+            return range.Current();
+        }
+
+        private void EnforceBounds()
+        {
             if (_currentStat > _maxStat)
             {
                 _currentStat = _maxStat;
@@ -44,15 +66,6 @@ namespace EECore
             if (_currentStat < 0)
             {
                 _currentStat = 0;
-            }
-        }
-
-        public void UpdateMax(int val)
-        {
-            _maxStat = val;
-            if (_currentStat > _maxStat)
-            {
-                _currentStat = _maxStat;
             }
         }
     }
