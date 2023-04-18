@@ -1,0 +1,55 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Background" style="width: 100%; height: 100%;">
+        <ui:VisualElement name="TopBar" style="flex-direction: row; flex-grow: 1;">
+            <ui:VisualElement name="Actions" style="background-color: rgba(6, 12, 27, 0.85); width: 638px; height: 95%;">
+                <ui:Label text="ACTION" display-tooltip-when-elided="true" name="TopHeader" style="color: rgba(255, 255, 255, 0.08); -unity-text-align: middle-left; font-size: 170px;" />
+                <ui:VisualElement name="Action1" style="flex-direction: row; background-color: rgba(255, 255, 255, 0.18); border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; height: 35px; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;">
+                    <ui:Label text="Basic Attack" display-tooltip-when-elided="true" name="ActionLabel" style="color: rgb(255, 255, 255); position: absolute; left: 10px;" />
+                    <ui:Label text="10" display-tooltip-when-elided="true" name="ActionValue" style="color: rgb(255, 106, 0); position: absolute; right: 10px;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Action2" style="flex-direction: row; border-left-color: rgba(255, 255, 255, 0.18); border-right-color: rgba(255, 255, 255, 0.18); border-top-color: rgba(255, 255, 255, 0.18); border-bottom-color: rgba(255, 255, 255, 0.18); height: 35px; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; border-bottom-width: 1px;">
+                    <ui:Label text="Weapon Skill" display-tooltip-when-elided="true" name="ActionLabel" style="color: rgb(255, 255, 255); position: absolute; left: 10px;" />
+                    <ui:Label text="5" display-tooltip-when-elided="true" name="ActionValue" style="color: rgb(255, 106, 0); position: absolute; right: 10px;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Action3" style="flex-direction: row; border-left-color: rgba(255, 255, 255, 0.18); border-right-color: rgba(255, 255, 255, 0.18); border-top-color: rgba(255, 255, 255, 0.18); border-bottom-color: rgba(255, 255, 255, 0.18); height: 35px; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; border-bottom-width: 1px;">
+                    <ui:Label text="Accessory Skill 1" display-tooltip-when-elided="true" name="ActionLabel" style="color: rgb(255, 255, 255); position: absolute; left: 10px;" />
+                    <ui:Label text="4" display-tooltip-when-elided="true" name="ActionValue" style="color: rgb(255, 106, 0); position: absolute; right: 10px;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Action4" style="flex-direction: row; border-left-color: rgba(255, 255, 255, 0.18); border-right-color: rgba(255, 255, 255, 0.18); border-top-color: rgba(255, 255, 255, 0.18); border-bottom-color: rgba(255, 255, 255, 0.18); height: 35px; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; border-bottom-width: 1px;">
+                    <ui:Label text="Accessory Skill 2 But you can&apos;t use it" display-tooltip-when-elided="true" name="ActionLabel" style="color: rgb(126, 126, 126); position: absolute; left: 10px;" />
+                    <ui:Label text="69" display-tooltip-when-elided="true" name="ActionValue" style="color: rgb(150, 35, 0); position: absolute; right: 10px;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Action5" style="flex-direction: row; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgba(255, 255, 255, 0.18); height: 35px; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; border-bottom-width: 1px;">
+                    <ui:Label text="Accessory Skill 3" display-tooltip-when-elided="true" name="ActionLabel" style="color: rgb(255, 255, 255); position: absolute; left: 10px;" />
+                    <ui:Label text="13" display-tooltip-when-elided="true" name="ActionValue" style="color: rgb(255, 106, 0); position: absolute; right: 10px;" />
+                </ui:VisualElement>
+                <ui:Label text="Ability Description: The quick brown fox jumped over the lazy dog. Another quick brown fox jumped over the lazy dog." display-tooltip-when-elided="true" name="AbilityDescription" style="border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-width: 1px; color: rgb(255, 255, 255); white-space: normal;" />
+                <ui:VisualElement name="Player" style="background-image: url(&apos;project://database/Assets/Game%20UI/Images/Player.png?fileID=2800000&amp;guid=18fe2bc29e183d941974c8151f125db2&amp;type=3#Player&apos;); width: 638px; height: 260px; position: absolute; bottom: 0; left: 0; flex-direction: row;">
+                    <ui:VisualElement name="PlayerPortrait" style="width: 174px; height: 260px; background-image: url(&apos;project://database/Assets/Game%20UI/Images/Player%20Portrait.png?fileID=2800000&amp;guid=b06a525b6df3e3941a3e381722afbc70&amp;type=3#Player Portrait&apos;); -unity-background-scale-mode: stretch-to-fill;" />
+                    <ui:VisualElement name="PlayerInfo" style="flex-grow: 1;">
+                        <ui:VisualElement name="PlayerSpacer" style="width: 638px; height: 56px;" />
+                        <ui:Label text="Sample Name" display-tooltip-when-elided="true" name="PlayerName" style="color: rgb(255, 255, 255);" />
+                        <ui:ProgressBar value="140" title="HP 140/150" name="HPBar" high-value="150" />
+                        <ui:ProgressBar value="22" title="MP 3/10" name="MPBar" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Information" style="height: 95%; flex-wrap: wrap-reverse; flex-grow: 1;">
+                <ui:VisualElement name="TurnCounter" style="background-image: url(&apos;project://database/Assets/Game%20UI/Images/Turn%20Counter.png?fileID=2800000&amp;guid=891d6c13d9a7b2a4482fabdb50192db2&amp;type=3#Turn Counter&apos;); width: 348px; height: 98px; -unity-background-scale-mode: stretch-to-fill; position: absolute; top: 0; right: 0; flex-direction: row;">
+                    <ui:Label text="TURN" display-tooltip-when-elided="true" name="TurnCounterLabel" style="color: rgb(255, 255, 255); width: 60%; font-size: 32px; -unity-text-align: middle-right;" />
+                    <ui:Label text="406" display-tooltip-when-elided="true" name="TurnCounterValue" style="color: rgb(255, 255, 255); width: 40%; font-size: 40px; -unity-text-align: middle-center;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Target" style="background-image: url(&apos;project://database/Assets/Game%20UI/Images/Target.png?fileID=2800000&amp;guid=34b8cd25fe9327747aaa2a44372d033c&amp;type=3#Target&apos;); width: 418px; height: 205px; flex-wrap: wrap-reverse; position: absolute; right: 0; bottom: 150px;">
+                    <ui:VisualElement name="TargetPortrait" style="background-image: url(&apos;project://database/Assets/Game%20UI/Images/Target%20Portrait.png?fileID=2800000&amp;guid=f54af64f9f453bc4ab4d3967e3cfa235&amp;type=3#Target Portrait&apos;); width: 132px; height: 205px; -unity-background-scale-mode: stretch-to-fill;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="TurnOrder" style="flex-direction: row-reverse; position: absolute; bottom: 0; right: 0;">
+                    <ui:VisualElement name="TurnSlot1" style="background-image: url(&apos;project://database/Assets/Game%20UI/Images/Turn%20Slot.png?fileID=2800000&amp;guid=882877e69c3d8a1479f527a073f8cb42&amp;type=3#Turn Slot&apos;); width: 128px; height: 128px;" />
+                    <ui:VisualElement name="TurnSlot2" style="background-image: url(&apos;project://database/Assets/Game%20UI/Images/Turn%20Slot.png?fileID=2800000&amp;guid=882877e69c3d8a1479f527a073f8cb42&amp;type=3#Turn Slot&apos;); width: 128px; height: 128px;" />
+                    <ui:VisualElement name="TurnSlot3" style="background-image: url(&apos;project://database/Assets/Game%20UI/Images/Turn%20Slot.png?fileID=2800000&amp;guid=882877e69c3d8a1479f527a073f8cb42&amp;type=3#Turn Slot&apos;); width: 128px; height: 128px;" />
+                    <ui:VisualElement name="TurnSlot4" style="background-image: url(&apos;project://database/Assets/Game%20UI/Images/Turn%20Slot.png?fileID=2800000&amp;guid=882877e69c3d8a1479f527a073f8cb42&amp;type=3#Turn Slot&apos;); width: 128px; height: 128px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="ControlBar" style="width: 100%; height: 56px; background-image: url(&apos;project://database/Assets/Game%20UI/Images/Control%20Bar.png?fileID=2800000&amp;guid=4442ec87b9e292a43a52c41af060beb5&amp;type=3#Control Bar&apos;); -unity-background-scale-mode: stretch-to-fill;" />
+    </ui:VisualElement>
+</ui:UXML>

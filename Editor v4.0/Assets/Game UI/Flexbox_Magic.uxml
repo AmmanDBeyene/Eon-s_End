@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="PortraitTest" style="width: 174px; height: 260px; background-image: url(&apos;project://database/Assets/Game%20UI/Images/Player%20Portrait.png?fileID=2800000&amp;guid=b06a525b6df3e3941a3e381722afbc70&amp;type=3#Player Portrait&apos;);" />
+    <ui:VisualElement name="GradientTest1" style="background-image: url(&apos;project://database/Assets/Game%20UI/Images/Turn%20Counter.png?fileID=2800000&amp;guid=891d6c13d9a7b2a4482fabdb50192db2&amp;type=3#Turn Counter&apos;); width: 999px; height: 202px;" />
+    <ui:VisualElement name="GradientTest2" style="background-image: url(&apos;project://database/Assets/Game%20UI/Images/Control%20Bar.png?fileID=2800000&amp;guid=4442ec87b9e292a43a52c41af060beb5&amp;type=3#Control Bar&apos;); width: 351px; height: 79px;" />
+    <ui:VisualElement style="background-image: url(&apos;project://database/Assets/Game%20UI/Images/Turn%20Slot.png?fileID=2800000&amp;guid=882877e69c3d8a1479f527a073f8cb42&amp;type=3#Turn Slot&apos;); width: 111px; height: 111px;" />
+</ui:UXML>
