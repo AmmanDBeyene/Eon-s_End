@@ -9,15 +9,19 @@ namespace Assets.Event_Editor.Scripts
 {
     public class EditorSaveData
     {
+
         [SerializeField]
         public List<Block> blocks = new List<Block>();
+
+        [SerializeField]
+        public List<CompoundBlock> compoundBlocks = new List<CompoundBlock>();
 
         [SerializeField]
         public List<Connection> connections = new List<Connection>();
 
         public EditorSaveData(List<Block> blocks, List<Connection> connections)
         {
-            this.blocks = blocks;
+            this.blocks = blocks;  
             this.connections = connections;
         }
     }

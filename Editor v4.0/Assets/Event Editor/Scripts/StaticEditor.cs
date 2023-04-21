@@ -25,8 +25,10 @@ namespace Assets.Event_Editor.Scripts
 
         public static List<Block> blocks = new List<Block>();
         public static List<Connection> connections = new List<Connection>();
+
         public static List<VisualElement> selectedBlocks = new List<VisualElement>();
         public static List<Connection> selectedConnections = new List<Connection>();
+
         public static List<WarningManipulator> warnings = new List<WarningManipulator>();
 
         public static VisualElement canvas = null;
@@ -48,6 +50,8 @@ namespace Assets.Event_Editor.Scripts
 
         public static Block rootBlock = null;
         public static IEventPipe rootPipe = null;
+
+        public static int compoundBlockIndex = 0;
 
         public static void Update()
         {

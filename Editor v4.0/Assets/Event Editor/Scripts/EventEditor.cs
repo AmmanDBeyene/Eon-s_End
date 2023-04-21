@@ -8,6 +8,8 @@ using UnityEngine.UIElements;
 using Assets.Event_Editor.Event_Scripts.Commands;
 using Assets.Event_Scripts.Conditions;
 using UnityEditor.UIElements;
+using System.IO;
+using System.Linq;
 
 namespace Assets.Event_Editor.Scripts
 {
@@ -209,6 +211,14 @@ namespace Assets.Event_Editor.Scripts
                 }
             }, (e) => { return DropdownMenuAction.Status.Normal; });
 
+            toolbarMenu.menu.AppendSeparator();
+
+            toolbarMenu.menu.AppendAction("Create Compound Block (Cock)", (e) =>
+            {
+                CreateCompoundBlock();
+
+            }, (e) => { return DropdownMenuAction.Status.Normal; });
+
 
         }
 
@@ -270,26 +280,83 @@ namespace Assets.Event_Editor.Scripts
             StaticEditor.Compile(currentOpenFile);
         }
 
+        private static void CreateCompoundBlock()
+        {
+            if (StaticEditor.selectedBlocks.Count <= 1)
+            {
+                StaticEditor.ShowWarning("Please select several blocks (> 1) before creating a compound block.");
+                return;
+            }
+
+
+            var path = EditorUtility.SaveFilePanel("Save Event Graph", "Assets/Event Editor/Compound Blocks", "Block.cock", "cock");
+
+            if (path.Length == 0)
+            {
+                return;
+            }
+
+            CompoundBlock cock = new CompoundBlock(StaticEditor.selectedBlocks.ToBlockList());
+
+            cock.name = Path.GetFileNameWithoutExtension(path);
+            cock.Save(path);
+        }
+
         private static void FillBlocksBar()
+        {
+
+            // Create command tiles
+            CreateCommandTiles();
+
+            // Create condition tiles
+            CreateConditionTiles();
+
+            // Create compound blocks
+            CreateCompoundBlocks();
+        }
+
+        private static void CreateCommandTiles()
         {
             VisualElement blockBar = _blockArea.Find("BlockBar");
 
-            // Create command tiles
-            blockBar.Add(CreateCommandTile("Show Text"              , "ShowTextBlock.uxml"          , typeof(ShowTextCommand)));
-            blockBar.Add(CreateCommandTile("Transfer Actor"         , "TransferActorBlock.uxml"     , typeof(SceneSwitchCommand)));
-            blockBar.Add(CreateCommandTile("Set Flag"               , "SetFlagBlock.uxml"           , null));
-            blockBar.Add(CreateCommandTile("Wait"                   , "WaitBlock.uxml"              , null));
+            blockBar.Add(CreateCommandTile("Show Text", "ShowTextBlock.uxml", typeof(ShowTextCommand)));
+            blockBar.Add(CreateCommandTile("Transfer Actor", "TransferActorBlock.uxml", typeof(SceneSwitchCommand)));
+            blockBar.Add(CreateCommandTile("Set Flag", "SetFlagBlock.uxml", null));
+            blockBar.Add(CreateCommandTile("Wait", "WaitBlock.uxml", null));
+        }
 
-            // Create condition tiles
-            blockBar.Add(CreateConditionTile("Input Check"          , "InputCondition.uxml"         , typeof(InputCondition)));
-            blockBar.Add(CreateConditionTile("Num Flag Check"       , "NumFlagCondition.uxml"       , null));
-            blockBar.Add(CreateConditionTile("String Flag Check"    , "StringFlagCondition.uxml"    , null));
-            blockBar.Add(CreateConditionTile("Bool Flag Check"      , "BoolFlagCondition.uxml"      , null));
-            blockBar.Add(CreateConditionTile("Proximity Check"      , "ProximityCondition.uxml"     , typeof(ProximityCondition)));
-            blockBar.Add(CreateConditionTile("Inventory Check"      , "InventoryCondition.uxml"     , null));
-            blockBar.Add(CreateConditionTile("Equipment Check"      , "EquipmentCondition.uxml"     , null));
-            blockBar.Add(CreateConditionTile("Equipment Type Check" , "EquipmentTypeCondition.uxml" , null));
-            blockBar.Add(CreateConditionTile("Player Status Check"  , "PlayerStatusCondition.uxml"  , null));
+        private static void CreateConditionTiles()
+        {
+            VisualElement blockBar = _blockArea.Find("BlockBar");
+
+            blockBar.Add(CreateConditionTile("Input Check", "InputCondition.uxml", typeof(InputCondition)));
+            blockBar.Add(CreateConditionTile("Num Flag Check", "NumFlagCondition.uxml", null));
+            blockBar.Add(CreateConditionTile("String Flag Check", "StringFlagCondition.uxml", null));
+            blockBar.Add(CreateConditionTile("Bool Flag Check", "BoolFlagCondition.uxml", null));
+            blockBar.Add(CreateConditionTile("Proximity Check", "ProximityCondition.uxml", typeof(ProximityCondition)));
+            blockBar.Add(CreateConditionTile("Inventory Check", "InventoryCondition.uxml", null));
+            blockBar.Add(CreateConditionTile("Equipment Check", "EquipmentCondition.uxml", null));
+            blockBar.Add(CreateConditionTile("Equipment Type Check", "EquipmentTypeCondition.uxml", null));
+            blockBar.Add(CreateConditionTile("Player Status Check", "PlayerStatusCondition.uxml", null));
+        }
+
+        private static void CreateCompoundBlocks()
+        {
+            VisualElement blockBar = _blockArea.Find("BlockBar");
+
+            DirectoryInfo di = new DirectoryInfo("Assets/Event Editor/Compound Blocks");
+            di.GetFiles().ToList().ForEach(file =>
+            {
+                if (file.Extension != ".cock")
+                {
+                    return; // we only want .cock files to be loaded
+                }
+
+                Debug.Log(file);
+
+                blockBar.Add(CreateCompoundBlockTile(Path.GetFileNameWithoutExtension(file.Name)));
+            });
+
         }
 
         private static VisualElement CreateCommandTile(string name, string toLoad, Type type)
@@ -318,6 +385,22 @@ namespace Assets.Event_Editor.Scripts
             tile.style.top = 45 * _tiles.Count;
 
             TileManipulator tm = new TileManipulator(tile, name, $"Assets/Event Editor/UI/Conditions/{toLoad}", BlockType.Condition, type);
+
+            _tiles.Add(tile);
+
+            return tile;
+        }
+
+        private static VisualElement CreateCompoundBlockTile(string name)
+        {
+            VisualElement tile = Extensions.Create("Assets/Event Editor/UI/Compound.uxml");
+
+            TextElement text = (TextElement)tile.Find("ConditionText");
+
+            text.text = name;
+            tile.style.top = 45 * _tiles.Count;
+            
+            TileManipulator tm = new TileManipulator(tile, name, $"Assets/Event Editor/Compound Blocks/{name}.cock", BlockType.Compound, null);
 
             _tiles.Add(tile);
 

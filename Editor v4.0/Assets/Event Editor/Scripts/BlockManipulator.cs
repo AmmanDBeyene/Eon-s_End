@@ -129,7 +129,25 @@ namespace Assets.Event_Editor.Scripts
             // means the user intended to select this block
             if (_stuck)
             {
-                StaticEditor.Select(target);
+
+                // Normal block selection
+                if (_parent.compoundBlockId < 0)
+                {
+                    StaticEditor.Select(target);
+                    return;
+                }
+
+                // Deselect all blocks
+                StaticEditor.DeselectAll();
+
+                // Select all blocks with this compound block ID
+                StaticEditor.blocks.ForEach(block =>
+                {
+                    if (block.compoundBlockId == _parent.compoundBlockId)
+                    {
+                        StaticEditor.AddSelect(block.manipulator.target);
+                    }
+                });
             }
         }
 

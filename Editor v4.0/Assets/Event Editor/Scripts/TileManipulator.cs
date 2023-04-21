@@ -110,15 +110,25 @@ namespace Assets.Event_Editor.Scripts
                 return;
             }
 
-            // Create a new block
-            Block block = new Block(_blockToCreate, _type, _nodeType);
+            if (_type == BlockType.Compound)
+            {
+                // Create a new compound block
+                CompoundBlock cock = CompoundBlock.Load(_blockToCreate);
 
+                // Create the block at the target's global position
+                cock.CreateAt(target.GlobalPosition());
+            } 
+            else
+            {
+                // Create a new block
+                Block block = new Block(_blockToCreate, _type, _nodeType);
 
-            // Create the block at the target's global position
-            block.CreateAt(target.GlobalPosition());
+                // Create the block at the target's global position
+                block.CreateAt(target.GlobalPosition());
 
-            // Add our block to our blocks list
-            StaticEditor.blocks.Add(block);
+                // Add our block to our blocks list
+                StaticEditor.blocks.Add(block);
+            }
 
             // Change opacity back to normal
             target.style.opacity = 1.0f;

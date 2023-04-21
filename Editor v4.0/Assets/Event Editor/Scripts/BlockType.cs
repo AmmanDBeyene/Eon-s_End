@@ -10,7 +10,8 @@ namespace Assets.Event_Editor.Scripts
     public enum BlockType
     {
         Command, 
-        Condition
+        Condition,
+        Compound
     }
 
     public enum DotType

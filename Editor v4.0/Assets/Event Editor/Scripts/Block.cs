@@ -31,6 +31,7 @@ namespace Assets.Event_Editor.Scripts
         [Serialize]
         private string _assetString { get; set; }
 
+        public int compoundBlockId { get; set; } = -1;
         public BlockType type { get; private set; }
         public PipeType pipeType { get; set; }
 
@@ -50,6 +51,17 @@ namespace Assets.Event_Editor.Scripts
 
             pipeType = PipeType.None;
             this.nodeType = nodeType;
+        }
+
+        public Block Clone()
+        {
+            Block clone = new Block(_assetString, type, nodeType);
+
+            clone.pipeType = pipeType;
+            clone.savePosition = savePosition;
+            clone.saveNode = saveNode;
+
+            return clone;
         }
 
         public void RestoreData()

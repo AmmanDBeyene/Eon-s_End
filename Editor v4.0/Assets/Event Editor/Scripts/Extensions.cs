@@ -502,6 +502,24 @@ namespace Assets.Event_Editor.Scripts
 
         #endregion
 
+        #region List<VisualElement> 
+
+        public static List<Block> ToBlockList(this List<VisualElement> ve)
+        {
+            List<Block> blocks = new List<Block>();
+            StaticEditor.blocks.ForEach(i =>
+            {
+                if (ve.Contains(i.visualElement))
+                {
+                    blocks.Add(i);
+                }
+            });
+
+            return blocks;
+        }
+
+        #endregion
+
         #region BlockType 
 
         public static PipeType ToPipeType(this BlockType blockType)
