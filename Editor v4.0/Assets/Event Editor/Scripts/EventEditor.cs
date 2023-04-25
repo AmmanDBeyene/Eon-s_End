@@ -323,6 +323,8 @@ namespace Assets.Event_Editor.Scripts
             blockBar.Add(CreateCommandTile("Transfer Actor", "TransferActorBlock.uxml", typeof(SceneSwitchCommand)));
             blockBar.Add(CreateCommandTile("Set Flag", "SetFlagBlock.uxml", null));
             blockBar.Add(CreateCommandTile("Wait", "WaitBlock.uxml", null));
+            blockBar.Add(CreateCommandTile("Show Option", "ShowOptionBlock.uxml", typeof(ShowOptionCommand)));
+            blockBar.Add(CreateCommandTile("Select Option", "SelectOptionBlock.uxml", typeof(SelectOptionCommand)));
         }
 
         private static void CreateConditionTiles()

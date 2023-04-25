@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:VisualElement name="BlockTemplate" style="height: auto; width: 450px; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgb(56, 56, 56); visibility: visible; display: flex; overflow: visible; transition-duration: 0s; flex-direction: row; flex-wrap: nowrap;">
+        <ui:Foldout text="Show Options" value="true" focusable="false" style="width: 100%;">
+            <ui:VisualElement style="height: auto; width: 100%; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; flex-direction: row;">
+                <ui:VisualElement style="flex-grow: 0; flex-shrink: 1; margin-top: 2px;">
+                    <ui:Toggle label="Option 1 Visibe" name="1" style="-unity-text-align: upper-left;" />
+                    <ui:Toggle label="Option 2 Visibe" name="2" />
+                    <ui:Toggle label="Option 3 Visibe" name="3" />
+                </ui:VisualElement>
+                <ui:VisualElement style="flex-shrink: 0; flex-grow: 1; padding-left: 20px;">
+                    <ui:TextField picking-mode="Ignore" text="option 1 text" name="4" style="-unity-text-align: upper-left; padding-left: 0;" />
+                    <ui:TextField picking-mode="Ignore" value="filler text" text="option 2 text" name="5" />
+                    <ui:TextField picking-mode="Ignore" value="filler text" text="option 3 text" name="6" style="white-space: nowrap;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:Foldout>
+    </ui:VisualElement>
+</ui:UXML>

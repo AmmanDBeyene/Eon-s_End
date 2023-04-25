@@ -11,6 +11,7 @@ using Assets.Event_Scripts.Event_Commands;
 using Assets.Event_Scripts.Conditions;
 using Assets.Event_Editor.Event_Scripts;
 using Assets.Event_Editor.Event_Scripts.Commands;
+using UnityEditor;
 
 namespace Assets.Event_Editor.Scripts
 {
@@ -27,6 +28,16 @@ namespace Assets.Event_Editor.Scripts
             else if (type == typeof(SceneSwitchCommand))
             {
                 return ToSceneSwitchCommand(ve);
+            }
+
+            else if (type == typeof(ShowOptionCommand))
+            {
+                return ToShowOptionCommand(ve);
+            }
+
+            else if (type == typeof(SelectOptionCommand))
+            {
+                return ToSelectOptionCommand(ve);
             }
 
             // Conditions
@@ -63,6 +74,16 @@ namespace Assets.Event_Editor.Scripts
             else if (type == typeof(SceneSwitchCommand))
             {
                 ((SceneSwitchCommand)node).RestoreTo(ve);
+            }
+
+            else if (type == typeof(ShowOptionCommand))
+            {
+                ((ShowOptionCommand)node).RestoreTo(ve);
+            }
+            
+            else if (type == typeof(SelectOptionCommand))
+            {
+                ((SelectOptionCommand)node).RestoreTo(ve);
             }
 
             // Conditions
@@ -130,6 +151,40 @@ namespace Assets.Event_Editor.Scripts
                     Debug.Log(name);
                 }
             }
+        }
+
+        private static ShowOptionCommand ToShowOptionCommand(VisualElement ve)
+        {
+            return new ShowOptionCommand(
+                ve.GetToggleValue("1"),
+                ve.GetTextFieldValue("4"),
+                ve.GetToggleValue("2"),
+                ve.GetTextFieldValue("5"),
+                ve.GetToggleValue("3"),
+                ve.GetTextFieldValue("6")
+            );
+        }
+
+        private static void RestoreTo(this ShowOptionCommand cmd, VisualElement ve)
+        {
+            ve.SetToggleValue("1", cmd._showFirst);
+            ve.SetToggleValue("2", cmd._showSecond);
+            ve.SetToggleValue("3", cmd._showThird);
+            ve.SetTextFieldValue("4", cmd._textFirst);
+            ve.SetTextFieldValue("5", cmd._textSecond);
+            ve.SetTextFieldValue("6", cmd._textThird);
+        }
+
+        private static SelectOptionCommand ToSelectOptionCommand(VisualElement ve)
+        {
+            return new SelectOptionCommand(
+                ve.GetRadioButtonGroupValue("1")
+            );
+        }
+
+        private static void RestoreTo(this SelectOptionCommand cmd, VisualElement ve)
+        {
+            ve.SetRadioButtonGroupValue("1", cmd._optionToSelect);
         }
 
         #endregion
