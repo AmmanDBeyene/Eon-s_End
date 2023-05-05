@@ -131,7 +131,7 @@ namespace Assets.Event_Editor.Scripts
 
         private static void RestoreTo(this SceneSwitchCommand cmd, VisualElement ve)
         {
-            ve.SetTextFieldValue("1", cmd._targetSceneName);
+            ve.SetDropdownValue("1", cmd._targetSceneName);
             ve.SetVector3FieldValue("2", cmd._targetPlayerPosition);
         }
 

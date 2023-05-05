@@ -267,6 +267,8 @@ public class PlacementController : MonoBehaviour
         _textMeshes = new List<TextMeshPro>();
 
         GameObject[] placedObjects = GameObject.FindGameObjectsWithTag("Placed Object");
+        List<GameObject> revealersToRemove = new List<GameObject>();
+
 
         foreach (GameObject trackedObject in _rerevealers.Keys)
         {
@@ -276,9 +278,14 @@ public class PlacementController : MonoBehaviour
             }
 
             Destroy(_rerevealers[trackedObject]);
-            _revealers.Remove(_rerevealers[trackedObject]);
-            _rerevealers.Remove(trackedObject);
+            revealersToRemove.Add(trackedObject);
         }
+
+        revealersToRemove.ForEach(r =>
+        {
+            _revealers.Remove(_rerevealers[r]);
+            _rerevealers.Remove(r);
+        });
 
         foreach (GameObject placedObject in placedObjects)
         {
