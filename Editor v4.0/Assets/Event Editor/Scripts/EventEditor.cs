@@ -320,6 +320,7 @@ namespace Assets.Event_Editor.Scripts
             VisualElement blockBar = _blockArea.Find("BlockBar");
 
             blockBar.Add(CreateCommandTile("Show Text", "ShowTextBlock.uxml", typeof(ShowTextCommand)));
+            blockBar.Add(CreateCommandTile("Hide Text", "HideTextBlock.uxml", typeof(HideTextCommand)));
             blockBar.Add(CreateCommandTile("Transfer Actor", "TransferActorBlock.uxml", typeof(SceneSwitchCommand)));
             blockBar.Add(CreateCommandTile("Set Flag", "SetFlagBlock.uxml", null));
             blockBar.Add(CreateCommandTile("Wait", "WaitBlock.uxml", null));

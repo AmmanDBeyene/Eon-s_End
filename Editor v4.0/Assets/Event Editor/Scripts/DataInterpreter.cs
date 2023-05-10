@@ -25,6 +25,11 @@ namespace Assets.Event_Editor.Scripts
                 return ToShowTextCommand(ve);
             }
 
+            else if (type == typeof(HideTextCommand))
+            {
+                return ToHideTextCommand(ve);
+            }
+
             else if (type == typeof(SceneSwitchCommand))
             {
                 return ToSceneSwitchCommand(ve);
@@ -69,6 +74,11 @@ namespace Assets.Event_Editor.Scripts
             if (type == typeof(ShowTextCommand))
             {
                 ((ShowTextCommand)node).RestoreTo(ve);
+            }
+
+            else if (type == typeof(HideTextCommand))
+            {
+                ((HideTextCommand)node).RestoreTo(ve);
             }
 
             else if (type == typeof(SceneSwitchCommand))
@@ -118,6 +128,16 @@ namespace Assets.Event_Editor.Scripts
             ve.SetObjectFieldValue("2", cmd._portrait);
             ve.SetRadioButtonGroupValue("3", cmd._positionLeft ? "Left" : "Right");
             ve.SetTextFieldValue("4", cmd._text);
+        }
+
+        private static HideTextCommand ToHideTextCommand(VisualElement ve)
+        {
+            return new HideTextCommand();
+        }
+
+        private static void RestoreTo(this HideTextCommand cmd, VisualElement ve)
+        {
+            // do literally nothing as there's nothing to do. 
         }
 
 

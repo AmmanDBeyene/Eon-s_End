@@ -31,6 +31,9 @@ namespace Assets.Event_Editor.Event_Scripts
             }
 
             this.controller = controller;
+
+            // propogate through next pipe
+            next.PropogateController(controller);
         }
     }
 }
