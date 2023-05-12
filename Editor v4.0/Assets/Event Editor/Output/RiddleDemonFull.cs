@@ -902,38 +902,76 @@ public class RiddleDemonFull : EventController {
 			"    {" +
 			"      \"conditions\": [" +
 			"        {" +
-			"          \"_awaitedKey\": \"Z\"," +
-			"          \"_pressed\": true," +
+			"          \"_gameObjectFrom\": null," +
+			"          \"_gameObjectTo\": null," +
+			"          \"_triggerLimit\": 2.0," +
+			"          \"_inside\": true," +
 			"          \"next\": {" +
-			"            \"$ref\": \"134\"" +
+			"            \"conditions\": [" +
+			"              {" +
+			"                \"_awaitedKey\": \"Z\"," +
+			"                \"_pressed\": true," +
+			"                \"next\": {" +
+			"                  \"conditions\": [" +
+			"                    {" +
+			"                      \"_gameObjectFrom\": null," +
+			"                      \"_gameObjectTo\": null," +
+			"                      \"_triggerLimit\": 2.0," +
+			"                      \"_inside\": true," +
+			"                      \"next\": {" +
+			"                        \"$ref\": \"134\"" +
+			"                      }," +
+			"                      \"controller\": null," +
+			"                      \"$type\": \"Assets.Event_Scripts.Conditions.ProximityCondition\"" +
+			"                    }," +
+			"                    {" +
+			"                      \"_gameObjectFrom\": null," +
+			"                      \"_gameObjectTo\": null," +
+			"                      \"_triggerLimit\": 2.0," +
+			"                      \"_inside\": false," +
+			"                      \"next\": {" +
+			"                        \"$ref\": \"136\"" +
+			"                      }," +
+			"                      \"controller\": null," +
+			"                      \"$type\": \"Assets.Event_Scripts.Conditions.ProximityCondition\"" +
+			"                    }" +
+			"                  ]," +
+			"                  \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
+			"                  \"$id\": \"142\"" +
+			"                }," +
+			"                \"controller\": null," +
+			"                \"$type\": \"Assets.Event_Scripts.Conditions.InputCondition\"" +
+			"              }" +
+			"            ]," +
+			"            \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
+			"            \"$id\": \"139\"" +
 			"          }," +
 			"          \"controller\": null," +
-			"          \"$type\": \"Assets.Event_Scripts.Conditions.InputCondition\"" +
+			"          \"$type\": \"Assets.Event_Scripts.Conditions.ProximityCondition\"," +
+			"          \"$id\": \"138\"" +
 			"        }" +
 			"      ]," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
 			"      \"$id\": \"136\"" +
 			"    }," +
 			"    {" +
+			"      \"$ref\": \"142\"" +
+			"    }," +
+			"    {" +
+			"      \"$ref\": \"139\"" +
+			"    }," +
+			"    {" +
 			"      \"conditions\": [" +
 			"        {" +
-			"          \"_gameObjectFrom\": null," +
-			"          \"_gameObjectTo\": null," +
-			"          \"_triggerLimit\": 1.0," +
-			"          \"_inside\": true," +
-			"          \"next\": {" +
-			"            \"$ref\": \"136\"" +
-			"          }," +
-			"          \"controller\": null," +
-			"          \"$type\": \"Assets.Event_Scripts.Conditions.ProximityCondition\"" +
+			"          \"$ref\": \"138\"" +
 			"        }" +
 			"      ]," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"      \"$id\": \"139\"" +
+			"      \"$id\": \"146\"" +
 			"    }" +
 			"  ]," +
 			"  \"_root\": {" +
-			"    \"$ref\": \"139\"" +
+			"    \"$ref\": \"146\"" +
 			"  }," +
 			"  \"$type\": \"Assets.Event_Scripts.EventPipeWrapper\"" +
 			"}");
