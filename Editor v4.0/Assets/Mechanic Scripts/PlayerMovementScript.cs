@@ -45,6 +45,13 @@ public class PlayerMovementScript : MonoBehaviour
 
         RaycastHit hit = Extensions.Cast(start, end);
 
+
+        if(GameStateManager.dialogueBox.activeInHierarchy == true)
+        {
+            return false;
+        }
+
+
         if (hit.transform != null)
         {
             return false; // we're going to hit a wall, stop movement
