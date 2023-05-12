@@ -32,6 +32,14 @@ namespace Assets.Event_Editor.Event_Scripts
 
             return this;
         }
+
+        public List<IEventPipe> Next()
+        {
+            List<IEventPipe> toReturn = new List<IEventPipe>();
+            conditions.ForEach(i => toReturn.Add(i.next));
+            return toReturn;
+        }
+
         public void PropogateController(EventController controller)
         {
             conditions.ForEach(i => i.PropogateController(controller));

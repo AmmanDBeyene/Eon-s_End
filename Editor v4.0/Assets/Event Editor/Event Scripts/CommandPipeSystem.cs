@@ -40,6 +40,13 @@ namespace Assets.Event_Editor.Event_Scripts
             return this;
         }
 
+        public List<IEventPipe> Next()
+        {
+            List<IEventPipe> toReturn = new List<IEventPipe>();
+            toReturn.Add(command.next);
+            return toReturn;
+        }
+
         public void PropogateController(EventController controller)
         {
             command.PropogateController(controller);

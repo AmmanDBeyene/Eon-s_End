@@ -380,8 +380,11 @@ namespace Assets.Event_Editor.Scripts
                 // Compile all blocks and their pipes
                 blocks.ForEach(i => i.Compile());
 
+                // Wrap root pipe
+                EventPipeWrapper wrapper = new EventPipeWrapper(rootPipe);
+
                 // Save the serialized json of our pipe structure
-                string json = rootPipe.Serialize().json;
+                string json = wrapper.Serialize().json;
 
                 JToken parsedJson = JToken.Parse(json);
                 json = parsedJson.ToString(Formatting.Indented);
@@ -398,7 +401,8 @@ namespace Assets.Event_Editor.Scripts
                     "\tvoid Start() { Load(); }\n" +
                     "\tpublic void Load() {\n" +
                    $"\t\tSerializationData data = new SerializationData(\n\t\t\"{json}\");\n" +
-                    "\t\trootPipe = (IEventPipe)data.Deserialize();\n" +
+                    "\t\tEventPipeWrapper wrapper = (EventPipeWrapper)data.Deserialize();\n" +
+                    "\t\trootPipe = wrapper._root;\n" +
                     "\t\trootPipe.PropogateController(this);\n" +
                     "\t}\n}\n";
 
