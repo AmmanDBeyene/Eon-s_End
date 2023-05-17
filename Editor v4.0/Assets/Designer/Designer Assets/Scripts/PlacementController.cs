@@ -52,7 +52,7 @@ public class PlacementController : MonoBehaviour
     {
         _hideStateChanged = false;
 
-        if (Input.GetKeyDown(KeyCode.CapsLock))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             _hideRevealers = !_hideRevealers;
             _hideStateChanged = true;
