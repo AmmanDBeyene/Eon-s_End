@@ -7,6 +7,152 @@ public class Jesse_Bear_1 : EventController {
 			"  \"_pipes\": [" +
 			"    {" +
 			"      \"command\": {" +
+			"        \"_targetSceneName\": \"ED2\"," +
+			"        \"_targetPlayerPosition\": {" +
+			"          \"x\": -41.0," +
+			"          \"y\": 0.0," +
+			"          \"z\": 38.0" +
+			"        }," +
+			"        \"next\": null," +
+			"        \"controller\": null," +
+			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.SceneSwitchCommand\"" +
+			"      }," +
+			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
+			"      \"$id\": \"2\"" +
+			"    }," +
+			"    {" +
+			"      \"command\": {" +
+			"        \"next\": {" +
+			"          \"$ref\": \"2\"" +
+			"        }," +
+			"        \"controller\": null," +
+			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.HideTextCommand\"" +
+			"      }," +
+			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
+			"      \"$id\": \"4\"" +
+			"    }," +
+			"    {" +
+			"      \"conditions\": [" +
+			"        {" +
+			"          \"_awaitedKey\": \"Z\"," +
+			"          \"_pressed\": true," +
+			"          \"next\": {" +
+			"            \"$ref\": \"4\"" +
+			"          }," +
+			"          \"controller\": null," +
+			"          \"$type\": \"Assets.Event_Scripts.Conditions.InputCondition\"" +
+			"        }" +
+			"      ]," +
+			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
+			"      \"$id\": \"6\"" +
+			"    }," +
+			"    {" +
+			"      \"command\": {" +
+			"        \"_targetSceneName\": \"ED2\"," +
+			"        \"_targetPlayerPosition\": {" +
+			"          \"x\": 0.0," +
+			"          \"y\": 0.0," +
+			"          \"z\": 0.0" +
+			"        }," +
+			"        \"next\": null," +
+			"        \"controller\": null," +
+			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.SceneSwitchCommand\"" +
+			"      }," +
+			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
+			"      \"$id\": \"9\"" +
+			"    }," +
+			"    {" +
+			"      \"command\": {" +
+			"        \"_name\": \"Bear of Despair\"," +
+			"        \"_portrait\": null," +
+			"        \"_positionLeft\": true," +
+			"        \"_text\": \"Thank you kind soul for saving my life. I would have choked to death if it were not for you shoving your hand down my throat.\"," +
+			"        \"next\": {" +
+			"          \"$ref\": \"6\"" +
+			"        }," +
+			"        \"controller\": null," +
+			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowTextCommand\"" +
+			"      }," +
+			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
+			"      \"$id\": \"11\"" +
+			"    }," +
+			"    {" +
+			"      \"command\": {" +
+			"        \"next\": {" +
+			"          \"$ref\": \"9\"" +
+			"        }," +
+			"        \"controller\": null," +
+			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.HideTextCommand\"" +
+			"      }," +
+			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
+			"      \"$id\": \"13\"" +
+			"    }," +
+			"    {" +
+			"      \"conditions\": [" +
+			"        {" +
+			"          \"_awaitedKey\": \"Z\"," +
+			"          \"_pressed\": true," +
+			"          \"next\": {" +
+			"            \"$ref\": \"11\"" +
+			"          }," +
+			"          \"controller\": null," +
+			"          \"$type\": \"Assets.Event_Scripts.Conditions.InputCondition\"" +
+			"        }" +
+			"      ]," +
+			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
+			"      \"$id\": \"15\"" +
+			"    }," +
+			"    {" +
+			"      \"conditions\": [" +
+			"        {" +
+			"          \"_awaitedKey\": \"Z\"," +
+			"          \"_pressed\": true," +
+			"          \"next\": {" +
+			"            \"$ref\": \"13\"" +
+			"          }," +
+			"          \"controller\": null," +
+			"          \"$type\": \"Assets.Event_Scripts.Conditions.InputCondition\"," +
+			"          \"$id\": \"20\"" +
+			"        }," +
+			"        {" +
+			"          \"$ref\": \"20\"" +
+			"        }" +
+			"      ]," +
+			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
+			"      \"$id\": \"18\"" +
+			"    }," +
+			"    {" +
+			"      \"command\": {" +
+			"        \"_name\": \"Bear of Despair\"," +
+			"        \"_portrait\": null," +
+			"        \"_positionLeft\": true," +
+			"        \"_text\": \"*COUGH* *KHAAAK* The bear takes a deep breath\"," +
+			"        \"next\": {" +
+			"          \"$ref\": \"15\"" +
+			"        }," +
+			"        \"controller\": null," +
+			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowTextCommand\"" +
+			"      }," +
+			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
+			"      \"$id\": \"21\"" +
+			"    }," +
+			"    {" +
+			"      \"command\": {" +
+			"        \"_name\": \"Bear of Despair\"," +
+			"        \"_portrait\": null," +
+			"        \"_positionLeft\": true," +
+			"        \"_text\": \"I DON'T HAVE SLIPPERS BUT I CAN DO THIS!\"," +
+			"        \"next\": {" +
+			"          \"$ref\": \"18\"" +
+			"        }," +
+			"        \"controller\": null," +
+			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowTextCommand\"" +
+			"      }," +
+			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
+			"      \"$id\": \"23\"" +
+			"    }," +
+			"    {" +
+			"      \"command\": {" +
 			"        \"_optionToSelect\": \"Option 2\"," +
 			"        \"next\": {" +
 			"          \"conditions\": [" +
@@ -22,7 +168,7 @@ public class Jesse_Bear_1 : EventController {
 			"                        \"_awaitedKey\": \"W\"," +
 			"                        \"_pressed\": true," +
 			"                        \"next\": {" +
-			"                          \"$ref\": \"2\"" +
+			"                          \"$ref\": \"25\"" +
 			"                        }," +
 			"                        \"controller\": null," +
 			"                        \"$type\": \"Assets.Event_Scripts.Conditions.InputCondition\"" +
@@ -39,81 +185,26 @@ public class Jesse_Bear_1 : EventController {
 			"                            \"_showThird\": false," +
 			"                            \"_textThird\": \"option 3 text\"," +
 			"                            \"next\": {" +
-			"                              \"command\": {" +
-			"                                \"_name\": \"Bear of Despair\"," +
-			"                                \"_portrait\": null," +
-			"                                \"_positionLeft\": true," +
-			"                                \"_text\": \"*COUGH* *KHAAAK* The bear takes a deep breath\"," +
-			"                                \"next\": {" +
-			"                                  \"conditions\": [" +
-			"                                    {" +
-			"                                      \"_awaitedKey\": \"Z\"," +
-			"                                      \"_pressed\": true," +
-			"                                      \"next\": {" +
-			"                                        \"command\": {" +
-			"                                          \"_name\": \"Bear of Despair\"," +
-			"                                          \"_portrait\": null," +
-			"                                          \"_positionLeft\": true," +
-			"                                          \"_text\": \"Thank you kind soul for saving my life. I would have choked to death if it were not for you shoving your hand down my throat.\"," +
-			"                                          \"next\": {" +
-			"                                            \"conditions\": [" +
-			"                                              {" +
-			"                                                \"_awaitedKey\": \"Z\"," +
-			"                                                \"_pressed\": true," +
-			"                                                \"next\": {" +
-			"                                                  \"command\": {" +
-			"                                                    \"next\": null," +
-			"                                                    \"controller\": null," +
-			"                                                    \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.HideTextCommand\"" +
-			"                                                  }," +
-			"                                                  \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"                                                  \"$id\": \"25\"" +
-			"                                                }," +
-			"                                                \"controller\": null," +
-			"                                                \"$type\": \"Assets.Event_Scripts.Conditions.InputCondition\"," +
-			"                                                \"$id\": \"24\"" +
-			"                                              }" +
-			"                                            ]," +
-			"                                            \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"                                            \"$id\": \"22\"" +
-			"                                          }," +
-			"                                          \"controller\": null," +
-			"                                          \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowTextCommand\"" +
-			"                                        }," +
-			"                                        \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"                                        \"$id\": \"20\"" +
-			"                                      }," +
-			"                                      \"controller\": null," +
-			"                                      \"$type\": \"Assets.Event_Scripts.Conditions.InputCondition\"" +
-			"                                    }" +
-			"                                  ]," +
-			"                                  \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"                                  \"$id\": \"17\"" +
-			"                                }," +
-			"                                \"controller\": null," +
-			"                                \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowTextCommand\"" +
-			"                              }," +
-			"                              \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"                              \"$id\": \"15\"" +
+			"                              \"$ref\": \"21\"" +
 			"                            }," +
 			"                            \"controller\": null," +
 			"                            \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowOptionCommand\"" +
 			"                          }," +
 			"                          \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"                          \"$id\": \"13\"" +
+			"                          \"$id\": \"36\"" +
 			"                        }," +
 			"                        \"controller\": null," +
 			"                        \"$type\": \"Assets.Event_Scripts.Conditions.InputCondition\"" +
 			"                      }" +
 			"                    ]," +
 			"                    \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"                    \"$id\": \"9\"" +
+			"                    \"$id\": \"32\"" +
 			"                  }," +
 			"                  \"controller\": null," +
 			"                  \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.SelectOptionCommand\"" +
 			"                }," +
 			"                \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"                \"$id\": \"7\"" +
+			"                \"$id\": \"30\"" +
 			"              }," +
 			"              \"controller\": null," +
 			"              \"$type\": \"Assets.Event_Scripts.Conditions.InputCondition\"" +
@@ -131,10 +222,10 @@ public class Jesse_Bear_1 : EventController {
 			"                        \"_pressed\": true," +
 			"                        \"next\": {" +
 			"                          \"command\": {" +
-			"                            \"$ref\": \"3\"" +
+			"                            \"$ref\": \"26\"" +
 			"                          }," +
 			"                          \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"                          \"$id\": \"33\"" +
+			"                          \"$id\": \"44\"" +
 			"                        }," +
 			"                        \"controller\": null," +
 			"                        \"$type\": \"Assets.Event_Scripts.Conditions.InputCondition\"" +
@@ -170,50 +261,50 @@ public class Jesse_Bear_1 : EventController {
 			"                                          \"next\": {" +
 			"                                            \"conditions\": [" +
 			"                                              {" +
-			"                                                \"$ref\": \"24\"" +
+			"                                                \"$ref\": \"20\"" +
 			"                                              }" +
 			"                                            ]," +
 			"                                            \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"                                            \"$id\": \"44\"" +
+			"                                            \"$id\": \"55\"" +
 			"                                          }," +
 			"                                          \"controller\": null," +
 			"                                          \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowTextCommand\"" +
 			"                                        }," +
 			"                                        \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"                                        \"$id\": \"42\"" +
+			"                                        \"$id\": \"53\"" +
 			"                                      }," +
 			"                                      \"controller\": null," +
 			"                                      \"$type\": \"Assets.Event_Scripts.Conditions.InputCondition\"" +
 			"                                    }" +
 			"                                  ]," +
 			"                                  \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"                                  \"$id\": \"39\"" +
+			"                                  \"$id\": \"50\"" +
 			"                                }," +
 			"                                \"controller\": null," +
 			"                                \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowTextCommand\"" +
 			"                              }," +
 			"                              \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"                              \"$id\": \"37\"" +
+			"                              \"$id\": \"48\"" +
 			"                            }," +
 			"                            \"controller\": null," +
 			"                            \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowOptionCommand\"" +
 			"                          }," +
 			"                          \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"                          \"$id\": \"35\"" +
+			"                          \"$id\": \"46\"" +
 			"                        }," +
 			"                        \"controller\": null," +
 			"                        \"$type\": \"Assets.Event_Scripts.Conditions.InputCondition\"" +
 			"                      }" +
 			"                    ]," +
 			"                    \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"                    \"$id\": \"30\"" +
+			"                    \"$id\": \"41\"" +
 			"                  }," +
 			"                  \"controller\": null," +
 			"                  \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.SelectOptionCommand\"," +
-			"                  \"$id\": \"29\"" +
+			"                  \"$id\": \"40\"" +
 			"                }," +
 			"                \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"                \"$id\": \"28\"" +
+			"                \"$id\": \"39\"" +
 			"              }," +
 			"              \"controller\": null," +
 			"              \"$type\": \"Assets.Event_Scripts.Conditions.InputCondition\"" +
@@ -241,134 +332,92 @@ public class Jesse_Bear_1 : EventController {
 			"                            \"_awaitedKey\": \"Z\"," +
 			"                            \"_pressed\": true," +
 			"                            \"next\": {" +
-			"                              \"command\": {" +
-			"                                \"_name\": \"Bear of Despair\"," +
-			"                                \"_portrait\": null," +
-			"                                \"_positionLeft\": true," +
-			"                                \"_text\": \"I DON'T HAVE SLIPPERS BUT I CAN DO THIS!\"," +
-			"                                \"next\": {" +
-			"                                  \"conditions\": [" +
-			"                                    {" +
-			"                                      \"$ref\": \"24\"" +
-			"                                    }," +
-			"                                    {" +
-			"                                      \"$ref\": \"24\"" +
-			"                                    }" +
-			"                                  ]," +
-			"                                  \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"                                  \"$id\": \"56\"" +
-			"                                }," +
-			"                                \"controller\": null," +
-			"                                \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowTextCommand\"" +
-			"                              }," +
-			"                              \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"                              \"$id\": \"54\"" +
+			"                              \"$ref\": \"23\"" +
 			"                            }," +
 			"                            \"controller\": null," +
 			"                            \"$type\": \"Assets.Event_Scripts.Conditions.InputCondition\"" +
 			"                          }" +
 			"                        ]," +
 			"                        \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"                        \"$id\": \"51\"" +
+			"                        \"$id\": \"62\"" +
 			"                      }," +
 			"                      \"controller\": null," +
 			"                      \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowTextCommand\"" +
 			"                    }," +
 			"                    \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"                    \"$id\": \"49\"" +
+			"                    \"$id\": \"60\"" +
 			"                  }," +
 			"                  \"controller\": null," +
 			"                  \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowOptionCommand\"" +
 			"                }," +
 			"                \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"                \"$id\": \"47\"" +
+			"                \"$id\": \"58\"" +
 			"              }," +
 			"              \"controller\": null," +
 			"              \"$type\": \"Assets.Event_Scripts.Conditions.InputCondition\"" +
 			"            }" +
 			"          ]," +
 			"          \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"          \"$id\": \"4\"" +
+			"          \"$id\": \"27\"" +
 			"        }," +
 			"        \"controller\": null," +
 			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.SelectOptionCommand\"," +
-			"        \"$id\": \"3\"" +
+			"        \"$id\": \"26\"" +
 			"      }," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"      \"$id\": \"2\"" +
+			"      \"$id\": \"25\"" +
 			"    }," +
 			"    {" +
-			"      \"$ref\": \"25\"" +
+			"      \"$ref\": \"36\"" +
 			"    }," +
 			"    {" +
-			"      \"$ref\": \"22\"" +
+			"      \"$ref\": \"62\"" +
 			"    }," +
 			"    {" +
-			"      \"$ref\": \"20\"" +
+			"      \"$ref\": \"55\"" +
 			"    }," +
 			"    {" +
-			"      \"$ref\": \"17\"" +
+			"      \"$ref\": \"32\"" +
 			"    }," +
 			"    {" +
-			"      \"$ref\": \"15\"" +
+			"      \"$ref\": \"60\"" +
 			"    }," +
 			"    {" +
-			"      \"$ref\": \"13\"" +
-			"    }," +
-			"    {" +
-			"      \"$ref\": \"9\"" +
-			"    }," +
-			"    {" +
-			"      \"$ref\": \"7\"" +
-			"    }," +
-			"    {" +
-			"      \"$ref\": \"28\"" +
-			"    }," +
-			"    {" +
-			"      \"$ref\": \"56\"" +
-			"    }," +
-			"    {" +
-			"      \"$ref\": \"54\"" +
-			"    }," +
-			"    {" +
-			"      \"$ref\": \"51\"" +
-			"    }," +
-			"    {" +
-			"      \"$ref\": \"49\"" +
-			"    }," +
-			"    {" +
-			"      \"$ref\": \"47\"" +
-			"    }," +
-			"    {" +
-			"      \"$ref\": \"4\"" +
-			"    }," +
-			"    {" +
-			"      \"$ref\": \"33\"" +
-			"    }," +
-			"    {" +
-			"      \"$ref\": \"44\"" +
-			"    }," +
-			"    {" +
-			"      \"$ref\": \"42\"" +
-			"    }," +
-			"    {" +
-			"      \"$ref\": \"39\"" +
-			"    }," +
-			"    {" +
-			"      \"$ref\": \"37\"" +
-			"    }," +
-			"    {" +
-			"      \"$ref\": \"35\"" +
+			"      \"$ref\": \"53\"" +
 			"    }," +
 			"    {" +
 			"      \"$ref\": \"30\"" +
 			"    }," +
 			"    {" +
+			"      \"$ref\": \"39\"" +
+			"    }," +
+			"    {" +
+			"      \"$ref\": \"58\"" +
+			"    }," +
+			"    {" +
+			"      \"$ref\": \"50\"" +
+			"    }," +
+			"    {" +
+			"      \"$ref\": \"27\"" +
+			"    }," +
+			"    {" +
+			"      \"$ref\": \"48\"" +
+			"    }," +
+			"    {" +
+			"      \"$ref\": \"44\"" +
+			"    }," +
+			"    {" +
+			"      \"$ref\": \"46\"" +
+			"    }," +
+			"    {" +
+			"      \"$ref\": \"41\"" +
+			"    }," +
+			"    {" +
 			"      \"command\": {" +
-			"        \"$ref\": \"29\"" +
+			"        \"$ref\": \"40\"" +
 			"      }," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"      \"$id\": \"58\"" +
+			"      \"$id\": \"65\"" +
 			"    }," +
 			"    {" +
 			"      \"command\": {" +
@@ -379,13 +428,13 @@ public class Jesse_Bear_1 : EventController {
 			"        \"_showThird\": true," +
 			"        \"_textThird\": \"Shove “edible” berries down the bear’s throat\"," +
 			"        \"next\": {" +
-			"          \"$ref\": \"58\"" +
+			"          \"$ref\": \"65\"" +
 			"        }," +
 			"        \"controller\": null," +
 			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowOptionCommand\"" +
 			"      }," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"      \"$id\": \"59\"" +
+			"      \"$id\": \"66\"" +
 			"    }," +
 			"    {" +
 			"      \"command\": {" +
@@ -394,13 +443,13 @@ public class Jesse_Bear_1 : EventController {
 			"        \"_positionLeft\": true," +
 			"        \"_text\": \"The bear stares at you meaningly...\"," +
 			"        \"next\": {" +
-			"          \"$ref\": \"59\"" +
+			"          \"$ref\": \"66\"" +
 			"        }," +
 			"        \"controller\": null," +
 			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowTextCommand\"" +
 			"      }," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"      \"$id\": \"61\"" +
+			"      \"$id\": \"68\"" +
 			"    }," +
 			"    {" +
 			"      \"conditions\": [" +
@@ -422,7 +471,7 @@ public class Jesse_Bear_1 : EventController {
 			"                      \"_triggerLimit\": 2.0," +
 			"                      \"_inside\": true," +
 			"                      \"next\": {" +
-			"                        \"$ref\": \"61\"" +
+			"                        \"$ref\": \"68\"" +
 			"                      }," +
 			"                      \"controller\": null," +
 			"                      \"$type\": \"Assets.Event_Scripts.Conditions.ProximityCondition\"" +
@@ -433,48 +482,48 @@ public class Jesse_Bear_1 : EventController {
 			"                      \"_triggerLimit\": 2.0," +
 			"                      \"_inside\": false," +
 			"                      \"next\": {" +
-			"                        \"$ref\": \"63\"" +
+			"                        \"$ref\": \"70\"" +
 			"                      }," +
 			"                      \"controller\": null," +
 			"                      \"$type\": \"Assets.Event_Scripts.Conditions.ProximityCondition\"" +
 			"                    }" +
 			"                  ]," +
 			"                  \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"                  \"$id\": \"69\"" +
+			"                  \"$id\": \"76\"" +
 			"                }," +
 			"                \"controller\": null," +
 			"                \"$type\": \"Assets.Event_Scripts.Conditions.InputCondition\"" +
 			"              }" +
 			"            ]," +
 			"            \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"            \"$id\": \"66\"" +
+			"            \"$id\": \"73\"" +
 			"          }," +
 			"          \"controller\": null," +
 			"          \"$type\": \"Assets.Event_Scripts.Conditions.ProximityCondition\"," +
-			"          \"$id\": \"65\"" +
+			"          \"$id\": \"72\"" +
 			"        }" +
 			"      ]," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"      \"$id\": \"63\"" +
+			"      \"$id\": \"70\"" +
 			"    }," +
 			"    {" +
-			"      \"$ref\": \"69\"" +
+			"      \"$ref\": \"76\"" +
 			"    }," +
 			"    {" +
-			"      \"$ref\": \"66\"" +
+			"      \"$ref\": \"73\"" +
 			"    }," +
 			"    {" +
 			"      \"conditions\": [" +
 			"        {" +
-			"          \"$ref\": \"65\"" +
+			"          \"$ref\": \"72\"" +
 			"        }" +
 			"      ]," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"      \"$id\": \"73\"" +
+			"      \"$id\": \"80\"" +
 			"    }" +
 			"  ]," +
 			"  \"_root\": {" +
-			"    \"$ref\": \"73\"" +
+			"    \"$ref\": \"80\"" +
 			"  }," +
 			"  \"$type\": \"Assets.Event_Scripts.EventPipeWrapper\"" +
 			"}");
