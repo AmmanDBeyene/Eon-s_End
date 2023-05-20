@@ -116,7 +116,7 @@ public class PlacementController : MonoBehaviour
                     newZ = 0;
                 }
 
-                float endZ = - (Controller.mode == "2D" ? Controller.yEnd2D : Controller.yEnd3D) - 5.5f;
+                float endZ = - (Controller.mode == "2D" ? Controller.yEnd2D : Controller.yEnd3D);
                 if (newZ > endZ)
                 {
                     newZ = endZ;
