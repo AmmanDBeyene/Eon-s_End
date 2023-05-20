@@ -44,4 +44,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Egypt/EgyptFloor3.unity
     guid: c02d744bab2145f4daa6717e4cd6971f
+  - enabled: 1
+    path: Assets/Scenes/ED2.unity
+    guid: ef01ab52425d42b46a052d19573360a0
   m_configObjects: {}
