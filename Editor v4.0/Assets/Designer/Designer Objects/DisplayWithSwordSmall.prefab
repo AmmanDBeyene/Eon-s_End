@@ -398,7 +398,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8251352177675058365}
   m_Layer: 0
-  m_Name: Displaywithsword
+  m_Name: DisplayWithSwordSmall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
