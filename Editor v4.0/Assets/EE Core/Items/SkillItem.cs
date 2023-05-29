@@ -42,8 +42,6 @@ namespace EECore.Items
 
         public int cost { get; protected set; } = 0;
         
-        public Character owner { get; set; } = null;
-
         public CharacterFilterType characterFilter { get; protected set; }
 
         public SkillItem(

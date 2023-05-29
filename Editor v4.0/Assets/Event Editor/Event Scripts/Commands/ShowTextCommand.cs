@@ -40,6 +40,7 @@ namespace Assets.Event_Editor.Event_Scripts.Commands
             GameStateManager.dialogueBox.SetActive(true);
             UIDocument dbox = GameStateManager.dialogueBox.GetComponent<UIDocument>();
             Label lbl = (Label)dbox.rootVisualElement.Find("MainText");
+            dbox.rootVisualElement.Find("Action1").Find("ActionLabel");
             lbl.text = _text;
         }
 

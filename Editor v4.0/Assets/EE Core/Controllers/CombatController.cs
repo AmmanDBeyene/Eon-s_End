@@ -4,6 +4,7 @@ using EECore.Items;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CombatController : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class CombatController : MonoBehaviour
     public GameObject moveArrowObject;
     public GameObject moveOverObject;
     public GameObject moveStartObject;
+    public GameObject combatUIObject;
+    public GameObject combatantSelectorObject;
+    public GameObject combatantHpBar;
+    public Texture2D playerBackground;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +33,10 @@ public class CombatController : MonoBehaviour
         CombatManager.moveOverObject = moveOverObject;
         CombatManager.moveCornerObject = moveCornerObject;
         CombatManager.moveStartObject = moveStartObject;
+        CombatManager.playerBackground = playerBackground;
+        CombatManager.combatantSelectorObject = combatantSelectorObject;
+        CombatManager.combatantHpBar = combatantHpBar;
+        CombatManager.combatUIDocument = combatUIObject.GetComponent<UIDocument>();
     }
 
     // Update is called once per frame
@@ -43,17 +52,42 @@ public class CombatController : MonoBehaviour
         {
             CombatManager.UpdateTurnOrder(); // set the turn order at the start of combat
             CombatManager.uiMode = "turn-start-delegation";
+
+            // render the action menu to make sure it is in the proper state. 
+            CombatManager.RenderActionMenu();
         }
 
         if (CombatManager.uiMode == "end-turn-input")
         {
+            if (CombatManager.combatants.Count <= 0)
+            {
+                // if there are no combatants we wait for them to show up. 
+                return;
+            }
+
+            Combatant combatant = CombatManager.CurrentCombatant();
+            
+            combatant.showTargetingObjects = false;
+            combatant.showMovementObjects = false;
+            combatant.CancelMovement();
+            combatant.UpdateSelectedAbility();
+            combatant.HideMarker();
+
             CombatManager.EndTurn();
 
             // do combat over checks here 
 
             // VICTORY
+            if (CombatManager.GeneralVictory())
+            {
+                // do victory thing here lmao
+            }
 
             // DEFEAT
+            if (CombatManager.GeneralDefeat())
+            {
+                // do defeat thing here lmao
+            }
 
             // NEITHER (combat continues) 
             CombatManager.uiMode = "turn-start-delegation";
@@ -61,7 +95,14 @@ public class CombatController : MonoBehaviour
 
         if (CombatManager.uiMode == "turn-start-delegation")
         {
-            if (CombatManager.CurrentCombatant().character.characterType != CharacterType.Ally)
+            // render the current combatant information
+            CombatManager.RenderCurrentCharacterInformation();
+            Combatant combatant = CombatManager.CurrentCombatant();
+            combatant.ShowMarker();
+
+            CombatManager.RenderHpBars();
+
+            if (combatant.character.characterType != CharacterType.Ally)
             {
                 CombatManager.uiMode = "start-cpu-turn";
             }
@@ -73,21 +114,22 @@ public class CombatController : MonoBehaviour
 
         // If it is the start of an enemy's turn we start working on figuring out what move we should do. 
         // the reason these all are separated into different sections is because they each will have graphics that'll happen.
-        if (CombatManager.uiMode == "start-cpu-turn")
-        {
-            CombatManager.uiMode = "working-cpu-turn";
-        }
+        //if (CombatManager.uiMode == "start-cpu-turn")
+        //{
+        //    CombatManager.uiMode = "working-cpu-turn";
+        //}
 
         // The working -> finished will be something that happens outside of this update loop. 
         // It'll likely be changed by some other controller. 
         // But for now. Here.
-        if (CombatManager.uiMode == "working-cpu-turn")
-        {
-            CombatManager.uiMode = "finish-cpu-turn";
-        }
+        //if (CombatManager.uiMode == "working-cpu-turn")
+        //{
+        //    CombatManager.uiMode = "finish-cpu-turn";
+        //}
 
         if (CombatManager.uiMode == "finish-cpu-turn")
         {
+            CombatManager.CurrentCombatant().HideMarker();
             CombatManager.EndTurn();
             CombatManager.uiMode = "turn-start-delegation";
         }
@@ -122,6 +164,12 @@ public class CombatController : MonoBehaviour
                 // reset temporary MP value
                 combatant.tempMP = new StatRange(combatant.character.MP);
                 combatant.tempMP.Cap();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                CombatManager.uiMode = "end-turn-input";
+                return;
             }
 
             if (Input.GetKeyDown(KeyCode.Z))
@@ -179,16 +227,28 @@ public class CombatController : MonoBehaviour
                 combatant.tempMP.Cap();
             }
 
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                CombatManager.uiMode = "end-turn-input";
+                return;
+            }
+
             // Ability selection
 
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                CombatManager.CurrentCombatant().ActionSelectionUp();
+                CombatManager.CurrentCombatant().ActionSelectionDown();
+
+                // update MP consumption value on ui
+                CombatManager.RenderCurrentCharacterInformation();
             }
 
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                CombatManager.CurrentCombatant().ActionSelectionDown();
+                CombatManager.CurrentCombatant().ActionSelectionUp();
+
+                // update MP consumption value on ui
+                CombatManager.RenderCurrentCharacterInformation();
             }
 
             if (Input.GetKeyDown(KeyCode.Z))
@@ -206,6 +266,9 @@ public class CombatController : MonoBehaviour
                 }
 
                 CombatManager.uiMode = "player-post-action-selection";
+
+                // hide the action menu
+                CombatManager.RenderActionMenu();
             }
         }
 
@@ -224,6 +287,9 @@ public class CombatController : MonoBehaviour
                 // reset temporary MP value
                 combatant.tempMP = new StatRange(combatant.character.MP);
                 combatant.tempMP.Cap();
+
+                // update MP value on ui
+                CombatManager.RenderCurrentCharacterInformation();
             }
 
             combatant.CancelMovement();
@@ -272,6 +338,12 @@ public class CombatController : MonoBehaviour
                 CombatManager.uiMode = "player-action-activation";
             }
 
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                CombatManager.uiMode = "end-turn-input";
+                return;
+            }
+
             if (Input.GetKeyDown(KeyCode.X))
             {
                 CombatManager.uiMode = "player-action";
@@ -282,6 +354,9 @@ public class CombatController : MonoBehaviour
                 // hide overhead markers
                 combatant.showTargetOverheadMarkers = false;
                 combatant.UpdateTargets();
+
+                // show the action menu
+                CombatManager.RenderActionMenu();
             }
 
             if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -316,6 +391,12 @@ public class CombatController : MonoBehaviour
                 CombatManager.uiMode = "player-action-activation";
             }
 
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                CombatManager.uiMode = "end-turn-input";
+                return;
+            }
+
             if (Input.GetKeyDown(KeyCode.X))
             {
                 CombatManager.uiMode = "player-action";
@@ -324,6 +405,9 @@ public class CombatController : MonoBehaviour
                 combatant.showTargetOverheadMarkers = false;
                 combatant.UpdateSelectedTile();
                 combatant.UpdateTargets();
+
+                // show the action menu
+                CombatManager.RenderActionMenu();
             }
 
             if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -354,6 +438,12 @@ public class CombatController : MonoBehaviour
                 CombatManager.uiMode = "player-action-activation";
             }
 
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                CombatManager.uiMode = "end-turn-input";
+                return;
+            }
+
             if (Input.GetKeyDown(KeyCode.X))
             {
                 CombatManager.uiMode = "player-action";
@@ -363,6 +453,9 @@ public class CombatController : MonoBehaviour
                 // hide overhead markers
                 combatant.showTargetOverheadMarkers = false;
                 combatant.UpdateTargets();
+
+                // show the action menu
+                CombatManager.RenderActionMenu();
             }
 
             if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -389,6 +482,11 @@ public class CombatController : MonoBehaviour
 
             // try activate skill on current targets
             combatant.selectedAction.Use(combatant.Targets());
+
+            CombatManager.RenderHpBars();
+
+            // update mp value after action
+            CombatManager.RenderCurrentCharacterInformation();
 
             // move state to post action activation (this should be done by something external in the future)
             CombatManager.uiMode = "player-action-post-activation";

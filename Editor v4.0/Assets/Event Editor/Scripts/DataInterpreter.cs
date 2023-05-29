@@ -35,6 +35,11 @@ namespace Assets.Event_Editor.Scripts
                 return ToSceneSwitchCommand(ve);
             }
 
+            else if (type == typeof(StartCombatCommand))
+            {
+                return ToStartCombatCommand(ve);
+            }
+            
             else if (type == typeof(ShowOptionCommand))
             {
                 return ToShowOptionCommand(ve);
@@ -65,6 +70,11 @@ namespace Assets.Event_Editor.Scripts
             {
                 ve.SetupSceneSwitchCommand();
                 return;
+            } 
+            if (type == typeof(StartCombatCommand))
+            {
+                ve.SetupStartCombatCommand();
+                return;
             }
         }
 
@@ -86,6 +96,11 @@ namespace Assets.Event_Editor.Scripts
                 ((SceneSwitchCommand)node).RestoreTo(ve);
             }
 
+            else if (type == typeof(StartCombatCommand))
+            {
+                ((StartCombatCommand)node).RestoreTo(ve);
+            }
+            
             else if (type == typeof(ShowOptionCommand))
             {
                 ((ShowOptionCommand)node).RestoreTo(ve);
@@ -168,9 +183,97 @@ namespace Assets.Event_Editor.Scripts
                     string name = S.path.Substring(S.path.LastIndexOf('/') + 1);
                     name = name.Substring(0, name.Length - 6);
                     df.choices.Add(name);
-                    Debug.Log(name);
                 }
             }
+
+            Button b = (Button)ve.Find("3");
+            b.clicked += () =>
+            {
+                foreach (UnityEditor.EditorBuildSettingsScene S in UnityEditor.EditorBuildSettings.scenes)
+                {
+                    string name = S.path.Substring(S.path.LastIndexOf('/') + 1);
+                    name = name.Substring(0, name.Length - 6);
+                    if (df.value == name)
+                    {
+                        // this is going to be the scene that we try to load in 
+                        StaticEditor.OpenSceneForPointSelection(S.path, ve, "2");
+                    }
+                }
+            };
+        }
+
+        private static StartCombatCommand ToStartCombatCommand(VisualElement ve)
+        {
+            return new StartCombatCommand(
+                    ve.GetDropdownValue("1"),
+                    ve.GetDropdownValue("2"),
+                    ve.GetVector3FieldValue("3"),
+                    ve.GetDropdownValue("4"),
+                    ve.GetVector3FieldValue("5")
+            );
+        }
+
+        private static void RestoreTo(this StartCombatCommand cmd, VisualElement ve)
+        {
+            ve.SetDropdownValue("1", cmd._targetSceneName);
+            ve.SetDropdownValue("2", cmd._targetVSceneName);
+            ve.SetVector3FieldValue("3", cmd._targetVPosition);
+            ve.SetDropdownValue("4", cmd._targetDSceneName);
+            ve.SetVector3FieldValue("5", cmd._targetDPosition);
+        }
+
+        private static void SetupStartCombatCommand(this VisualElement ve)
+        {
+            DropdownField df1 = (DropdownField)ve.Find("1");
+            DropdownField df2 = (DropdownField)ve.Find("2");
+            DropdownField df3 = (DropdownField)ve.Find("4");
+
+            df1.choices.Clear();
+            df2.choices.Clear();
+            df3.choices.Clear();
+
+            foreach (UnityEditor.EditorBuildSettingsScene S in UnityEditor.EditorBuildSettings.scenes)
+            {
+                if (S.enabled)
+                {
+                    string name = S.path.Substring(S.path.LastIndexOf('/') + 1);
+                    name = name.Substring(0, name.Length - 6);
+                    df1.choices.Add(name);
+                    df2.choices.Add(name);
+                    df3.choices.Add(name);
+                }
+            }
+
+            Button b1 = (Button)ve.Find("6");
+            Button b2 = (Button)ve.Find("7");
+            b1.clicked += () =>
+            {
+                foreach (UnityEditor.EditorBuildSettingsScene S in UnityEditor.EditorBuildSettings.scenes)
+                {
+                    string name = S.path.Substring(S.path.LastIndexOf('/') + 1);
+                    name = name.Substring(0, name.Length - 6);
+                    if (df2.value == name)
+                    {
+                        // this is going to be the scene that we try to load in 
+                        StaticEditor.OpenSceneForPointSelection(S.path, ve, "3");
+                    }
+                }
+            };
+            b2.clicked += () =>
+            {
+                foreach (UnityEditor.EditorBuildSettingsScene S in UnityEditor.EditorBuildSettings.scenes)
+                {
+                    string name = S.path.Substring(S.path.LastIndexOf('/') + 1);
+                    name = name.Substring(0, name.Length - 6);
+                    if (df3.value == name)
+                    {
+                        // this is going to be the scene that we try to load in 
+                        StaticEditor.OpenSceneForPointSelection(S.path, ve, "5");
+                    }
+                }
+            };
+
+
         }
 
         private static ShowOptionCommand ToShowOptionCommand(VisualElement ve)

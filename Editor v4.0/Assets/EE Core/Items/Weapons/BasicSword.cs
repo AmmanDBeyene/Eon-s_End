@@ -21,7 +21,7 @@ namespace EECore.Items.Weapons
 
     public class HeavySlash : WeaponSkill
     {
-        public HeavySlash() : base("Heavy Slash", "")
+        public HeavySlash() : base("Heavy Slash", "Slash at multiple foes with vigor!")
         {
             TargetNode n1 = new TargetNode(Direction.Up);
             TargetNode n3 = new TargetNode(Direction.Left);
@@ -60,7 +60,7 @@ namespace EECore.Items.Weapons
 
     public class Slash : WeaponSkill
     {
-        public Slash() : base("Slash", "")
+        public Slash() : base("Slash", "Slash at a single foe")
         {
             targetTree = new TargetNode(Enums.Direction.Up);
             cost = 3;
@@ -73,7 +73,7 @@ namespace EECore.Items.Weapons
                 return;
             }
 
-            int damage = owner.ATK.Current() - owner.DEF.Current();
+            int damage = owner.ATK.Current() - targets[0].character.DEF.Current();
             if (damage > 0)
             {
                 targets[0].character.HP.Modify(-damage);

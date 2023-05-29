@@ -8,8 +8,32 @@ namespace EECore.Items
 {
     public abstract class Weapon : Item
     {
-        public WeaponSkill basicSkill { get; protected set; }
-        public WeaponSkill specialSkill { get; protected set; }
+        private WeaponSkill _basicSkill;
+        public WeaponSkill basicSkill {
+            get { return _basicSkill; }
+            protected set
+            {
+                _basicSkill = value;
+                if (_basicSkill != null)
+                {
+                    _basicSkill.owner = owner;
+                }
+            } 
+        }
+
+        private WeaponSkill _specialSkill;
+        public WeaponSkill specialSkill
+        {
+            get { return _specialSkill; }
+            protected set
+            {
+                _specialSkill = value;
+                if (_specialSkill != null)
+                {
+                    _specialSkill.owner = owner;
+                }
+            }
+        }
 
         protected Weapon(
             string name,

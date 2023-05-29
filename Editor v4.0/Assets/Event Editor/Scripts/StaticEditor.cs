@@ -12,6 +12,9 @@ using Assets.Event_Scripts.Event_Commands;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System;
+using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
+using Assets.Event_Editor.Event_Scripts.Commands;
 
 namespace Assets.Event_Editor.Scripts
 {
@@ -51,6 +54,14 @@ namespace Assets.Event_Editor.Scripts
         public static Block rootBlock = null;
         public static IEventPipe rootPipe = null;
 
+        public static Scene? openScene = null;
+
+        public static bool awaitingPosition = false;
+        public static Vector3 awaitedPosition;
+
+        public static EditorWindow window = null;
+        public static VisualElement targetVisualElement = null;
+        public static string targetField = null;
         public static int compoundBlockIndex = 0;
 
         public static void Update()
@@ -498,7 +509,38 @@ namespace Assets.Event_Editor.Scripts
 
         }
 
-        #endregion 
+        #endregion
+
+        #region Editor Integration
+
+
+        public static void OpenSceneForPointSelection(string scenePath, VisualElement ve, string target)
+        {
+            awaitingPosition = true;
+            targetVisualElement = ve;
+            targetField = target;
+
+            EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
+            
+            openScene = EditorSceneManager.OpenScene(scenePath);
+
+            window = EditorWindow.GetWindow<ObjectPlacementView>();
+            window.Show();
+            window.maximized = true;
+            window.Focus();
+        }
+
+        public static void ScenePointSelected(Vector3 point)
+        {
+            awaitingPosition = false;
+            awaitedPosition = point;
+            Debug.Log(awaitedPosition);
+            window.Close();
+
+            targetVisualElement.SetVector3FieldValue(targetField, point);
+        }
+
+        #endregion
     }
 
     internal static class Keyboard
