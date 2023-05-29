@@ -9,9 +9,9 @@ public class A1_to_E1 : EventController {
 			"      \"command\": {" +
 			"        \"_targetSceneName\": \"E1\"," +
 			"        \"_targetPlayerPosition\": {" +
-			"          \"x\": 1.0," +
-			"          \"y\": 1.0," +
-			"          \"z\": 1.0" +
+			"          \"x\": -1.0," +
+			"          \"y\": 1.4," +
+			"          \"z\": -5.0" +
 			"        }," +
 			"        \"next\": null," +
 			"        \"controller\": null," +
