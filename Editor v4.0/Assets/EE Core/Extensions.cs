@@ -28,6 +28,24 @@ namespace EECore
             return Vector3.zero;
         }
 
+        public static Direction ToDirection(this Vector3 d)
+        {
+            if (d == Vector3.forward)
+            {
+                return Direction.Up;
+            } else if (d == Vector3.back)
+            {
+                return Direction.Down;
+            } else if (d == Vector3.left)
+            {
+                return Direction.Left;
+            } else if (d == Vector3.right)
+            {
+                return Direction.Right;
+            }
+            return Direction.Up;
+        }
+
         public static int ToInt(this Direction d)
         {
             switch (d)
@@ -178,5 +196,35 @@ namespace EECore
         {
             return (float)Math.Round(value * 2, MidpointRounding.AwayFromZero) / 2.0f;
         } 
+
+        public static Color ColorFrom(int r, int g, int b, int a)
+        {
+            return new Color(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f);
+        }
+
+        public static Vector3 ToDirectionVector(this Vector3 vec)
+        {
+            // find our what coord is the longest
+            float x = Math.Abs(vec.x);
+            float y = Math.Abs(vec.y);
+            float z = Math.Abs(vec.z);
+
+            if (x >= y && x >= z)
+            {
+                return Vector3.right * Math.Sign(vec.x);
+            }
+
+            if (y >= x && y >= z)
+            {
+                return Vector3.up * Math.Sign(vec.y);
+            }
+
+            if (z >= x && z >= y)
+            {
+                return Vector3.forward * Math.Sign(vec.z);
+            }
+
+            return Vector3.back;
+        }
     }
 }

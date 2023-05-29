@@ -541,6 +541,24 @@ namespace Assets.Event_Editor.Scripts
             return float.IsNaN(vec.x) || float.IsNaN(vec.y) || float.IsNaN(vec.z);
         }
 
+        public static Vector3 Round(this Vector3 vec)
+        {
+            return new Vector3(
+                (float)Math.Round(vec.x, 0, MidpointRounding.AwayFromZero),
+                (float)Math.Round(vec.y, 0, MidpointRounding.AwayFromZero),
+                (float)Math.Round(vec.z, 0, MidpointRounding.AwayFromZero)
+            );
+        }
+
+        public static Vector3 RoundXZ(this Vector3 vec)
+        {
+            return new Vector3(
+                   (float)Math.Round(vec.x, 0, MidpointRounding.AwayFromZero),
+                   vec.y,
+                   (float)Math.Round(vec.z, 0, MidpointRounding.AwayFromZero)
+               );
+        }
+
         #endregion
 
         #region string

@@ -20,6 +20,10 @@ namespace EECore
         public static int memberCount = 0; 
         public static List<Character> party = new List<Character>(4);
         public static Dictionary<string, Flag> flags = new Dictionary<string, Flag>();
+        public static string victorySceneName = "";
+        public static Vector3 victoryScenePosition;
+        public static string defeatSceneName = "";
+        public static Vector3 defeatScenePosition;
 
         //public static void 
 

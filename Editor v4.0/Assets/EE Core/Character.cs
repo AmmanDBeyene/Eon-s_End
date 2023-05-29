@@ -12,6 +12,7 @@ namespace EECore
 {
     public abstract class Character
     {
+        public Texture2D portrait       { get; }
         public string name              { get; }
         public double health            { get; }
         public double attack            { get; }
@@ -36,7 +37,20 @@ namespace EECore
             set
             {
                 _weapon = value;
+                if (_weapon != null)
+                {
+                    _weapon.owner = this;
+                    if (_weapon.basicSkill != null)
+                    {
+                        _weapon.basicSkill.owner = this;
+                    }
+                    if (_weapon.specialSkill != null)
+                    {
+                        _weapon.specialSkill.owner = this;
+                    }
+                }
                 UpdateRanges();
+
             }
         }
 
@@ -47,6 +61,10 @@ namespace EECore
             set
             {
                 _accessory1 = value;
+                if (_accessory1 != null)
+                {
+                    _accessory1.owner = this;
+                }
                 UpdateRanges();
             }
 
@@ -58,6 +76,10 @@ namespace EECore
             set
             {
                 _accessory2 = value;
+                if (_accessory2 != null)
+                {
+                    _accessory2.owner = this;
+                }
                 UpdateRanges();
             }
         }
@@ -69,6 +91,10 @@ namespace EECore
             set
             {
                 _accessory3 = value;
+                if (_accessory3 != null)
+                {
+                    _accessory3.owner = this;
+                }
                 UpdateRanges();
             }
         }
@@ -79,6 +105,10 @@ namespace EECore
             set
             {
                 _topArmor = value;
+                if (_topArmor != null)
+                {
+                    _topArmor.owner = this;
+                }
                 UpdateRanges();
             }
         }
@@ -89,6 +119,10 @@ namespace EECore
             set
             {
                 _bottomArmor = value;
+                if (_bottomArmor != null)
+                {
+                    _bottomArmor.owner = this;
+                }
                 UpdateRanges();
             }
         }

@@ -49,7 +49,7 @@ namespace EECore.Items.Accessories
 
             aoeTree = c0;
 
-            cost = 9;
+            cost = 12;
         }
 
         public override void Use(List<Combatant> targets)
@@ -64,7 +64,7 @@ namespace EECore.Items.Accessories
                 int damage = (int)(owner.ATK.Current() - t.character.DEF.Current() / 3.0);
                 if (damage > 0)
                 {
-                    targets[0].character.HP.Modify(-damage);
+                    t.character.HP.Modify(-damage);
                 }
             });
         }

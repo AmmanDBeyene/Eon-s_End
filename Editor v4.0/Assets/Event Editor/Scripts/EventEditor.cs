@@ -153,7 +153,7 @@ namespace Assets.Event_Editor.Scripts
             {
                 // this block is now the root block
                 StaticEditor.rootBlock = StaticEditor.blocks.Find(i => i.visualElement == StaticEditor.selectedBlocks[0]);
-                Debug.Log(StaticEditor.rootBlock);
+                StaticEditor.blocks.ForEach(b => b.UpdateConnectorColor());
             } 
         }
 
@@ -218,8 +218,6 @@ namespace Assets.Event_Editor.Scripts
                 CreateCompoundBlock();
 
             }, (e) => { return DropdownMenuAction.Status.Normal; });
-
-
         }
 
         private static void New()
@@ -322,6 +320,7 @@ namespace Assets.Event_Editor.Scripts
             blockBar.Add(CreateCommandTile("Show Text", "ShowTextBlock.uxml", typeof(ShowTextCommand)));
             blockBar.Add(CreateCommandTile("Hide Text", "HideTextBlock.uxml", typeof(HideTextCommand)));
             blockBar.Add(CreateCommandTile("Transfer Actor", "TransferActorBlock.uxml", typeof(SceneSwitchCommand)));
+            blockBar.Add(CreateCommandTile("Start Combat"           , "StartCombatBlock.uxml"       , typeof(StartCombatCommand)));
             blockBar.Add(CreateCommandTile("Set Flag", "SetFlagBlock.uxml", null));
             blockBar.Add(CreateCommandTile("Wait", "WaitBlock.uxml", null));
             blockBar.Add(CreateCommandTile("Show Option", "ShowOptionBlock.uxml", typeof(ShowOptionCommand)));

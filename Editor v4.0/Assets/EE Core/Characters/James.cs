@@ -6,10 +6,11 @@ namespace EECore.Characters
 {
     public class James : Character
     {
-        public James() : base("James", 10, 2, 5, 10, 2, 5) 
+        public James() : base("James", 10, 2, 5, 15, 5, 5) 
         {
             weapon = new BasicSword();
-            accessory1 = new FireballRing();
+            accessory3 = new FireballRing();
+            Cap();
         }
     }
 }

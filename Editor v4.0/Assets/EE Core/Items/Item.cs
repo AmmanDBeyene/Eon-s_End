@@ -14,6 +14,8 @@ namespace EECore.Items
         public Texture2D icon { get; protected set; }
         public Modifier modifier   { get; protected set; }
 
+        public Character owner { get; set; }
+
         public Item(
             string name, 
             string description) 

@@ -33,10 +33,11 @@ namespace EECore
         // movement planning combatant stuff
         internal bool showMovementObjects { get; set; }
         internal Vector3 plannedPosition { get; set; }
-        private GameObject currentUnitIndicator { get; set; }
+        private GameObject selfHpBar { get; set; }
         private List<Direction> movementPlan { get; }
         private List<GameObject> movementObjects { get; }
         public StatRange tempMP { get; set; }
+        public GameObject currentUnitIndicator { get; set; } = null;
         
         internal Combatant(Character character, GameObject gameObject)
         {
@@ -53,6 +54,49 @@ namespace EECore
             movementObjects = new List<GameObject>();
 
             UpdateSelectedAbility();
+        }
+
+        public void ShowMarker()
+        {
+            if (currentUnitIndicator == null)
+            {
+                CreateMarker();
+            }
+            currentUnitIndicator.SetActive(true);
+        }
+
+        public void HideMarker()
+        {
+            if (currentUnitIndicator == null)
+            {
+                CreateMarker();
+            }
+            currentUnitIndicator.SetActive(false);
+        }
+
+        public void UpdateHpBar()
+        {
+            if (selfHpBar == null)
+            {
+                selfHpBar = GameObject.Instantiate(CombatManager.combatantHpBar, gameObject.transform);
+                selfHpBar.transform.position = gameObject.transform.position + Vector3.up * 1.7f;
+            }
+
+            GameObject fullBar = selfHpBar.transform.GetChild(1).gameObject;
+
+            float hpPercent = (float)character.HP / (float)character.HP.Max();
+            float width = 0.5f * hpPercent;
+
+            float offset = (0.5f - width) / 2.0f;
+
+            fullBar.transform.localScale = new Vector3(width, 0.08f, 0.08f);
+            fullBar.transform.localPosition = new Vector3(-offset, 0, 0);
+        }
+        
+        private void CreateMarker()
+        {
+            currentUnitIndicator = GameObject.Instantiate(CombatManager.combatantSelectorObject, gameObject.transform);
+            currentUnitIndicator.transform.position = gameObject.transform.position + Vector3.up * 1.8f;
         }
 
         #region Skill Selection and Targeting
@@ -413,8 +457,6 @@ namespace EECore
                 node.direction.ToVector3() * (1 + node.skip);
 
             nodePos.RoundXZ();
-            Debug.Log($"Pos <{nodePos.x}, {nodePos.y}, {nodePos.z}>");
-
 
             // If the potential position of this node has already been covered don't place it. 
             if (targetObjectCreationCache.Contains(nodePos))
@@ -525,12 +567,12 @@ namespace EECore
 
         #region Movement (Planning)
 
-        public void PlanMovement(Direction direction)
+        public bool PlanMovement(Direction direction)
         {
             // if a move is not valid we do not allow for its planning
             if (!MoveValid(direction))
             {
-                return;
+                return false;
             }
 
             // update our movement plan
@@ -538,6 +580,11 @@ namespace EECore
 
             // re-render our movement plan
             ConstructMovementPlanObjects();
+
+            // update MP consumption value on ui
+            CombatManager.RenderCurrentCharacterInformation();
+
+            return true;
         }
 
         /// <summary>
@@ -558,6 +605,11 @@ namespace EECore
         private bool MoveValid(Direction direction)
         {
             int planCost = MovementPlanCost();
+            if (tempMP == null)
+            {
+                tempMP = new StatRange(character.MP);
+                tempMP.Cap();
+            }
             int remainingMP = tempMP.Current() - planCost;
             bool cancelsOut = false;
 
@@ -596,6 +648,17 @@ namespace EECore
                 CombatManager.SFX_CantMove();
                 return false; 
             }
+
+            // Go through all the combatants to see if any have a shared position
+            // if any non-ally combatant has a shared position we cannot move there
+            foreach (Combatant c in CombatManager.combatants)
+            {
+                if (c.gameObject.transform.position == nodePos && c.character.characterType != character.characterType)
+                {
+                    return false;
+                }
+            }
+
 
             return true;
         }

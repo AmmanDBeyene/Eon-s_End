@@ -169,6 +169,20 @@ namespace Assets.Event_Editor.Scripts
             outgoingTo = new List<Block>();
         }
 
+        public void UpdateConnectorColor()
+        {
+            if (StaticEditor.rootBlock == this)
+            {
+                visualElement.Find("Connector").style.backgroundColor = 
+                    new Color(213 / 255.0f, 22 / 255.0f, 17 / 255.0f);
+                return;
+            }
+
+            visualElement.Find("Connector").style.backgroundColor = type == BlockType.Command
+                ? new Color(12 / 255.0f, 152 / 255.0f, 200 / 255.0f)
+                : new Color(252 / 255.0f, 152 / 255.0f, 56 / 255.0f);
+        }
+
         public void UpdateState()
         {
             if (outgoingTo.Count <= 0)

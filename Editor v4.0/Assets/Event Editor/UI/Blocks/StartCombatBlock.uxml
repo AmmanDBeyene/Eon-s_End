@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="StartCombatBlock" style="height: auto; width: 450px; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgb(56, 56, 56); visibility: visible; display: flex; overflow: visible; transition-duration: 0s;">
+        <ui:Foldout text="Start Combat" value="true" focusable="false">
+            <ui:VisualElement style="height: auto; width: auto; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; flex-direction: row; flex-wrap: wrap;">
+                <ui:DropdownField label="Target Combat Scene" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="1" style="width: 329px; margin-bottom: 5px;" />
+                <ui:Label text="Victory Transition" display-tooltip-when-elided="true" style="width: 100%; margin-top: 10px; -unity-font-style: bold;" />
+                <ui:DropdownField label="Scene" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="2" style="width: 329px; margin-bottom: 5px;" />
+                <uie:Vector3Field label="Position" name="3" style="width: 329px;" />
+                <ui:Button text="Set" display-tooltip-when-elided="true" name="6" style="padding-left: 10px; padding-right: 10px;" />
+                <ui:Label text="Defeat Transition" display-tooltip-when-elided="true" style="width: 100%; margin-top: 10px; -unity-font-style: bold;" />
+                <ui:DropdownField label="Scene" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="4" style="width: 329px; margin-bottom: 5px;" />
+                <uie:Vector3Field label="Position" name="5" style="width: 329px;" />
+                <ui:Button text="Set" display-tooltip-when-elided="true" name="7" style="padding-left: 10px; padding-right: 10px;" />
+            </ui:VisualElement>
+        </ui:Foldout>
+    </ui:VisualElement>
+</ui:UXML>
