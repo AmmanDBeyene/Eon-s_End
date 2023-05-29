@@ -25,7 +25,7 @@ public class A1_to_E1 : EventController {
 			"        {" +
 			"          \"_gameObjectFrom\": null," +
 			"          \"_gameObjectTo\": null," +
-			"          \"_triggerLimit\": 2.0," +
+			"          \"_triggerLimit\": 1.0," +
 			"          \"_inside\": true," +
 			"          \"next\": {" +
 			"            \"conditions\": [" +
@@ -37,7 +37,7 @@ public class A1_to_E1 : EventController {
 			"                    {" +
 			"                      \"_gameObjectFrom\": null," +
 			"                      \"_gameObjectTo\": null," +
-			"                      \"_triggerLimit\": 2.0," +
+			"                      \"_triggerLimit\": 1.0," +
 			"                      \"_inside\": true," +
 			"                      \"next\": {" +
 			"                        \"$ref\": \"2\"" +
@@ -48,7 +48,7 @@ public class A1_to_E1 : EventController {
 			"                    {" +
 			"                      \"_gameObjectFrom\": null," +
 			"                      \"_gameObjectTo\": null," +
-			"                      \"_triggerLimit\": 2.0," +
+			"                      \"_triggerLimit\": 1.0," +
 			"                      \"_inside\": false," +
 			"                      \"next\": {" +
 			"                        \"$ref\": \"4\"" +
