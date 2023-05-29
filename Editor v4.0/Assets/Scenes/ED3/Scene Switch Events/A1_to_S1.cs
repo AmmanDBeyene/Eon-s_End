@@ -1,5 +1,5 @@
 using Unity.VisualScripting; using Assets.Event_Scripts;
-public class A1_to_E1 : EventController {
+public class A1_to_S1 : EventController {
 	void Start() { Load(); }
 	public void Load() {
 		SerializationData data = new SerializationData(
@@ -7,11 +7,11 @@ public class A1_to_E1 : EventController {
 			"  \"_pipes\": [" +
 			"    {" +
 			"      \"command\": {" +
-			"        \"_targetSceneName\": \"E1\"," +
+			"        \"_targetSceneName\": \"S1\"," +
 			"        \"_targetPlayerPosition\": {" +
-			"          \"x\": -1.0," +
-			"          \"y\": 1.4," +
-			"          \"z\": -5.0" +
+			"          \"x\": 0.0," +
+			"          \"y\": -0.1870002," +
+			"          \"z\": 0.0" +
 			"        }," +
 			"        \"next\": null," +
 			"        \"controller\": null," +
