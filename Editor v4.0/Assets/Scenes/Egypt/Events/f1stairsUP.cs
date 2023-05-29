@@ -12,7 +12,7 @@ public class f1stairsUP : EventController {
 			"      \"_inside\": true," +
 			"      \"next\": {" +
 			"        \"command\": {" +
-			"          \"_targetSceneName\": \"EgyptFloor2\"," +
+			"          \"_targetSceneName\": \"S2\"," +
 			"          \"_targetPlayerPosition\": {" +
 			"            \"x\": 0.0," +
 			"            \"y\": 4.6," +

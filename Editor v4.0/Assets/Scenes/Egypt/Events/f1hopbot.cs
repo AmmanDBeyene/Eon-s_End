@@ -12,7 +12,7 @@ public class f1hopbot : EventController {
 			"      \"_inside\": true," +
 			"      \"next\": {" +
 			"        \"command\": {" +
-			"          \"_targetSceneName\": \"EgyptFloor1\"," +
+			"          \"_targetSceneName\": \"S1\"," +
 			"          \"_targetPlayerPosition\": {" +
 			"            \"x\": -4," +
 			"            \"y\": -0," +

@@ -11,7 +11,7 @@ public class A1_to_S1 : EventController {
 			"        \"_targetPlayerPosition\": {" +
 			"          \"x\": 0.0," +
 			"          \"y\": -0.1870002," +
-			"          \"z\": 0.0" +
+			"          \"z\": 1.0" +
 			"        }," +
 			"        \"next\": null," +
 			"        \"controller\": null," +

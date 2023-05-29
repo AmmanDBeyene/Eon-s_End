@@ -12,7 +12,7 @@ public class f2fallto1 : EventController {
 			"      \"_inside\": true," +
 			"      \"next\": {" +
 			"        \"command\": {" +
-			"          \"_targetSceneName\": \"EgyptFloor1\"," +
+			"          \"_targetSceneName\": \"S1\"," +
 			"          \"_targetPlayerPosition\": {" +
 			"            \"x\": -9.0," +
 			"            \"y\": 0.0," +

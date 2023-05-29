@@ -12,7 +12,7 @@ public class f1hoptop : EventController {
 			"      \"_inside\": true," +
 			"      \"next\": {" +
 			"        \"command\": {" +
-			"          \"_targetSceneName\": \"EgyptFloor1\"," +
+			"          \"_targetSceneName\": \"S1\"," +
 			"          \"_targetPlayerPosition\": {" +
 			"            \"x\": -4.0," +
 			"            \"y\": 0," +
