@@ -25,6 +25,11 @@ namespace EECore
         public static string defeatSceneName = "";
         public static Vector3 defeatScenePosition;
 
+        // hard-set dialogue images
+        public static Texture2D demonPort = null;
+        public static Texture2D bearPort = null;
+        public static Texture2D youPort = null;
+
         //public static void 
 
         public static Flag GetFlag(string flagName)
