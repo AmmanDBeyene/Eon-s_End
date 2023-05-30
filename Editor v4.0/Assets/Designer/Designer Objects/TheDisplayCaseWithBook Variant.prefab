@@ -1217,7 +1217,7 @@ PrefabInstance:
     - target: {fileID: 2024808289896690120, guid: 02f269b1719049249a06e79d2cd52e3c,
         type: 3}
       propertyPath: m_Name
-      value: DisplayCaseWithBook
+      value: TheDisplayCaseWithBook Variant
       objectReference: {fileID: 0}
     - target: {fileID: 6207902914536171110, guid: 02f269b1719049249a06e79d2cd52e3c,
         type: 3}
