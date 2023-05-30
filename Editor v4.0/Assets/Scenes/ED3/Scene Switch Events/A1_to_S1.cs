@@ -10,8 +10,8 @@ public class A1_to_S1 : EventController {
 			"        \"_targetSceneName\": \"S1\"," +
 			"        \"_targetPlayerPosition\": {" +
 			"          \"x\": 0.0," +
-			"          \"y\": -0.1870002," +
-			"          \"z\": 1.0" +
+			"          \"y\": -0.1999997," +
+			"          \"z\": 2.0" +
 			"        }," +
 			"        \"next\": null," +
 			"        \"controller\": null," +
