@@ -20,7 +20,7 @@ namespace Assets.Event_Editor.Event_Scripts.Commands
 
         [Serialize]
         public Texture2D _portrait { get; set; }
-
+        
         [Serialize]
         public bool _positionLeft { get; set; }
 
@@ -39,9 +39,43 @@ namespace Assets.Event_Editor.Event_Scripts.Commands
         {
             GameStateManager.dialogueBox.SetActive(true);
             UIDocument dbox = GameStateManager.dialogueBox.GetComponent<UIDocument>();
-            Label lbl = (Label)dbox.rootVisualElement.Find("MainText");
-            dbox.rootVisualElement.Find("Action1").Find("ActionLabel");
-            lbl.text = _text;
+            VisualElement root = dbox.rootVisualElement;
+            Label content = (Label)root.Find("MainText");
+            content.text = _text;
+
+            VisualElement portraitBackground = root.Find("PortraitBackground");
+            VisualElement leftFiller = root.Find("LeftFiller");
+            VisualElement portrait = root.Find("Portrait");
+
+            string cname = _name.ToLower();
+            _portrait = null;
+
+            if (cname == "(you)" || cname == "you")
+            {
+                _portrait = GameStateManager.youPort;
+            }
+            if (cname.Contains("bear") && cname.Contains("despair"))
+            {
+                _portrait = GameStateManager.bearPort;
+            }
+            if (cname.Contains("demon"))
+            {
+                _portrait = GameStateManager.demonPort;
+            }
+
+            if (_portrait == null)
+            {
+                portraitBackground.style.display = DisplayStyle.None;
+                leftFiller.style.display = DisplayStyle.None;
+            } else
+            {
+                portraitBackground.style.display = DisplayStyle.Flex;
+                leftFiller.style.display = DisplayStyle.Flex;
+                portrait.style.backgroundImage = _portrait;
+            }
+
+            Label name = (Label)root.Find("CharName");
+            name.text = _name;
         }
 
         internal override bool IsComplete()

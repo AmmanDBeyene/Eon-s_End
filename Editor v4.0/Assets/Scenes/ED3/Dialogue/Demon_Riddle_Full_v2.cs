@@ -38,7 +38,7 @@ public class Demon_Riddle_Full_v2 : EventController {
 			"    {" +
 			"      \"command\": {" +
 			"        \"_name\": \"Demon\"," +
-			"        \"_portrait\": null," +
+			"        \"_portrait\": 0," +
 			"        \"_positionLeft\": true," +
 			"        \"_text\": \"You know, I’ve been having trouble domesticating them, any idea of how to get them to calm down? Right, well, you win!\"," +
 			"        \"next\": {" +
@@ -152,7 +152,7 @@ public class Demon_Riddle_Full_v2 : EventController {
 			"                            \"next\": {" +
 			"                              \"command\": {" +
 			"                                \"_name\": \"Demon\"," +
-			"                                \"_portrait\": null," +
+			"                                \"_portrait\": 1," +
 			"                                \"_positionLeft\": true," +
 			"                                \"_text\": \"Succubi aren’t stingy. How could you say that? That’s defamation, mortal!\"," +
 			"                                \"next\": {" +
@@ -214,7 +214,7 @@ public class Demon_Riddle_Full_v2 : EventController {
 			"                  \"next\": {" +
 			"                    \"command\": {" +
 			"                      \"_name\": \"Demon\"," +
-			"                      \"_portrait\": null," +
+			"                      \"_portrait\": 2," +
 			"                      \"_positionLeft\": true," +
 			"                      \"_text\": \"It’s really rather salty, I’ve died around 60 times, of course, I keep coming back…\"," +
 			"                      \"next\": {" +
@@ -343,7 +343,7 @@ public class Demon_Riddle_Full_v2 : EventController {
 			"    {" +
 			"      \"command\": {" +
 			"        \"_name\": \"Demon\"," +
-			"        \"_portrait\": null," +
+			"        \"_portrait\": 3," +
 			"        \"_positionLeft\": true," +
 			"        \"_text\": \"No buried treasure round’ here. It's ALL on display\"," +
 			"        \"next\": {" +
@@ -358,7 +358,7 @@ public class Demon_Riddle_Full_v2 : EventController {
 			"    {" +
 			"      \"command\": {" +
 			"        \"_name\": \"Demon\"," +
-			"        \"_portrait\": null," +
+			"        \"_portrait\": 4," +
 			"        \"_positionLeft\": true," +
 			"        \"_text\": \"What is stingy but carries sweet stuff?\"," +
 			"        \"next\": {" +
@@ -463,7 +463,7 @@ public class Demon_Riddle_Full_v2 : EventController {
 			"                            \"next\": {" +
 			"                              \"command\": {" +
 			"                                \"_name\": \"Demon\"," +
-			"                                \"_portrait\": null," +
+			"                                \"_portrait\": 5," +
 			"                                \"_positionLeft\": true," +
 			"                                \"_text\": \"Wrong, the one built here is awfully close to the surface, poor engineering if you ask me.\"," +
 			"                                \"next\": {" +
@@ -518,7 +518,7 @@ public class Demon_Riddle_Full_v2 : EventController {
 			"                  \"next\": {" +
 			"                    \"command\": {" +
 			"                      \"_name\": \"Demon\"," +
-			"                      \"_portrait\": null," +
+			"                      \"_portrait\": 6," +
 			"                      \"_positionLeft\": true," +
 			"                      \"_text\": \"Yes, and these will make an excellent addition to my agricultural efforts.\"," +
 			"                      \"next\": {" +
@@ -629,7 +629,7 @@ public class Demon_Riddle_Full_v2 : EventController {
 			"    {" +
 			"      \"command\": {" +
 			"        \"_name\": \"Demon\"," +
-			"        \"_portrait\": null," +
+			"        \"_portrait\": 7," +
 			"        \"_positionLeft\": true," +
 			"        \"_text\": \"Incorrect; the last mortal I imprisoned had no headwear to speak of.\"," +
 			"        \"next\": {" +
@@ -741,7 +741,7 @@ public class Demon_Riddle_Full_v2 : EventController {
 			"                            \"next\": {" +
 			"                              \"command\": {" +
 			"                                \"_name\": \"Demon\"," +
-			"                                \"_portrait\": null," +
+			"                                \"_portrait\": 8," +
 			"                                \"_positionLeft\": true," +
 			"                                \"_text\": \"Precisely mortal, I’m thinking of starting a garden…\"," +
 			"                                \"next\": {" +
@@ -752,7 +752,7 @@ public class Demon_Riddle_Full_v2 : EventController {
 			"                                      \"next\": {" +
 			"                                        \"command\": {" +
 			"                                          \"_name\": \"Demon\"," +
-			"                                          \"_portrait\": null," +
+			"                                          \"_portrait\": 9," +
 			"                                          \"_positionLeft\": true," +
 			"                                          \"_text\": \"Tremble mortal! What is buried deep beneath the ground?\"," +
 			"                                          \"next\": {" +
@@ -828,7 +828,7 @@ public class Demon_Riddle_Full_v2 : EventController {
 			"                  \"next\": {" +
 			"                    \"command\": {" +
 			"                      \"_name\": \"Demon\"," +
-			"                      \"_portrait\": null," +
+			"                      \"_portrait\": 10," +
 			"                      \"_positionLeft\": true," +
 			"                      \"_text\": \"No, the last one I saw was wearing a distinctly blue hat\"," +
 			"                      \"next\": {" +
@@ -938,7 +938,7 @@ public class Demon_Riddle_Full_v2 : EventController {
 			"    {" +
 			"      \"command\": {" +
 			"        \"_name\": \"Demon\"," +
-			"        \"_portrait\": null," +
+			"        \"_portrait\": 11," +
 			"        \"_positionLeft\": true," +
 			"        \"_text\": \"Think well cur… What is red with a green hat?\"," +
 			"        \"next\": {" +

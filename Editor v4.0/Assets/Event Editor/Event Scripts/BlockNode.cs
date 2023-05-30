@@ -33,6 +33,10 @@ namespace Assets.Event_Editor.Event_Scripts
             this.controller = controller;
 
             // propogate through next pipe
+            if (next == null)
+            {
+                return;
+            }
             next.PropogateController(controller);
         }
     }
