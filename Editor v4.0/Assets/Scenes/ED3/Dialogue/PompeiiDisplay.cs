@@ -1,5 +1,5 @@
 using Unity.VisualScripting; using Assets.Event_Scripts;
-public class CodexDisplay : EventController {
+public class PompeiiDisplay : EventController {
 	void Start() { Load(); }
 	public void Load() {
 		SerializationData data = new SerializationData(
@@ -48,10 +48,10 @@ public class CodexDisplay : EventController {
 			"    }," +
 			"    {" +
 			"      \"command\": {" +
-			"        \"_name\": \"Roman Codex\"," +
+			"        \"_name\": \"Pompeii Gladius\"," +
 			"        \"_portrait\": null," +
 			"        \"_positionLeft\": true," +
-			"        \"_text\": \"The Romans precursor of books, the codex succeeded the scroll. It took its rectangular shape from the previous reusable writing space, wax tablets. Pages bound together by various means spread rapidly.\"," +
+			"        \"_text\": \"The Gladius favored by Roman infantrymen measured in at only 20 inches long. It had parallel edges and a triangular tip. Being the shortest of the three Gladii, it was superior for quick stabs rather than slashing attacks. \"," +
 			"        \"next\": {" +
 			"          \"$ref\": \"7\"" +
 			"        }," +
@@ -66,7 +66,7 @@ public class CodexDisplay : EventController {
 			"        {" +
 			"          \"_gameObjectFrom\": null," +
 			"          \"_gameObjectTo\": null," +
-			"          \"_triggerLimit\": 1.8," +
+			"          \"_triggerLimit\": 1.5," +
 			"          \"_inside\": true," +
 			"          \"next\": {" +
 			"            \"conditions\": [" +
@@ -78,7 +78,7 @@ public class CodexDisplay : EventController {
 			"                    {" +
 			"                      \"_gameObjectFrom\": null," +
 			"                      \"_gameObjectTo\": null," +
-			"                      \"_triggerLimit\": 1.8," +
+			"                      \"_triggerLimit\": 1.5," +
 			"                      \"_inside\": true," +
 			"                      \"next\": {" +
 			"                        \"$ref\": \"9\"" +
@@ -89,7 +89,7 @@ public class CodexDisplay : EventController {
 			"                    {" +
 			"                      \"_gameObjectFrom\": null," +
 			"                      \"_gameObjectTo\": null," +
-			"                      \"_triggerLimit\": 1.8," +
+			"                      \"_triggerLimit\": 1.5," +
 			"                      \"_inside\": false," +
 			"                      \"next\": {" +
 			"                        \"$ref\": \"11\"" +

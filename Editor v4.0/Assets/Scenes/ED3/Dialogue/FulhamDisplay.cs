@@ -1,33 +1,22 @@
 using Unity.VisualScripting; using Assets.Event_Scripts;
-public class CodexDisplay : EventController {
+public class FulhamDisplay : EventController {
 	void Start() { Load(); }
 	public void Load() {
 		SerializationData data = new SerializationData(
 		"{" +
 			"  \"_pipes\": [" +
 			"    {" +
-			"      \"command\": {" +
-			"        \"next\": null," +
-			"        \"controller\": null," +
-			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.HideTextCommand\"" +
-			"      }," +
-			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"      \"$id\": \"2\"" +
-			"    }," +
-			"    {" +
 			"      \"conditions\": [" +
 			"        {" +
 			"          \"_awaitedKey\": \"Z\"," +
 			"          \"_pressed\": true," +
-			"          \"next\": {" +
-			"            \"$ref\": \"2\"" +
-			"          }," +
+			"          \"next\": null," +
 			"          \"controller\": null," +
 			"          \"$type\": \"Assets.Event_Scripts.Conditions.InputCondition\"" +
 			"        }" +
 			"      ]," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"      \"$id\": \"4\"" +
+			"      \"$id\": \"2\"" +
 			"    }," +
 			"    {" +
 			"      \"command\": {" +
@@ -38,35 +27,35 @@ public class CodexDisplay : EventController {
 			"        \"_showThird\": false," +
 			"        \"_textThird\": \"option 3 text\"," +
 			"        \"next\": {" +
-			"          \"$ref\": \"4\"" +
+			"          \"$ref\": \"2\"" +
 			"        }," +
 			"        \"controller\": null," +
 			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowOptionCommand\"" +
 			"      }," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"      \"$id\": \"7\"" +
+			"      \"$id\": \"5\"" +
 			"    }," +
 			"    {" +
 			"      \"command\": {" +
-			"        \"_name\": \"Roman Codex\"," +
+			"        \"_name\": \"Fulham Gladius\"," +
 			"        \"_portrait\": null," +
 			"        \"_positionLeft\": true," +
-			"        \"_text\": \"The Romans precursor of books, the codex succeeded the scroll. It took its rectangular shape from the previous reusable writing space, wax tablets. Pages bound together by various means spread rapidly.\"," +
+			"        \"_text\": \"The Fulham Gladius shared a similar length and triangular tip of the Mainz. However, the blade’s edges became more parallel. This Gladius was the bridge between the Mainz and Pompeii. The build structure became standard for Roman swords.\"," +
 			"        \"next\": {" +
-			"          \"$ref\": \"7\"" +
+			"          \"$ref\": \"5\"" +
 			"        }," +
 			"        \"controller\": null," +
 			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowTextCommand\"" +
 			"      }," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"      \"$id\": \"9\"" +
+			"      \"$id\": \"7\"" +
 			"    }," +
 			"    {" +
 			"      \"conditions\": [" +
 			"        {" +
 			"          \"_gameObjectFrom\": null," +
 			"          \"_gameObjectTo\": null," +
-			"          \"_triggerLimit\": 1.8," +
+			"          \"_triggerLimit\": 1.5," +
 			"          \"_inside\": true," +
 			"          \"next\": {" +
 			"            \"conditions\": [" +
@@ -78,10 +67,10 @@ public class CodexDisplay : EventController {
 			"                    {" +
 			"                      \"_gameObjectFrom\": null," +
 			"                      \"_gameObjectTo\": null," +
-			"                      \"_triggerLimit\": 1.8," +
+			"                      \"_triggerLimit\": 1.5," +
 			"                      \"_inside\": true," +
 			"                      \"next\": {" +
-			"                        \"$ref\": \"9\"" +
+			"                        \"$ref\": \"7\"" +
 			"                      }," +
 			"                      \"controller\": null," +
 			"                      \"$type\": \"Assets.Event_Scripts.Conditions.ProximityCondition\"" +
@@ -89,51 +78,51 @@ public class CodexDisplay : EventController {
 			"                    {" +
 			"                      \"_gameObjectFrom\": null," +
 			"                      \"_gameObjectTo\": null," +
-			"                      \"_triggerLimit\": 1.8," +
+			"                      \"_triggerLimit\": 1.5," +
 			"                      \"_inside\": false," +
 			"                      \"next\": {" +
-			"                        \"$ref\": \"11\"" +
+			"                        \"$ref\": \"9\"" +
 			"                      }," +
 			"                      \"controller\": null," +
 			"                      \"$type\": \"Assets.Event_Scripts.Conditions.ProximityCondition\"" +
 			"                    }" +
 			"                  ]," +
 			"                  \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"                  \"$id\": \"17\"" +
+			"                  \"$id\": \"15\"" +
 			"                }," +
 			"                \"controller\": null," +
 			"                \"$type\": \"Assets.Event_Scripts.Conditions.InputCondition\"" +
 			"              }" +
 			"            ]," +
 			"            \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"            \"$id\": \"14\"" +
+			"            \"$id\": \"12\"" +
 			"          }," +
 			"          \"controller\": null," +
 			"          \"$type\": \"Assets.Event_Scripts.Conditions.ProximityCondition\"," +
-			"          \"$id\": \"13\"" +
+			"          \"$id\": \"11\"" +
 			"        }" +
 			"      ]," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"      \"$id\": \"11\"" +
+			"      \"$id\": \"9\"" +
 			"    }," +
 			"    {" +
-			"      \"$ref\": \"17\"" +
+			"      \"$ref\": \"15\"" +
 			"    }," +
 			"    {" +
-			"      \"$ref\": \"14\"" +
+			"      \"$ref\": \"12\"" +
 			"    }," +
 			"    {" +
 			"      \"conditions\": [" +
 			"        {" +
-			"          \"$ref\": \"13\"" +
+			"          \"$ref\": \"11\"" +
 			"        }" +
 			"      ]," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"      \"$id\": \"21\"" +
+			"      \"$id\": \"19\"" +
 			"    }" +
 			"  ]," +
 			"  \"_root\": {" +
-			"    \"$ref\": \"21\"" +
+			"    \"$ref\": \"19\"" +
 			"  }," +
 			"  \"$type\": \"Assets.Event_Scripts.EventPipeWrapper\"" +
 			"}");
