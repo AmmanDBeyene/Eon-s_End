@@ -12,6 +12,7 @@ using Assets.Event_Scripts.Conditions;
 using Assets.Event_Editor.Event_Scripts;
 using Assets.Event_Editor.Event_Scripts.Commands;
 using UnityEditor;
+using Assets.Event_Editor.Event_Scripts.Conditions;
 
 namespace Assets.Event_Editor.Scripts
 {
@@ -48,6 +49,16 @@ namespace Assets.Event_Editor.Scripts
             else if (type == typeof(SelectOptionCommand))
             {
                 return ToSelectOptionCommand(ve);
+            } 
+
+            else if (type == typeof(SetFlagCommand))
+            {
+                return ToSetFlagCommand(ve);
+            }
+
+            else if (type == typeof(ControlPrefabCommand))
+            {
+                return ToControlPrefabCommand(ve);
             }
 
             // Conditions
@@ -59,6 +70,11 @@ namespace Assets.Event_Editor.Scripts
             else if (type == typeof(ProximityCondition))
             {
                 return ToProximityCondition(ve);
+            }
+
+            else if (type == typeof(NumFlagCondition))
+            {
+                return ToNumFlagCondition(ve);
             }
 
             return null;
@@ -111,6 +127,16 @@ namespace Assets.Event_Editor.Scripts
                 ((SelectOptionCommand)node).RestoreTo(ve);
             }
 
+            else if (type == typeof(SetFlagCommand))
+            {
+                ((SetFlagCommand)node).RestoreTo(ve);
+            }
+
+            else if (type == typeof(ControlPrefabCommand))
+            {
+                ((ControlPrefabCommand)node).RestoreTo(ve);
+            }
+
             // Conditions
             else if (type == typeof(InputCondition))
             {
@@ -120,6 +146,11 @@ namespace Assets.Event_Editor.Scripts
             else if (type == typeof(ProximityCondition))
             {
                 ((ProximityCondition)node).RestoreTo(ve);
+            }
+
+            else if (type == typeof(NumFlagCondition))
+            {
+                ((NumFlagCondition)node).RestoreTo(ve);
             }
 
             // Restoration Complete
@@ -310,6 +341,34 @@ namespace Assets.Event_Editor.Scripts
             ve.SetRadioButtonGroupValue("1", cmd._optionToSelect);
         }
 
+        private static SetFlagCommand ToSetFlagCommand(VisualElement ve)
+        {
+            return new SetFlagCommand(
+                ve.GetTextFieldValue("1"),
+                ve.GetIntFieldValue("2")
+            );
+        }
+
+        private static void RestoreTo(this SetFlagCommand cmd, VisualElement ve)
+        {
+            ve.SetTextFieldValue("1", cmd._flag);
+            ve.SetIntFieldValue("2", cmd._value);
+        }
+
+        private static ControlPrefabCommand ToControlPrefabCommand(VisualElement ve)
+        {
+            return new ControlPrefabCommand(
+                ve.GetTextFieldValue("1"),
+                ve.GetVector3FieldValue("2")
+            );
+        }
+
+        private static void RestoreTo(this ControlPrefabCommand cmd, VisualElement ve)
+        {
+            ve.SetTextFieldValue("1", cmd._name);
+            ve.SetVector3FieldValue("2", cmd._position);
+        }
+
         #endregion
 
         #region Conditions
@@ -340,6 +399,22 @@ namespace Assets.Event_Editor.Scripts
         {
             ve.SetDropdownValue("1", cnd._inside ? "inside" : "outside");
             ve.SetFloatFieldValue("2", cnd._triggerLimit);
+        }
+
+        private static NumFlagCondition ToNumFlagCondition(VisualElement ve)
+        {
+            return new NumFlagCondition(
+                ve.GetTextFieldValue("1"),
+                ve.GetDropdownValue("2"),
+                ve.GetIntFieldValue("3")
+            );
+        }
+
+        private static void RestoreTo(this NumFlagCondition cnd, VisualElement ve)
+        {
+            ve.SetTextFieldValue("1", cnd._flag);
+            ve.SetDropdownValue("2", cnd._check);
+            ve.SetIntFieldValue("3", cnd._value);
         }
 
         #endregion
