@@ -9,9 +9,9 @@ public class Bear_Riddle_Full_v2 : EventController {
 			"      \"command\": {" +
 			"        \"_targetSceneName\": \"N2\"," +
 			"        \"_targetPlayerPosition\": {" +
-			"          \"x\": 8.0," +
+			"          \"x\": 7.0," +
 			"          \"y\": 1.4," +
-			"          \"z\": -17.0" +
+			"          \"z\": -15.0" +
 			"        }," +
 			"        \"next\": null," +
 			"        \"controller\": null," +
