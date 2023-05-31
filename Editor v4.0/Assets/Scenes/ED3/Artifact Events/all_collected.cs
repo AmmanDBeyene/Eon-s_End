@@ -21,34 +21,19 @@ public class all_collected : EventController {
 			"      \"$id\": \"2\"" +
 			"    }," +
 			"    {" +
-			"      \"conditions\": [" +
-			"        {" +
-			"          \"_awaitedKey\": \"Z\"," +
-			"          \"_pressed\": true," +
-			"          \"next\": {" +
-			"            \"$ref\": \"2\"" +
-			"          }," +
-			"          \"controller\": null," +
-			"          \"$type\": \"Assets.Event_Scripts.Conditions.InputCondition\"" +
-			"        }" +
-			"      ]," +
-			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"      \"$id\": \"4\"" +
-			"    }," +
-			"    {" +
 			"      \"command\": {" +
 			"        \"_name\": \"\"," +
 			"        \"_portrait\": null," +
 			"        \"_positionLeft\": true," +
 			"        \"_text\": \"(Sending you back to the intro scene)\"," +
 			"        \"next\": {" +
-			"          \"$ref\": \"4\"" +
+			"          \"$ref\": \"2\"" +
 			"        }," +
 			"        \"controller\": null," +
 			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowTextCommand\"" +
 			"      }," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"      \"$id\": \"7\"" +
+			"      \"$id\": \"4\"" +
 			"    }," +
 			"    {" +
 			"      \"conditions\": [" +
@@ -56,14 +41,14 @@ public class all_collected : EventController {
 			"          \"_awaitedKey\": \"Z\"," +
 			"          \"_pressed\": true," +
 			"          \"next\": {" +
-			"            \"$ref\": \"7\"" +
+			"            \"$ref\": \"4\"" +
 			"          }," +
 			"          \"controller\": null," +
 			"          \"$type\": \"Assets.Event_Scripts.Conditions.InputCondition\"" +
 			"        }" +
 			"      ]," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"      \"$id\": \"9\"" +
+			"      \"$id\": \"6\"" +
 			"    }," +
 			"    {" +
 			"      \"command\": {" +
@@ -72,13 +57,13 @@ public class all_collected : EventController {
 			"        \"_positionLeft\": true," +
 			"        \"_text\": \"Thank you for playing the demo version of Eon's End!\\n\"," +
 			"        \"next\": {" +
-			"          \"$ref\": \"9\"" +
+			"          \"$ref\": \"6\"" +
 			"        }," +
 			"        \"controller\": null," +
 			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowTextCommand\"" +
 			"      }," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"      \"$id\": \"12\"" +
+			"      \"$id\": \"9\"" +
 			"    }," +
 			"    {" +
 			"      \"command\": {" +
@@ -89,13 +74,13 @@ public class all_collected : EventController {
 			"        \"_showThird\": false," +
 			"        \"_textThird\": \"option 3 text\"," +
 			"        \"next\": {" +
-			"          \"$ref\": \"12\"" +
+			"          \"$ref\": \"9\"" +
 			"        }," +
 			"        \"controller\": null," +
 			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowOptionCommand\"" +
 			"      }," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"      \"$id\": \"14\"" +
+			"      \"$id\": \"11\"" +
 			"    }," +
 			"    {" +
 			"      \"conditions\": [" +
@@ -104,7 +89,23 @@ public class all_collected : EventController {
 			"          \"_check\": \"==\"," +
 			"          \"_value\": 1," +
 			"          \"next\": {" +
-			"            \"$ref\": \"14\"" +
+			"            \"$ref\": \"11\"" +
+			"          }," +
+			"          \"controller\": null," +
+			"          \"$type\": \"Assets.Event_Editor.Event_Scripts.Conditions.NumFlagCondition\"" +
+			"        }" +
+			"      ]," +
+			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
+			"      \"$id\": \"13\"" +
+			"    }," +
+			"    {" +
+			"      \"conditions\": [" +
+			"        {" +
+			"          \"_flag\": \"artifact 3\"," +
+			"          \"_check\": \"==\"," +
+			"          \"_value\": 1," +
+			"          \"next\": {" +
+			"            \"$ref\": \"13\"" +
 			"          }," +
 			"          \"controller\": null," +
 			"          \"$type\": \"Assets.Event_Editor.Event_Scripts.Conditions.NumFlagCondition\"" +
@@ -116,7 +117,7 @@ public class all_collected : EventController {
 			"    {" +
 			"      \"conditions\": [" +
 			"        {" +
-			"          \"_flag\": \"artifact 3\"," +
+			"          \"_flag\": \"artifact 2\"," +
 			"          \"_check\": \"==\"," +
 			"          \"_value\": 1," +
 			"          \"next\": {" +
@@ -132,7 +133,7 @@ public class all_collected : EventController {
 			"    {" +
 			"      \"conditions\": [" +
 			"        {" +
-			"          \"_flag\": \"artifact 2\"," +
+			"          \"_flag\": \"artifact 1\"," +
 			"          \"_check\": \"==\"," +
 			"          \"_value\": 1," +
 			"          \"next\": {" +
@@ -144,26 +145,10 @@ public class all_collected : EventController {
 			"      ]," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
 			"      \"$id\": \"22\"" +
-			"    }," +
-			"    {" +
-			"      \"conditions\": [" +
-			"        {" +
-			"          \"_flag\": \"artifact 1\"," +
-			"          \"_check\": \"==\"," +
-			"          \"_value\": 1," +
-			"          \"next\": {" +
-			"            \"$ref\": \"22\"" +
-			"          }," +
-			"          \"controller\": null," +
-			"          \"$type\": \"Assets.Event_Editor.Event_Scripts.Conditions.NumFlagCondition\"" +
-			"        }" +
-			"      ]," +
-			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"      \"$id\": \"25\"" +
 			"    }" +
 			"  ]," +
 			"  \"_root\": {" +
-			"    \"$ref\": \"25\"" +
+			"    \"$ref\": \"22\"" +
 			"  }," +
 			"  \"$type\": \"Assets.Event_Scripts.EventPipeWrapper\"" +
 			"}");
