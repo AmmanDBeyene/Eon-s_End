@@ -214,7 +214,7 @@ public class Lobby_instruction : EventController {
 			"        \"_name\": \"\"," +
 			"        \"_portrait\": null," +
 			"        \"_positionLeft\": true," +
-			"        \"_text\": \"Welcome to Eon’s End. You are playing as an archaeologist seeking to unravel the secrets of an Ancient Egyptian museum.\"," +
+			"        \"_text\": \"You are playing as an archaeologist seeking to unravel the secrets of an Ancient Egyptian museum.\"," +
 			"        \"next\": {" +
 			"          \"$ref\": \"32\"" +
 			"        }," +
@@ -261,7 +261,7 @@ public class Lobby_instruction : EventController {
 			"        \"_name\": \"Instruction\"," +
 			"        \"_portrait\": null," +
 			"        \"_positionLeft\": true," +
-			"        \"_text\": \"Welcome to Eon’s End. You are playing as an archaeologist seeking to unravel the secrets of an Ancient Egyptian museum.\\nYou can use the arrow keys to move around, click the Z key to interact with objects, and use the WASD keys to select dialogue options.\"," +
+			"        \"_text\": \"Welcome to Eon’s End. You are playing as an archaeologist seeking to unravel the secrets of an Ancient Egyptian museum.\\nYou can use the arrow keys to move around, click the Z key to interact with objects, and use the W and S keys to select dialogue options.\"," +
 			"        \"next\": {" +
 			"          \"$ref\": \"39\"" +
 			"        }," +
