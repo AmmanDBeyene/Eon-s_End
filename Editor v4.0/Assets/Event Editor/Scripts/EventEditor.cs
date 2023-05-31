@@ -10,6 +10,7 @@ using Assets.Event_Scripts.Conditions;
 using UnityEditor.UIElements;
 using System.IO;
 using System.Linq;
+using Assets.Event_Editor.Event_Scripts.Conditions;
 
 namespace Assets.Event_Editor.Scripts
 {
@@ -321,10 +322,12 @@ namespace Assets.Event_Editor.Scripts
             blockBar.Add(CreateCommandTile("Hide Text", "HideTextBlock.uxml", typeof(HideTextCommand)));
             blockBar.Add(CreateCommandTile("Transfer Actor", "TransferActorBlock.uxml", typeof(SceneSwitchCommand)));
             blockBar.Add(CreateCommandTile("Start Combat"           , "StartCombatBlock.uxml"       , typeof(StartCombatCommand)));
-            blockBar.Add(CreateCommandTile("Set Flag", "SetFlagBlock.uxml", null));
-            blockBar.Add(CreateCommandTile("Wait", "WaitBlock.uxml", null));
+            blockBar.Add(CreateCommandTile("Set Flag", "SetNumFlagBlock.uxml", typeof(SetFlagCommand)));
+            //blockBar.Add(CreateCommandTile("Wait", "WaitBlock.uxml", null));
             blockBar.Add(CreateCommandTile("Show Option", "ShowOptionBlock.uxml", typeof(ShowOptionCommand)));
             blockBar.Add(CreateCommandTile("Select Option", "SelectOptionBlock.uxml", typeof(SelectOptionCommand)));
+            blockBar.Add(CreateCommandTile("Move Object", "ControlPrefabBlock.uxml", typeof(ControlPrefabCommand)));
+
         }
 
         private static void CreateConditionTiles()
@@ -332,14 +335,14 @@ namespace Assets.Event_Editor.Scripts
             VisualElement blockBar = _blockArea.Find("BlockBar");
 
             blockBar.Add(CreateConditionTile("Input Check", "InputCondition.uxml", typeof(InputCondition)));
-            blockBar.Add(CreateConditionTile("Num Flag Check", "NumFlagCondition.uxml", null));
-            blockBar.Add(CreateConditionTile("String Flag Check", "StringFlagCondition.uxml", null));
-            blockBar.Add(CreateConditionTile("Bool Flag Check", "BoolFlagCondition.uxml", null));
+            blockBar.Add(CreateConditionTile("Num Flag Check", "NumFlagCondition.uxml", typeof(NumFlagCondition)));
+            //blockBar.Add(CreateConditionTile("String Flag Check", "StringFlagCondition.uxml", null));
+            //blockBar.Add(CreateConditionTile("Bool Flag Check", "BoolFlagCondition.uxml", null));
             blockBar.Add(CreateConditionTile("Proximity Check", "ProximityCondition.uxml", typeof(ProximityCondition)));
-            blockBar.Add(CreateConditionTile("Inventory Check", "InventoryCondition.uxml", null));
-            blockBar.Add(CreateConditionTile("Equipment Check", "EquipmentCondition.uxml", null));
-            blockBar.Add(CreateConditionTile("Equipment Type Check", "EquipmentTypeCondition.uxml", null));
-            blockBar.Add(CreateConditionTile("Player Status Check", "PlayerStatusCondition.uxml", null));
+            //blockBar.Add(CreateConditionTile("Inventory Check", "InventoryCondition.uxml", null));
+            //blockBar.Add(CreateConditionTile("Equipment Check", "EquipmentCondition.uxml", null));
+            //blockBar.Add(CreateConditionTile("Equipment Type Check", "EquipmentTypeCondition.uxml", null));
+            //blockBar.Add(CreateConditionTile("Player Status Check", "PlayerStatusCondition.uxml", null));
         }
 
         private static void CreateCompoundBlocks()

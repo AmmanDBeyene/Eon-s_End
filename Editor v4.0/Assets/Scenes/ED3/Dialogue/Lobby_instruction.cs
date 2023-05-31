@@ -22,14 +22,66 @@ public class Lobby_instruction : EventController {
 			"    }," +
 			"    {" +
 			"      \"command\": {" +
+			"        \"_flag\": \"artifact 4\"," +
+			"        \"_value\": 0," +
 			"        \"next\": {" +
 			"          \"$ref\": \"2\"" +
+			"        }," +
+			"        \"controller\": null," +
+			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.SetFlagCommand\"" +
+			"      }," +
+			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
+			"      \"$id\": \"5\"" +
+			"    }," +
+			"    {" +
+			"      \"command\": {" +
+			"        \"_flag\": \"artifact 3\"," +
+			"        \"_value\": 0," +
+			"        \"next\": {" +
+			"          \"$ref\": \"5\"" +
+			"        }," +
+			"        \"controller\": null," +
+			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.SetFlagCommand\"" +
+			"      }," +
+			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
+			"      \"$id\": \"7\"" +
+			"    }," +
+			"    {" +
+			"      \"command\": {" +
+			"        \"_flag\": \"artifact 2\"," +
+			"        \"_value\": 0," +
+			"        \"next\": {" +
+			"          \"$ref\": \"7\"" +
+			"        }," +
+			"        \"controller\": null," +
+			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.SetFlagCommand\"" +
+			"      }," +
+			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
+			"      \"$id\": \"9\"" +
+			"    }," +
+			"    {" +
+			"      \"command\": {" +
+			"        \"_flag\": \"artifact 1\"," +
+			"        \"_value\": 0," +
+			"        \"next\": {" +
+			"          \"$ref\": \"9\"" +
+			"        }," +
+			"        \"controller\": null," +
+			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.SetFlagCommand\"" +
+			"      }," +
+			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
+			"      \"$id\": \"11\"" +
+			"    }," +
+			"    {" +
+			"      \"command\": {" +
+			"        \"next\": {" +
+			"          \"$ref\": \"11\"" +
 			"        }," +
 			"        \"controller\": null," +
 			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.HideTextCommand\"" +
 			"      }," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"      \"$id\": \"5\"" +
+			"      \"$id\": \"13\"" +
 			"    }," +
 			"    {" +
 			"      \"conditions\": [" +
@@ -37,14 +89,14 @@ public class Lobby_instruction : EventController {
 			"          \"_awaitedKey\": \"Z\"," +
 			"          \"_pressed\": true," +
 			"          \"next\": {" +
-			"            \"$ref\": \"5\"" +
+			"            \"$ref\": \"13\"" +
 			"          }," +
 			"          \"controller\": null," +
 			"          \"$type\": \"Assets.Event_Scripts.Conditions.InputCondition\"" +
 			"        }" +
 			"      ]," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"      \"$id\": \"7\"" +
+			"      \"$id\": \"15\"" +
 			"    }," +
 			"    {" +
 			"      \"command\": {" +
@@ -55,13 +107,13 @@ public class Lobby_instruction : EventController {
 			"        \"_showThird\": false," +
 			"        \"_textThird\": \"option 3 text\"," +
 			"        \"next\": {" +
-			"          \"$ref\": \"7\"" +
+			"          \"$ref\": \"15\"" +
 			"        }," +
 			"        \"controller\": null," +
 			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowOptionCommand\"" +
 			"      }," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"      \"$id\": \"10\"" +
+			"      \"$id\": \"18\"" +
 			"    }," +
 			"    {" +
 			"      \"command\": {" +
@@ -70,13 +122,13 @@ public class Lobby_instruction : EventController {
 			"        \"_positionLeft\": true," +
 			"        \"_text\": \"You are looking to find 4 artifacts, one from each region, to win the game. Good Luck\"," +
 			"        \"next\": {" +
-			"          \"$ref\": \"10\"" +
+			"          \"$ref\": \"18\"" +
 			"        }," +
 			"        \"controller\": null," +
 			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowTextCommand\"" +
 			"      }," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"      \"$id\": \"12\"" +
+			"      \"$id\": \"20\"" +
 			"    }," +
 			"    {" +
 			"      \"conditions\": [" +
@@ -84,14 +136,14 @@ public class Lobby_instruction : EventController {
 			"          \"_awaitedKey\": \"Z\"," +
 			"          \"_pressed\": true," +
 			"          \"next\": {" +
-			"            \"$ref\": \"12\"" +
+			"            \"$ref\": \"20\"" +
 			"          }," +
 			"          \"controller\": null," +
 			"          \"$type\": \"Assets.Event_Scripts.Conditions.InputCondition\"" +
 			"        }" +
 			"      ]," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"      \"$id\": \"14\"" +
+			"      \"$id\": \"22\"" +
 			"    }," +
 			"    {" +
 			"      \"command\": {" +
@@ -102,13 +154,13 @@ public class Lobby_instruction : EventController {
 			"        \"_showThird\": false," +
 			"        \"_textThird\": \"option 3 text\"," +
 			"        \"next\": {" +
-			"          \"$ref\": \"14\"" +
+			"          \"$ref\": \"22\"" +
 			"        }," +
 			"        \"controller\": null," +
 			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowOptionCommand\"" +
 			"      }," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"      \"$id\": \"17\"" +
+			"      \"$id\": \"25\"" +
 			"    }," +
 			"    {" +
 			"      \"command\": {" +
@@ -117,13 +169,13 @@ public class Lobby_instruction : EventController {
 			"        \"_positionLeft\": true," +
 			"        \"_text\": \"This museum is dedicated to the four great regions of the world; you will find each in their proper cardinal direction.\"," +
 			"        \"next\": {" +
-			"          \"$ref\": \"17\"" +
+			"          \"$ref\": \"25\"" +
 			"        }," +
 			"        \"controller\": null," +
 			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowTextCommand\"" +
 			"      }," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"      \"$id\": \"19\"" +
+			"      \"$id\": \"27\"" +
 			"    }," +
 			"    {" +
 			"      \"conditions\": [" +
@@ -131,14 +183,14 @@ public class Lobby_instruction : EventController {
 			"          \"_awaitedKey\": \"Z\"," +
 			"          \"_pressed\": true," +
 			"          \"next\": {" +
-			"            \"$ref\": \"19\"" +
+			"            \"$ref\": \"27\"" +
 			"          }," +
 			"          \"controller\": null," +
 			"          \"$type\": \"Assets.Event_Scripts.Conditions.InputCondition\"" +
 			"        }" +
 			"      ]," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"      \"$id\": \"21\"" +
+			"      \"$id\": \"29\"" +
 			"    }," +
 			"    {" +
 			"      \"command\": {" +
@@ -149,13 +201,13 @@ public class Lobby_instruction : EventController {
 			"        \"_showThird\": false," +
 			"        \"_textThird\": \"option 3 text\"," +
 			"        \"next\": {" +
-			"          \"$ref\": \"21\"" +
+			"          \"$ref\": \"29\"" +
 			"        }," +
 			"        \"controller\": null," +
 			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowOptionCommand\"" +
 			"      }," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"      \"$id\": \"24\"" +
+			"      \"$id\": \"32\"" +
 			"    }," +
 			"    {" +
 			"      \"command\": {" +
@@ -164,13 +216,13 @@ public class Lobby_instruction : EventController {
 			"        \"_positionLeft\": true," +
 			"        \"_text\": \"Welcome to Eon’s End. You are playing as an archaeologist seeking to unravel the secrets of an Ancient Egyptian museum.\"," +
 			"        \"next\": {" +
-			"          \"$ref\": \"24\"" +
+			"          \"$ref\": \"32\"" +
 			"        }," +
 			"        \"controller\": null," +
 			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowTextCommand\"" +
 			"      }," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"      \"$id\": \"26\"" +
+			"      \"$id\": \"34\"" +
 			"    }," +
 			"    {" +
 			"      \"conditions\": [" +
@@ -178,14 +230,14 @@ public class Lobby_instruction : EventController {
 			"          \"_awaitedKey\": \"Z\"," +
 			"          \"_pressed\": true," +
 			"          \"next\": {" +
-			"            \"$ref\": \"26\"" +
+			"            \"$ref\": \"34\"" +
 			"          }," +
 			"          \"controller\": null," +
 			"          \"$type\": \"Assets.Event_Scripts.Conditions.InputCondition\"" +
 			"        }" +
 			"      ]," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"      \"$id\": \"28\"" +
+			"      \"$id\": \"36\"" +
 			"    }," +
 			"    {" +
 			"      \"command\": {" +
@@ -196,13 +248,13 @@ public class Lobby_instruction : EventController {
 			"        \"_showThird\": false," +
 			"        \"_textThird\": \"option 3 text\"," +
 			"        \"next\": {" +
-			"          \"$ref\": \"28\"" +
+			"          \"$ref\": \"36\"" +
 			"        }," +
 			"        \"controller\": null," +
 			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowOptionCommand\"" +
 			"      }," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"      \"$id\": \"31\"" +
+			"      \"$id\": \"39\"" +
 			"    }," +
 			"    {" +
 			"      \"command\": {" +
@@ -211,13 +263,13 @@ public class Lobby_instruction : EventController {
 			"        \"_positionLeft\": true," +
 			"        \"_text\": \"Welcome to Eon’s End. You are playing as an archaeologist seeking to unravel the secrets of an Ancient Egyptian museum.\\nYou can use the arrow keys to move around, click the Z key to interact with objects, and use the WASD keys to select dialogue options.\"," +
 			"        \"next\": {" +
-			"          \"$ref\": \"31\"" +
+			"          \"$ref\": \"39\"" +
 			"        }," +
 			"        \"controller\": null," +
 			"        \"$type\": \"Assets.Event_Editor.Event_Scripts.Commands.ShowTextCommand\"" +
 			"      }," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.CommandPipeSystem\"," +
-			"      \"$id\": \"33\"" +
+			"      \"$id\": \"41\"" +
 			"    }," +
 			"    {" +
 			"      \"conditions\": [" +
@@ -227,18 +279,18 @@ public class Lobby_instruction : EventController {
 			"          \"_triggerLimit\": 3.0," +
 			"          \"_inside\": true," +
 			"          \"next\": {" +
-			"            \"$ref\": \"33\"" +
+			"            \"$ref\": \"41\"" +
 			"          }," +
 			"          \"controller\": null," +
 			"          \"$type\": \"Assets.Event_Scripts.Conditions.ProximityCondition\"" +
 			"        }" +
 			"      ]," +
 			"      \"$type\": \"Assets.Event_Editor.Event_Scripts.ConditionPipeSystem\"," +
-			"      \"$id\": \"35\"" +
+			"      \"$id\": \"43\"" +
 			"    }" +
 			"  ]," +
 			"  \"_root\": {" +
-			"    \"$ref\": \"35\"" +
+			"    \"$ref\": \"43\"" +
 			"  }," +
 			"  \"$type\": \"Assets.Event_Scripts.EventPipeWrapper\"" +
 			"}");
