@@ -19,7 +19,7 @@ namespace EECore
 
         public static int memberCount = 0; 
         public static List<Character> party = new List<Character>(4);
-        public static Dictionary<string, Flag> flags = new Dictionary<string, Flag>();
+        public static Dictionary<string, int> flags = new Dictionary<string, int>();
         public static string victorySceneName = "";
         public static Vector3 victoryScenePosition;
         public static string defeatSceneName = "";
@@ -29,17 +29,6 @@ namespace EECore
         public static Texture2D demonPort = null;
         public static Texture2D bearPort = null;
         public static Texture2D youPort = null;
-
-        //public static void 
-
-        public static Flag GetFlag(string flagName)
-        {
-            if (!flags.ContainsKey(flagName))
-            {
-                return null;
-            }
-            return flags[flagName];
-        }
 
         public static void AddToParty(Character chara)
         {
