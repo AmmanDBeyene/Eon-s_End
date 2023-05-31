@@ -64,7 +64,7 @@ public class artifact_1_collect : EventController {
 			"        \"_name\": \"\"," +
 			"        \"_portrait\": null," +
 			"        \"_positionLeft\": true," +
-			"        \"_text\": \"You pick up the artifact and put in your bag despite how wet it is.\"," +
+			"        \"_text\": \"You carefully lift up the glass and grab the artifact without cutting yourself. \"," +
 			"        \"next\": {" +
 			"          \"$ref\": \"8\"" +
 			"        }," +
@@ -94,7 +94,7 @@ public class artifact_1_collect : EventController {
 			"        \"_name\": \"\"," +
 			"        \"_portrait\": null," +
 			"        \"_positionLeft\": true," +
-			"        \"_text\": \"An artifact sumbmerged in the water, leaning against the ship display. \"," +
+			"        \"_text\": \"An artifact somehow forgotten inside a display case.\"," +
 			"        \"next\": {" +
 			"          \"$ref\": \"13\"" +
 			"        }," +
