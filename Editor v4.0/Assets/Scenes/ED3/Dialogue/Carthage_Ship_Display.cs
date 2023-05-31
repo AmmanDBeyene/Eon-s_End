@@ -48,7 +48,7 @@ public class Carthage_Ship_Display : EventController {
 			"    }," +
 			"    {" +
 			"      \"command\": {" +
-			"        \"_name\": \"Carthage Ship\"," +
+			"        \"_name\": \"Carthaginian Ship\"," +
 			"        \"_portrait\": null," +
 			"        \"_positionLeft\": true," +
 			"        \"_text\": \"A Carthaginianian bireme with two sets of oars and several advanced sails.\\r\\n\"," +
